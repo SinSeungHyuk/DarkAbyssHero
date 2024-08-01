@@ -154,13 +154,19 @@ public class FirebaseController : MonoBehaviour
         nicknameDic.Add(user.UserId, inpNickname.text);
 
         // chatDB에 updateMsg를 추가해서 데이터 업데이트
-        nameDB.UpdateChildrenAsync(nicknameDic);
+        nameDB.UpdateChildrenAsync(nicknameDic).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled) dlgNickname.SetActive(false); 
 
-        dlgNickname.SetActive(false);
-        createNickname.SetActive(false);
-        txtLogin.gameObject.SetActive(true);
+            else if (task.IsCompleted)
+            {
+                dlgNickname.SetActive(false);
+                createNickname.SetActive(false);
+                txtLogin.gameObject.SetActive(true);
 
-        StartGame();
+                StartGame();
+            }
+        });
     }
 
     public void ExitCreateNickname() // 다이얼로그 취소 버튼에 등록
