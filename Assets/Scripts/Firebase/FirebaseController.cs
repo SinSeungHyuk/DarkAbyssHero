@@ -14,23 +14,26 @@ using UnityEngine.UI;
 
 public class FirebaseController : MonoBehaviour
 {
-    public TextMeshProUGUI TxtFirebase;
-    public TextMeshProUGUI TxtGoogle;
-    public Button BtnCreateNickname;
-    public TMP_InputField InpNickname;
-
-    private string nickname;
+    [SerializeField] private TextMeshProUGUI txtLogin;
+    [SerializeField] private TextMeshProUGUI txtNickname;
+    [SerializeField] private TMP_InputField inpNickname;
+    [SerializeField] private GameObject createNickname;
+    [SerializeField] private GameObject dlgNickname;
+    [SerializeField] private Button btnStart;
 
     private FirebaseAuth auth; // 인증에 관한 정보 저장할 객체
     private FirebaseUser user; // 파이어베이스 유저의 정보를 담을 객체
 
     private string authCode;
 
-    private List<string> receiveKeyList = new List<string>();
+    private Camera mainCamera;
 
 
     void Start()
     {
+        mainCamera = Camera.main;
+        StartCoroutine(MoveCameraRoutine());
+
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.Instance.Authenticate(success =>
         {
@@ -48,7 +51,7 @@ public class FirebaseController : MonoBehaviour
                         {
                             if (task.IsCompleted)
                             {
-                                testc();
+                                HasNicknameByID();
                             }
 
                             Firebase.Auth.AuthResult result = task.Result;
@@ -58,27 +61,46 @@ public class FirebaseController : MonoBehaviour
         });
     }
 
-    private void testc()
+    private IEnumerator MoveCameraRoutine()
     {
-        TxtGoogle.text = "success";
-        TxtFirebase.text = auth.CurrentUser.DisplayName; // 플레이게임즈 닉네임
+        float duration = 10f; // 회전 시간
+        float[] angles = { -55.0f, -35.0f }; // 회전할 목표 배열로 관리
+        int currentIndex = 0; // 현재 회전의 진행방향을 인덱스로 체크
 
-        user = auth.CurrentUser;
+        while (true)
+        {
+            float startAngle = angles[currentIndex];
+            float goalAngle = angles[(currentIndex + 1) % 2];
 
-        BtnCreateNickname.interactable = true;
+            float elapsedTime = 0f;
+            while (elapsedTime < duration) // 시간을 통해 회전관리
+            {
+                // 시작지점~목표지점까지 duration에 걸쳐서 회전
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / duration;
+                float angle = Mathf.Lerp(startAngle, goalAngle, t); 
 
-        HasNicknameByID();
+                // 현재 카메라의 회전값 받아와서 y축만 새로운 회전값으로 설정
+                Vector3 currentRotation = mainCamera.transform.rotation.eulerAngles;
+                mainCamera.transform.rotation = Quaternion.Euler(currentRotation.x, angle, currentRotation.z);
+
+                yield return null;
+            }
+
+            currentIndex = (currentIndex + 1) % 2; // 회전 진행방향 바꾸기
+        }
     }
 
     private void HasNicknameByID()
     {
+        user = auth.CurrentUser;
         DatabaseReference nameDB = FirebaseDatabase.DefaultInstance.GetReference("Nickname");
 
         nameDB.OrderByKey().EqualTo(user.UserId).GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.IsFaulted)
             {
                 // 에러 처리
-                TxtGoogle.text = "No nickname";
+                Debug.Assert(task.Exception != null, "Task Exception!!"+ task.Exception);
             }
             else if (task.IsCompleted)
             {
@@ -88,136 +110,62 @@ public class FirebaseController : MonoBehaviour
                     // 데이터가 존재하는 경우
                     foreach (var childSnapshot in snapshot.Children)
                     {
-                        nickname = childSnapshot.Value.ToString();
-                        SendChatMessage("Test Message!!!");
+                        // 닉네임 로컬에 저장 (다른 씬에서도 빠르게 사용)
+                        string nickname = childSnapshot.Value.ToString();
+                        PlayerPrefs.SetString("Nickname", nickname);
+                        PlayerPrefs.Save();
+
+                        StartGame();
                         break; // 첫 번째 (그리고 유일한) 자식만 처리합니다.
                     }
                 }
                 else
                 {
                     // 데이터가 존재하지 않는 경우
-                    Debug.Log("User does not exist: ");
+                    txtLogin.gameObject.SetActive(false);
+                    createNickname.SetActive(true);
                 }
             }
         });
     }
 
-    public void SendChatMessage(string msg)
+    private void StartGame()
     {
-        DatabaseReference chatDB = FirebaseDatabase.DefaultInstance.GetReference("ChatMessage");
-
-        // 새 메세지를 생성하기 위해 키값을 생성하기 (Push().Key로 자동생성)
-        string key = chatDB.Push().Key;
-
-        // <메세지 번호, 메세지 딕셔너리(유저이름,메세지내용)>
-        Dictionary<string, object> updateMsg = new Dictionary<string, object>();
-        // 유저네임,메세지가 들어있는 딕셔너리
-        Dictionary<string, object> msgDic = new Dictionary<string, object>();
-        msgDic.Add("message", msg);
-        msgDic.Add("username", nickname);
-
-        msgDic.Add("timestamp", ServerValue.Timestamp);
-
-        updateMsg.Add(key, msgDic); // 메세지번호,메세지를 키-밸류로 딕셔너리에 삽입
-
-        // chatDB에 updateMsg를 추가해서 데이터 업데이트
-        chatDB.UpdateChildrenAsync(updateMsg)
-            .ContinueWithOnMainThread(task =>
-            {
-                if (task.IsCompleted)
-                    Debug.Log(key);
-            });
+        btnStart.gameObject.SetActive(true);
+        txtLogin.text = "Touch To Start";
     }
 
-    public void CreateNickname()
+    public void CreateDialogNickname() // Confirm 버튼에 등록
     {
-        if (InpNickname.text == "") return;
+        if (inpNickname.text == "") return;
 
-        DatabaseReference chatDB = FirebaseDatabase.DefaultInstance.GetReference("Nickname");
+        dlgNickname.SetActive(true);
+
+        txtNickname.text = $"Use [{inpNickname.text}] ?";
+    }
+
+    public void CreateNickname() // 다이얼로그 버튼에 등록
+    {
+        DatabaseReference nameDB = FirebaseDatabase.DefaultInstance.GetReference("Nickname");
 
         // <메세지 번호, 메세지 딕셔너리(유저이름,메세지내용)>
         Dictionary<string, object> nicknameDic = new Dictionary<string, object>();
 
-        nicknameDic.Add(user.UserId, InpNickname.text);
+        nicknameDic.Add(user.UserId, inpNickname.text);
 
         // chatDB에 updateMsg를 추가해서 데이터 업데이트
-        chatDB.UpdateChildrenAsync(nicknameDic);
+        nameDB.UpdateChildrenAsync(nicknameDic);
+
+        dlgNickname.SetActive(false);
+        createNickname.SetActive(false);
+        txtLogin.gameObject.SetActive(true);
+
+        StartGame();
     }
 
-
-    //private void ProcessAuthentication(bool success)
-    //{
-    //    if (success)
-    //    {
-    //        TxtGoogle.text = "success";
-    //        string authCode = null;
-
-    //        //string authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
-
-    //        PlayGamesPlatform.Instance.RequestServerSideAccess(true, code =>
-    //        {
-    //            authCode = code;
-    //            Debug.Log(code + " -------------------------------------- collduty");
-    //        });
-
-    //        //Firebase.Auth.Credential credential = PlayGamesAuthProvider.GetCredential(authCode);
-
-    //        auth.SignInAndRetrieveDataWithCredentialAsync(authCode)
-    //            .ContinueWithOnMainThread(task =>
-    //            {
-    //                Debug.Log(credential.IsValid() + " -------------------------------------- cdtty");
-
-    //                if (task.IsCompleted)
-    //                {
-    //                    Debug.Log("************************ firebase login ************************");
-    //                    AuthResult result = task.Result;
-    //                }
-    //                else if (task.IsFaulted)
-    //                {
-    //                    Debug.LogError(task.Exception);
-    //                    return;
-    //                }
-    //            });
-    //    }
-
-    //    else TxtGoogle.text = "failed";
-    //}
-
-    //private void FirebaseInit()
-    //{
-    //    auth = FirebaseAuth.DefaultInstance;
-
-    //    // auth 객체의 이벤트에 함수 구독
-    //    auth.StateChanged += AuthStateChanged;
-    //}
-
-    //private void AuthStateChanged(object sender, EventArgs args)
-    //{
-    //    FirebaseAuth senderAuth = sender as FirebaseAuth;
-
-    //    if (senderAuth != null)
-    //    {
-    //        // CurrentUser : 현재 접속한 유저의 정보
-    //        user = senderAuth.CurrentUser;
-    //        if (user != null)
-    //        {
-    //            Debug.Log(user.UserId); // 유저가 있다면 id 로그
-    //            TxtFirebase.text = user.UserId + "\n" + user.DisplayName;
-    //        }
-    //    }
-    //}
-
-    //public void SignIn()
-    //{
-    //    SignInAnonymous();
-    //}
-    //private Task SignInAnonymous()
-    //{
-    //    return auth.SignInAnonymouslyAsync().
-    //        ContinueWithOnMainThread(task =>
-    //        {
-    //            if (task.IsFaulted) Debug.LogError("SignIn Fail!!!!");
-    //            else if (task.IsCompleted) Debug.Log("SignIn Completed");
-    //        });
-    //}
+    public void ExitCreateNickname() // 다이얼로그 취소 버튼에 등록
+    {
+        dlgNickname.SetActive(false);
+    }
+    
 }
