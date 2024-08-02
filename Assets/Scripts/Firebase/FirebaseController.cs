@@ -11,6 +11,7 @@ using GooglePlayGames;
 using Google;
 using Firebase.Database;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FirebaseController : MonoBehaviour
 {
@@ -174,4 +175,8 @@ public class FirebaseController : MonoBehaviour
         dlgNickname.SetActive(false);
     }
     
+    public void LoadStartScene() // 스타트 버튼에 등록
+    {
+        SceneManager.LoadScene(1);
+    }
 }

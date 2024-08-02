@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Settings : MonoBehaviour
+public static class Settings
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region PLAYER PARAMETER
+    
+    #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region Animator Parameter
+    public static int speed = Animator.StringToHash("speed");
+    public static int isDead = Animator.StringToHash("isDead");
+    public static int isMagicAreaAttack = Animator.StringToHash("isMagicAreaAttack");
+    public static int isUpHandCast = Animator.StringToHash("isUpHandCast");
+    public static int isClapCast = Animator.StringToHash("isClapCast");
+    public static int isStandingShoot = Animator.StringToHash("isStandingShoot");
+    #endregion
 }
