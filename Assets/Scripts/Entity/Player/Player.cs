@@ -5,13 +5,14 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
-public class Player : Entity, IDamageable, IEntity
+public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
 {
     // 스킬의 발사 위치 등을 찾기위한 딕셔너리
     private Dictionary<string, Transform> socketsByName = new();
 
     public Animator Animator { get; private set; }
     public DamageEvent DamageEvent { get; private set; }
+    public bool IsDead => Mathf.Approximately(Stats.HPStat.Value, 0f);
     public Stats Stats { get; private set; }
     //public MonoStateMachine<Entity> StateMachine { get; private set; }
     //public SkillSystem SkillSystem { get; private set; }
@@ -50,6 +51,7 @@ public class Player : Entity, IDamageable, IEntity
     }
 
 
+    #region Interface
     public void TakeDamage(float damage)
     {
         // Stats.HPStat.Value -= damage;
@@ -61,4 +63,21 @@ public class Player : Entity, IDamageable, IEntity
     {
         
     }
+
+    public PlayerSaveData ToSaveData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void FromSaveData(PlayerSaveData saveData)
+    {
+        throw new NotImplementedException();
+    }
+    #endregion
+}
+
+[Serializable]
+public struct PlayerSaveData
+{
+
 }

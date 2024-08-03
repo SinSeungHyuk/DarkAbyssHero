@@ -22,9 +22,7 @@ public class Stats : MonoBehaviour
 
     private void OnDestroy()
     {
-        foreach (var stat in stats)
-            Destroy(stat);
-        stats = null;
+
     }
 
     public Stat GetStat(Stat stat)
