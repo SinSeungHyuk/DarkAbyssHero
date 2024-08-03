@@ -17,7 +17,7 @@ public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
     //public MonoStateMachine<Entity> StateMachine { get; private set; }
     //public SkillSystem SkillSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
-    public Monster Target { get; set; } // 플레이어가 공격할 몬스터 대상
+    public Monster Target; // 플레이어가 공격할 몬스터 대상
 
 
 
@@ -42,7 +42,7 @@ public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        Debug.Log($"{Stats.GetStat(0).Value} , {Stats.GetStat(1).Value}");
+        
     }
 
     void Update()

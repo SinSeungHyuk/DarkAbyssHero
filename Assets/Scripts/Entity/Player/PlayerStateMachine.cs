@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class PlayerStateMachine : MonoBehaviour
+public class PlayerStateMachine : EntityStateMachine<Player>
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void AddStates()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void MakeTransitions()
     {
         
     }
+
+    //private bool IsSkillInState<T>(State<Entity> state) where T : State<Skill>
+    //=> (state as EntitySkillState).RunningSkill.IsInState<T>();
 }
