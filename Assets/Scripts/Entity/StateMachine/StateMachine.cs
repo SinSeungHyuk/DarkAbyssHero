@@ -45,7 +45,7 @@ public class StateMachine<TOwnerType>
     // StatMachine에 존재하는 Layer들, Layer는 중복되지 않아야하고, 자동 정렬을 위해서 SortedSet을 사용함
     private readonly SortedSet<int> layers = new();
 
-    // StateMachine의 소유주
+    // StateMachine의 소유주 (Player, Monster, Skill ..)
     public TOwnerType TOwner { get; private set; }
 
 

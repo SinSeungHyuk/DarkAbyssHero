@@ -25,7 +25,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 스킬의 등급
     [SerializeField] private GradeType gradeType;
 
-    [SerializeField] private int maxLevel;
+    [SerializeField, Min(1)] private int maxLevel = 1;
     [SerializeField, Min(1)] private int defaultLevel = 1;
     [SerializeField] private SkillData[] skillDatas;
 

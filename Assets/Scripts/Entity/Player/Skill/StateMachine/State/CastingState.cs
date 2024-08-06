@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CastingState : MonoBehaviour
+public class CastingState : SkillState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Enter()
     {
-        
+        TOwner.Activate();
+        TOwner.StartCustomActions(SkillCustomActionType.Cast);
+
+        TrySendCommandToPlayer(TOwner, PlayerStateCommand.ToCastingSkillState, TOwner.CastAnimationParameter);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        TOwner.CurrentCastTime += Time.deltaTime;
+        TOwner.RunCustomActions(SkillCustomActionType.Cast);
     }
+
+    public override void Exit()
+        => TOwner.ReleaseCustomActions(SkillCustomActionType.Cast);
 }

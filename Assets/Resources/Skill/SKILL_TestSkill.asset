@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15be8eea95e64a4fab54a14e5a62838, type: 3}
+  m_Name: SKILL_TestSkill
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 0
+  codeName: TestSkill
+  displayName: 
+  description: 
+  applyType: 0
+  gradeType: 2
+  maxLevel: 40
+  defaultLevel: 1
+  skillDatas:
+  - level: 1
+    action:
+      rid: 3630001503505219584
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 1
+    applyCycle: 0
+    cooldown: 5
+    isUseCast: 1
+    castTime: 3
+    effectSelectors:
+    - level: 1
+      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+    castAnimatorParameter: 2
+    actionAnimatorParameter: 3
+    customActionsOnCast: []
+    customActionsOnAction: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3630001503505219584
+      type: {class: SpawnProjectileAction, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 1705236671311558949, guid: 5f1cf3fcc1acb1b4eb479d3826dfde11,
+          type: 3}
+        spawnPointSocketName: ProjectileSocket
+        speed: 7

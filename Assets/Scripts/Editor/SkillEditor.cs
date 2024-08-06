@@ -14,11 +14,6 @@ public class SkillEditor : IdentifiedObjectEditor
     private SerializedProperty defaultLevelProperty;
     private SerializedProperty skillDatasProperty;
 
-    // Toolbar Button들의 이름
-    private readonly string[] customActionsToolbarList = new[] { "Cast", "Action" };
-    // Skill Data마다 선택한 Toolbar Button의 Index 값
-    private Dictionary<int, int> customActionToolbarIndexesByLevel = new();
-
 
     protected override void OnEnable()
     {
@@ -74,16 +69,12 @@ public class SkillEditor : IdentifiedObjectEditor
             return;
 
 
-        // Property를 수정하지 못하게 GUI Enable의 false로 바꿈
-        var lastIndex = skillDatasProperty.arraySize - 1;
-        // 마지막 SkillData(= 가장 높은 Level의 Data)를 가져옴
-        var lastSkillData = skillDatasProperty.GetArrayElementAtIndex(lastIndex);
-        // maxLevel을 마지막 Data의 Level로 고정
-        maxLevelProperty.intValue = lastSkillData.FindPropertyRelative("level").intValue;
-
         // maxLevel, defaultLevel Property를 그려줌
         EditorGUILayout.PropertyField(maxLevelProperty);
+        GUI.enabled = false;
         EditorGUILayout.PropertyField(defaultLevelProperty);
+        GUI.enabled = true;
+
 
         // 스킬데이터 원소 하나하나 그려주기
         for (int i = 0; i < skillDatasProperty.arraySize; i++)
