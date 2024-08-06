@@ -13,7 +13,11 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
     [SerializeField] private float valuePerLevel; // 레벨당 증가스탯
     [SerializeField] private float goldPerLevel; // 레벨당 증가비용
     [SerializeField] private float defaultGold; // 기본 업글비용
+    
     private int level = 1; // 모든 스탯은 1레벨 시작
+    // key : 보너스 스탯을 준 대상, value : 얻은 보너스 스탯 수치
+    private Dictionary<object, float> bonusValuesByKey = new();
+
 
     public float DefaultValue
     {
@@ -28,7 +32,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
             }
         }
     }
-    public float BonusValue { get; private set; } // 추가스탯 (버프 등)
+    public float BonusValue { get; private set; } // bonusValuesByKey 밸류 총합
     public float Value => defaultValue + BonusValue; // 실제로 사용할 총 스탯
     public int Level
     {
@@ -50,16 +54,38 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
     public float DefaultGold => defaultGold;
 
 
-    public void IncreaseBonusValue(float value)
+    public void IncreaseBonusValue(object key, float value)
     {
+        // 이미 해당 key한테 받은 보너스 스탯이 존재하면 기존 보너스 지우기
+        if (bonusValuesByKey.TryGetValue(key, out float prevBonus))
+            BonusValue -= prevBonus;
+
         float prevValue = Value;
+        bonusValuesByKey[key] = value;
         BonusValue += value; // 현재의 보너스 스탯에 value 추가
+
         OnValueChanged?.Invoke(this, Value, prevValue);
     }
 
-    public void SetDefaultValueByPercent(float percent)
+    public bool RemoveBonusValue(object key)
     {
-        // percent % 만큼 디폴트 밸류를 조절 (전체 Value가 조절됨)
+        if (bonusValuesByKey.TryGetValue(key, out float bonusValue))
+        {
+            float prevValue = Value;
+            BonusValue -= bonusValue;
+            bonusValuesByKey.Remove(key);
+
+            OnValueChanged?.Invoke(this, Value, prevValue);
+            return true;
+        }
+        return false;
+    }
+
+    public void SetValueByPercent(object key, float percent)
+    {
+        // 전체 Value의 percent% 만큼의 수치를 계산 후 key값을 통해 보너스밸류에 넣기
+        // 예를들어 버프스킬로 공격력 10% 버프 -> 전체 공격력 Value의 10% 계산
+        // 이후 해당 스킬을 key값으로 계산한 10% 수치를 보너스밸류에 더하기
     }
 
 

@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ebb17547308a04695e679017457b28, type: 3}
-  m_Name: CATEGORY_test
+  m_Script: {fileID: 11500000, guid: 3f97d5a79ec45fc44b4a3dc58c263459, type: 3}
+  m_Name: SkillDatabase
   m_EditorClassIdentifier: 
-  categories: []
-  icon: {fileID: 0}
-  id: 0
-  codeName: test
-  displayName: 
-  description: 
+  datas: []

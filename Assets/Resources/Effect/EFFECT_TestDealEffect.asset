@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1867b9986f07ad44f8f3f326b519c5a9, type: 3}
+  m_Name: EFFECT_TestDealEffect
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 0
+  codeName: TestDealEffect
+  displayName: 
+  description: 
+  effectType: 0
+  maxLevel: 1
+  effectDatas:
+  - level: 1
+    action:
+      rid: 3630001480275591170
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 3
+    applyCycle: 1.5
+    customActions: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3630001480275591170
+      type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
+        defaultDamage: 1.5
+        bonusDamagePerLevel: 0.1

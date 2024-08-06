@@ -48,11 +48,14 @@ public class Stats : MonoBehaviour
 
     public void IncreaseDefaultValue(Stat stat, float value)
         => GetStat(stat).DefaultValue += value;
-    public void IncreaseBonusValue(Stat stat, float value)
-        => GetStat(stat).IncreaseBonusValue(value);
+    public void IncreaseBonusValue(Stat stat, object key, float value)
+        => GetStat(stat).IncreaseBonusValue(key, value);
+
+    public void RemoveBonusValue(Stat stat, object key)
+        => GetStat(stat).RemoveBonusValue(key);
 
     public float GetBonusValue(Stat stat)
         => GetStat(stat).BonusValue;
-    public void SetDefaultValueByPercent(Stat stat, float value)
-        => GetStat(stat).SetDefaultValueByPercent(value);   
+    public void SetDefaultValueByPercent(Stat stat,object key, float value)
+        => GetStat(stat).SetValueByPercent(key, value);   
 }

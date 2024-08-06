@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using Unity.VisualScripting;
 
-public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
+
+public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 {
     // 스킬의 발사 위치 등을 찾기위한 딕셔너리
     private Dictionary<string, Transform> socketsByName = new();
@@ -14,7 +15,7 @@ public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
     public DamageEvent DamageEvent { get; private set; }
     public bool IsDead => Mathf.Approximately(Stats.HPStat.Value, 0f);
     public Stats Stats { get; private set; }
-    //public MonoStateMachine<Entity> StateMachine { get; private set; }
+    public PlayerStateMachine StateMachine { get; private set; }
     //public SkillSystem SkillSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
     public Monster Target; // 플레이어가 공격할 몬스터 대상
@@ -33,8 +34,8 @@ public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
         Stats = GetComponent<Stats>();
         Stats.SetUp(this);
 
-        //StateMachine = GetComponent<MonoStateMachine<Entity>>();
-        //StateMachine?.SetUp(this);
+        StateMachine = GetComponent<PlayerStateMachine>();
+        StateMachine?.SetUp(this);
 
         //SkillSystem = GetComponent<SkillSystem>();
         //SkillSystem?.SetUp(this);
@@ -50,6 +51,40 @@ public class Player : Entity, IDamageable, IEntity, ISaveData<PlayerSaveData>
         
     }
 
+    #region Find Transform Socket By SocketName
+    // root transform의 자식 transform들을 순회하며 이름이 socketName인 GameObject의 Transform을 찾아옴 
+    private Transform GetTransformSocket(Transform root, string socketName)
+    {
+        if (root.name == socketName)
+            return root;
+
+        // root transform의 자식 transform들을 순회
+        foreach (Transform child in root)
+        {
+            // 재귀함수를 통해 자식들 중에 socketName이 있는지 검색함
+            var socket = GetTransformSocket(child, socketName);
+            if (socket)
+                return socket;
+        }
+
+        return null;
+    }
+    // 저장되있는 Socket을 가져오거나 순회를 통해 찾아옴
+    public Transform GetTransformSocket(string socketName)
+    {
+        // dictionary에서 socketName을 검색하여 있다면 return
+        if (socketsByName.TryGetValue(socketName, out var socket))
+            return socket;
+
+        // dictionary에 없으므로 순회 검색
+        socket = GetTransformSocket(transform, socketName);
+        // socket을 찾으면 dictionary에 저장하여 이후에 다시 검색할 필요가 없도록 함
+        if (socket)
+            socketsByName[socketName] = socket;
+
+        return socket;
+    }
+    #endregion
 
     #region Interface
     public void TakeDamage(float damage)

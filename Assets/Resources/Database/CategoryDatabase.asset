@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f97d5a79ec45fc44b4a3dc58c263459, type: 3}
   m_Name: CategoryDatabase
   m_EditorClassIdentifier: 
-  datas:
-  - {fileID: 11400000, guid: fc4daedc74453ae43af6264c4e4ba423, type: 2}
+  datas: []

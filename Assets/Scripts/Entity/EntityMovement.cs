@@ -42,13 +42,7 @@ public class EntityMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (agent == null) return;
 
-        //if (agent.remainingDistance < StopDistance)
-        //{
-        //    agent.speed = 0f;
-        //}
-        Debug.Log($"{agent.remainingDistance} , {agent.stoppingDistance}");
     }
 
     // 이동 멈추고 추적 대상 비우기
