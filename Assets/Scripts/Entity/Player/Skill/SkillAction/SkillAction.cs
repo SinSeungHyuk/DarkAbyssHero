@@ -10,6 +10,18 @@ public abstract class SkillAction : ICloneable
     public abstract void Apply(Skill skill);
     public virtual void Release(Skill skill) { }
 
+
+    public virtual void ApplyEffects(Skill skill, Entity target) 
+    { 
+        foreach (Effect effect in skill.Effects)
+        {
+            effect.Start();
+
+            if (effect.IsApplicable) 
+                effect.Apply();
+        }
+    }
+
     
     public abstract object Clone();
 }

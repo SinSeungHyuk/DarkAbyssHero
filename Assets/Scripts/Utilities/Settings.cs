@@ -5,7 +5,8 @@ using UnityEngine;
 public static class Settings
 {
     #region PLAYER PARAMETER
-    
+    public static float detectionRadius = 10.0f;
+    public static LayerMask monsterLayer = LayerMask.GetMask("Monster");
     #endregion
 
     #region Animator Parameter

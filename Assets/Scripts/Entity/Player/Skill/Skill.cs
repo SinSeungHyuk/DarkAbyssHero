@@ -24,6 +24,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     [SerializeField] private SkillApplyType applyType;
     // 스킬의 등급
     [SerializeField] private GradeType gradeType;
+    // 스킬의 우선순위 (높을수록 이 스킬을 먼저 사용)
+    [SerializeField] private int skillPriority;
 
     [SerializeField, Min(1)] private int maxLevel = 1;
     [SerializeField, Min(1)] private int defaultLevel = 1;
@@ -47,6 +49,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     public SkillApplyType ApplyType => applyType;
 
     public Grade SkillGrade { get; private set; }
+
+    public int SkillPriority => skillPriority;
 
     public IReadOnlyList<Effect> Effects { get; private set; } = new List<Effect>();
 
@@ -135,17 +139,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 스킬의 타겟 (플레이어 자신도 포함)
     // 만약 자신에게 버프'만' 주는 스킬이라면 Target이 Player 하나만 존재
     // 적에게 데미지를 주고 자신에게 버프를 준다면, Target은 몬스터로 설정하고 이펙트 두개 넣기
-    public Entity Target
-    {
-        get => Target;
-        set
-        {
-            if (value == null) return;
-
-            Target = value;
-            TargetPosition = Target.gameObject.transform.position;
-        }
-    }
+    public Monster Target { get; set; }
     public Vector3 TargetPosition { get; private set; }
 
     private bool IsDurationEnded => Mathf.Approximately(Duration, CurrentDuration);

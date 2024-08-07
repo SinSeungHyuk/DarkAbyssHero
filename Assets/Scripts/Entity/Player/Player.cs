@@ -16,9 +16,10 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public bool IsDead => Mathf.Approximately(Stats.HPStat.Value, 0f);
     public Stats Stats { get; private set; }
     public PlayerStateMachine StateMachine { get; private set; }
-    //public SkillSystem SkillSystem { get; private set; }
+    public SkillSystem SkillSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
-    public Monster Target; // 플레이어가 공격할 몬스터 대상
+    // 플레이어가 공격할 몬스터 대상
+    public Monster Target { get; private set; }
 
 
 
@@ -37,8 +38,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         StateMachine = GetComponent<PlayerStateMachine>();
         StateMachine?.SetUp(this);
 
-        //SkillSystem = GetComponent<SkillSystem>();
-        //SkillSystem?.SetUp(this);
+        SkillSystem = GetComponent<SkillSystem>();
+        SkillSystem?.SetUp(this);
     }
 
     private void Start()
@@ -49,6 +50,13 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     void Update()
     {
         
+    }
+
+    public void SetTarget(Monster target)
+    {
+        Target = target;
+
+        SkillSystem.ReserveSkill.Target = target;
     }
 
     #region Find Transform Socket By SocketName

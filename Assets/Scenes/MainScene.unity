@@ -212,9 +212,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 15
   m_LookaheadIgnoreY: 0
-  m_XDamping: 2
+  m_XDamping: 1
   m_YDamping: 1
-  m_ZDamping: 2
+  m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -305,6 +305,17 @@ PrefabInstance:
     - target: {fileID: 4421151865908168221, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
+        type: 3}
+      propertyPath: testSkill
+      value: 
+      objectReference: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2,
+        type: 2}
+    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
+        type: 3}
+      propertyPath: equipSkills.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8629544595803445308, guid: 99080f0e7d0affa459dc65be79172638,
@@ -561,8 +572,8 @@ GameObject:
   - component: {fileID: 967555713}
   - component: {fileID: 967555714}
   m_Layer: 7
-  m_Name: monster
-  m_TagString: Untagged
+  m_Name: monsterCube
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
@@ -647,7 +658,7 @@ Transform:
   m_GameObject: {fileID: 967555708}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19, y: 1, z: 19}
+  m_LocalPosition: {x: 3, y: 1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

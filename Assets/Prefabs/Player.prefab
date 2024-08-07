@@ -195,6 +195,37 @@ Transform:
   - {fileID: 8998085589407591840}
   m_Father: {fileID: 6631250445410787087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &393833729879655500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9169070861871991012}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9169070861871991012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393833729879655500}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.55, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4421151865908168221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &427875398614629931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,6 +1470,8 @@ GameObject:
   - component: {fileID: 3824991199963375432}
   - component: {fileID: 8629544595803445308}
   - component: {fileID: 1832209321146579766}
+  - component: {fileID: 2210976091281335704}
+  - component: {fileID: 7946768504210243025}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1462,6 +1495,7 @@ Transform:
   - {fileID: 8242000675895309606}
   - {fileID: 8145680209183336073}
   - {fileID: 1520071730}
+  - {fileID: 9169070861871991012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7762863142840753255
@@ -1599,6 +1633,34 @@ MonoBehaviour:
   stats:
   - {fileID: 11400000, guid: 2ec0afa2390e21946a60d86ad5261f50, type: 2}
   - {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
+--- !u!114 &2210976091281335704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895832060575833255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637da6fc2991a3c4885b9cc463227559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7946768504210243025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895832060575833255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a727c31eca5fcd44ada92a861bda0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipSkills:
+  - {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
+  defaultSkill: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
+  testSkill: {fileID: 0}
 --- !u!1 &4093364367945835440
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,6 @@ public class DealDamageAction : EffectAction
 
     public override bool Apply(Effect effect, Player player, Monster target, int level)
     {
-
         var totalDamage = GetTotalDamage(effect, player);
         target.TakeDamage(totalDamage);
 

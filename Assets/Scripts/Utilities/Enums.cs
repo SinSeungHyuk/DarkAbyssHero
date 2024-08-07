@@ -56,6 +56,8 @@ public enum AnimatorParameter
 public enum SkillExecuteCommand
 {
     Use, // 스킬 사용하는 순간 이 Use 커맨드를 보냄
+    Find, // 플레이어 스테이트머신 내에서 사용할 스킬 찾았을때 (스킬의 스테이트에서 보내는게 아님)
+    Ready, // 플레이어 스테이트머신 내에서 스킬의 대상을 찾았을때 (스킬의 스테이트에서 보내는게 아님)
     Cancel,
 }
 #endregion

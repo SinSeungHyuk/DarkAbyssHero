@@ -9,6 +9,7 @@ public class SkillEditor : IdentifiedObjectEditor
 {
     private SerializedProperty applyTypeProperty;
     private SerializedProperty gradeTypeProperty;
+    private SerializedProperty skillPriorityProperty;
 
     private SerializedProperty maxLevelProperty;
     private SerializedProperty defaultLevelProperty;
@@ -21,6 +22,7 @@ public class SkillEditor : IdentifiedObjectEditor
 
         applyTypeProperty = serializedObject.FindProperty("applyType");
         gradeTypeProperty = serializedObject.FindProperty("gradeType");
+        skillPriorityProperty = serializedObject.FindProperty("skillPriority");
 
         maxLevelProperty = serializedObject.FindProperty("maxLevel");
         defaultLevelProperty = serializedObject.FindProperty("defaultLevel");
@@ -48,6 +50,7 @@ public class SkillEditor : IdentifiedObjectEditor
     {
         CustomEditorUtility.DrawEnumToolbar(applyTypeProperty);
         CustomEditorUtility.DrawEnumToolbar(gradeTypeProperty);
+        EditorGUILayout.PropertyField(skillPriorityProperty);
 
         EditorGUILayout.Space();
         CustomEditorUtility.DrawUnderline();

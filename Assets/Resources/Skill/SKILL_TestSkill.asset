@@ -20,12 +20,13 @@ MonoBehaviour:
   description: 
   applyType: 0
   gradeType: 2
+  skillPriority: 0
   maxLevel: 40
   defaultLevel: 1
   skillDatas:
   - level: 1
     action:
-      rid: 3630001503505219584
+      rid: 3630001521220124672
     runningFinishOption: 0
     duration: 0
     applyCount: 1
@@ -43,10 +44,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3630001503505219584
+    - rid: 3630001521220124672
       type: {class: SpawnProjectileAction, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 1705236671311558949, guid: 5f1cf3fcc1acb1b4eb479d3826dfde11,
+        projectilePrefab: {fileID: 5778406573754477521, guid: d2b67af396bfa6940a00740de263da1e,
           type: 3}
-        spawnPointSocketName: ProjectileSocket
+        spawnPointSocketName: ShootPoint
         speed: 7
