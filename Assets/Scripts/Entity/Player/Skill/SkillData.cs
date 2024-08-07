@@ -30,6 +30,8 @@ public struct SkillData
 
     public float cooldown;
 
+    public float distance; // 스킬의 사거리
+
 
     // 캐스팅 스킬도 존재
     [UnderlineTitle("Cast")]

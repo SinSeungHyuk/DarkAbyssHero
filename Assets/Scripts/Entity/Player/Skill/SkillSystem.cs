@@ -45,8 +45,7 @@ public class SkillSystem : MonoBehaviour
     {
         Player = player;
 
-        // 임시코드
-        
+        // 임시코드        
         var clone = testSkill.Clone() as Skill;
         clone.SetUp(Player);
 
@@ -114,6 +113,17 @@ public class SkillSystem : MonoBehaviour
         return equipSkills.Where(x => x.IsReady)
                           .OrderByDescending(x => x.SkillPriority)
                           .FirstOrDefault();
+
+        //return skill.Clone() as Skill;
+    }
+
+    private void ApplyCurrentRunningSkill()
+    {
+        if (Player.StateMachine.GetCurrentState() is InSkillActionState ownerState)
+        {
+            var runnsingSkill = ownerState.RunningSkill;
+            runnsingSkill.Apply();
+        }
     }
 
 

@@ -116,7 +116,9 @@ public class SkillEditor : IdentifiedObjectEditor
             var applyCycleProperty = skillDataProperty.FindPropertyRelative("applyCycle");
             EditorGUILayout.PropertyField(applyCycleProperty);
             var cooldownProperty = skillDataProperty.FindPropertyRelative("cooldown");
-            EditorGUILayout.PropertyField(cooldownProperty);
+            EditorGUILayout.PropertyField(cooldownProperty);            
+            var distanceProperty = skillDataProperty.FindPropertyRelative("distance");
+            EditorGUILayout.PropertyField(distanceProperty);
 
             // Cast
             var isUseCastProperty = skillDataProperty.FindPropertyRelative("isUseCast");

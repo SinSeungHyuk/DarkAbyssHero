@@ -55,8 +55,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public void SetTarget(Monster target)
     {
         Target = target;
-
-        SkillSystem.ReserveSkill.Target = target;
+        Movement.TraceTarget = target.transform;
+        //SkillSystem.ReserveSkill.Target = target;
     }
 
     #region Find Transform Socket By SocketName

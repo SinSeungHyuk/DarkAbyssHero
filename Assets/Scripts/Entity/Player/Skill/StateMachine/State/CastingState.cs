@@ -9,6 +9,8 @@ public class CastingState : SkillState
         TOwner.Activate();
         TOwner.StartCustomActions(SkillCustomActionType.Cast);
 
+        Debug.Log("CastingState Enter!!");
+
         TrySendCommandToPlayer(TOwner, PlayerStateCommand.ToCastingSkillState, TOwner.CastAnimationParameter);
     }
 

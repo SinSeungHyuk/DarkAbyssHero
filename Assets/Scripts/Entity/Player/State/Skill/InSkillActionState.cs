@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class InSkillActionState : PlayerSkillState
@@ -8,7 +9,8 @@ public class InSkillActionState : PlayerSkillState
 
     public override void Update()
     {
-        IsStateEnded = !TOwner.Animator.GetBool(AnimatorParameterHash);
+        IsStateEnded = RunningSkill.IsFinished;
+        //IsStateEnded = !TOwner.Animator.GetBool(AnimatorParameterHash);
     }
 
     public override bool OnReceiveMessage(int message, object data)

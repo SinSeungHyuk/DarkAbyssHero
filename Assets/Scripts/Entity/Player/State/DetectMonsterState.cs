@@ -3,33 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Cysharp.Threading.Tasks;
+using System.Threading;
+using System;
 
 public class DetectMonsterState : State<Player>
 {
     private float detectionRadius;
     private LayerMask monsterLayer;
-
     private EntityMovement movement;
     private Collider closestTarget;
 
+    // 모노비헤이비어가 없어서 코루틴을 못씀 -> UniTask로 대체
+    // 사용한 태스크를 다시 메모리 해제하기 위한 토큰
+    private CancellationTokenSource cts;
 
     protected override void Awake()
     {
         detectionRadius = Settings.detectionRadius;
         monsterLayer = Settings.monsterLayer;
-
         movement = TOwner.Movement;
     }
 
     public override void Enter()
     {
-        DetectMonster().Forget();
+        cts = new CancellationTokenSource();
+        // 생성한 토큰의 유니태스크를 실행 (Forget : 경고메세지 무시)
+        DetectMonster(cts.Token).Forget();
     }
 
-    private async UniTaskVoid DetectMonster()
+    public override void Exit()
     {
-        while (true) 
+        // 이 스테이트를 벗어나면서 토큰을 Cancel하고 Dispose해서 메모리 비우기
+        // 이작업을 안하면 계속 메모리에 남아서 누수발생
+        cts?.Cancel();
+        cts?.Dispose();
+        cts = null;
+    }
+
+    private async UniTaskVoid DetectMonster(CancellationToken cancellationToken)
+    {
+        // cts?.Cancel(); 작업 취소를 요청할때까지 반복
+        while (!cancellationToken.IsCancellationRequested)
         {
+            // OverlapSphere 함수로 해당 레이어의 오브젝트들 가져오기
             Collider[] hit = Physics.OverlapSphere(TOwner.transform.position, detectionRadius, monsterLayer);
             float closest = Mathf.Infinity;
             closestTarget = null;
@@ -47,14 +63,23 @@ public class DetectMonsterState : State<Player>
 
             if (closestTarget != null)
             {
-                Debug.Log("hi");
+                // 가장 가까운 타겟을 찾아서 플레이어의 타겟으로 설정하기
                 Monster monster = closestTarget.GetComponent<Monster>();
                 TOwner.SetTarget(monster);
-               
-                Owner.ExecuteCommand(SkillExecuteCommand.Ready);
+
+                Owner.ExecuteCommand(SkillExecuteCommand.Find); // 다음 스테이트로 전이
             }
 
-            await UniTask.Delay(500);
+            try
+            {
+                // 0.5초 딜레이
+                await UniTask.Delay(500, cancellationToken: cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
         }
-    } 
+    }
 }
+

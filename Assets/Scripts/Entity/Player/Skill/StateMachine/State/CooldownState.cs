@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CooldownState : SkillState
 {
     public override void Enter()
     {
+        Debug.Log($"현재 쿨타임 : {TOwner.CurrentCooldown} , 스킬쿨타임 : {TOwner.Cooldown}");
+
         if (TOwner.IsActivated)
             TOwner.Deactivate();
 
@@ -18,5 +21,4 @@ public class CooldownState : SkillState
     {
         TOwner.CurrentCooldown -= Time.deltaTime;
     }
-
 }

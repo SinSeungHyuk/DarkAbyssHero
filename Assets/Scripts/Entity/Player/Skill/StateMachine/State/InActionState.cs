@@ -13,6 +13,8 @@ public class InActionState : SkillState
 
     public override void Enter()
     {
+        Debug.Log("InActionState Enter!!");
+
         if (!TOwner.IsActivated)
             TOwner.Activate();
 
@@ -36,6 +38,7 @@ public class InActionState : SkillState
 
     public override void Exit()
     {
+        Debug.Log("InActionState Exit!!");
         TOwner.ReleaseSkillAction();
     }
 

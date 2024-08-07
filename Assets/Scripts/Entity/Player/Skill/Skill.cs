@@ -88,13 +88,13 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     public int ActionAnimationParameter { get; private set; }
 
     public float Cooldown => currentData.cooldown;
+    public bool HasCooldown => Cooldown > 0f;
     public float CurrentCooldown
     {
         get => currentCooldown;
-        set => currentData.cooldown = Mathf.Clamp(value, 0f, Cooldown);
+        set => currentCooldown = Mathf.Clamp(value, 0f, Cooldown);
     }
-    public bool HasCooldown => Cooldown > 0f;
-    public bool IsCooldownCompleted => Mathf.Approximately(Cooldown, 0f);
+    public bool IsCooldownCompleted => Mathf.Approximately(0f, CurrentCooldown);
 
     public float Duration => currentData.duration;
     public float CurrentDuration
@@ -131,6 +131,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     }
     public bool IsCastCompleted => Mathf.Approximately(CastTime, CurrentCastTime);
 
+    public float Distance => currentData.distance; // 스킬의 사거리
+
     public bool IsActivated { get; private set; }
     public bool IsReady => StateMachine.IsInState<ReadyState>();
     // 발동 횟수가 남았고, ApplyCycle만큼 시간이 지났으면 true를 return
@@ -139,7 +141,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 스킬의 타겟 (플레이어 자신도 포함)
     // 만약 자신에게 버프'만' 주는 스킬이라면 Target이 Player 하나만 존재
     // 적에게 데미지를 주고 자신에게 버프를 준다면, Target은 몬스터로 설정하고 이펙트 두개 넣기
-    public Monster Target { get; set; }
+    public Monster Target => Player.Target; //{ get; set; }
     public Vector3 TargetPosition { get; private set; }
 
     private bool IsDurationEnded => Mathf.Approximately(Duration, CurrentDuration);
@@ -198,6 +200,9 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
             case AnimatorParameter.isStandingShoot:
                 CastAnimationParameter = Settings.isStandingShoot;
                 break;
+            case AnimatorParameter.isCasting:
+                CastAnimationParameter = Settings.isCasting;
+                break;
         }
         switch (currentData.actionAnimatorParameter)
         {
@@ -212,6 +217,9 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
                 break;
             case AnimatorParameter.isStandingShoot:
                 ActionAnimationParameter = Settings.isStandingShoot;
+                break;
+            case AnimatorParameter.isCasting:
+                ActionAnimationParameter = Settings.isCasting;
                 break;
         }
     }
@@ -252,6 +260,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
         CurrentDuration = 0f;
         CurrentApplyCycle = 0f;
         CurrentApplyCount = 0;
+
+        Debug.Log($"Reset!!! + {CurrentCastTime}");
     }
 
     #region Use & Activate

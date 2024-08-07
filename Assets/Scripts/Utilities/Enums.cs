@@ -50,6 +50,7 @@ public enum AnimatorParameter
     isUpHandCast,
     isClapCast,
     isStandingShoot,
+    isCasting,
 }
 
 // 스킬을 사용할때 메세지를 전달하기 위한 Enum

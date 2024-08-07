@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EntityMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    public Transform traceTarget; // 추적 대상
+    private Transform traceTarget; // 추적 대상
 
     public Entity Owner { get; private set; }
     public Transform TraceTarget
@@ -28,6 +28,8 @@ public class EntityMovement : MonoBehaviour
         get => agent.stoppingDistance;
         set => agent.stoppingDistance = value;
     }
+    public bool IsStop => agent.stoppingDistance >= agent.remainingDistance;
+
 
     public void SetUp(Entity owner)
     {
@@ -38,7 +40,7 @@ public class EntityMovement : MonoBehaviour
 
     private void Start()
     {
-        agent.destination = (traceTarget.transform.position);
+        //agent.destination = (traceTarget.transform.position);
     }
     private void Update()
     {

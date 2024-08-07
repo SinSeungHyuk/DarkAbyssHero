@@ -71,8 +71,8 @@ public class Effect : IdentifiedObject
     }
     // applyCycle 값이 0 : Duration과 (ApplyCount-1)을 나누어서 일정한 간격을 구함
     // 만약 applyCycle가 0이 아니라면 그대로 데이터에 있는 사이클 값 사용
-    public float ApplyCycle => Mathf.Approximately(currentData.applyCycle, 0f) && ApplyCycle > 1 
-        ? (Duration / (ApplyCount - 1)) : currentData.applyCycle;
+    public float ApplyCycle => Mathf.Approximately(currentData.applyCycle, 0f) && ApplyCount > 1 ?
+        (Duration / (ApplyCount - 1)) : currentData.applyCycle;
     public float CurrentApplyCycle
     {
         get => currentApplyCycle;
