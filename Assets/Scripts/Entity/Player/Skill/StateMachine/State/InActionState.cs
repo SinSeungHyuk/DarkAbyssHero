@@ -28,10 +28,11 @@ public class InActionState : SkillState
 
     public override void Update()
     {
+        // 현재 사용한 스킬의 Duration, ApplyCycle 더해주기
         TOwner.CurrentDuration += Time.deltaTime;
         TOwner.CurrentApplyCycle += Time.deltaTime;
 
-        // 스킬이 적용 가능하다면 Apply로 적용 실행
+        // 스킬이 적용 가능하다면 Apply로 적용 실행 (IsApplicable = 적용횟수,간격 비교)
         if (TOwner.IsApplicable)
             Apply();
     }
@@ -44,16 +45,12 @@ public class InActionState : SkillState
 
     private void Apply()
     {
-        Debug.Log($"증가 전 카운트 : {TOwner.ApplyCount} , 커렌트 : {TOwner.CurrentApplyCount}");
-
         // 플레이어에게 이 스킬을 사용했으니 ToInSkillActionState로 전환하라는 명령 보내기
         TrySendCommandToPlayer(TOwner, PlayerStateCommand.ToInSkillActionState, TOwner.ActionAnimationParameter);
 
         // Skill의 Apply 함수를 이 스킬의 스테이트에서 호출하거나 혹은
         // 애니메이션이 재생되면서 자동으로 애니메이션의 특정 타이밍에서 호출하거나
         if (isInstantApplyType)
-            TOwner.Apply();
-
-        Debug.Log($"증가 후 카운트 : {TOwner.ApplyCount} , 커렌트 : {TOwner.CurrentApplyCount}");
+            TOwner.Apply(); // Skill의 Apply 함수 호출
     }
 }

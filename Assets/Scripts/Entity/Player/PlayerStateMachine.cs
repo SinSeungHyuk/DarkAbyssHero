@@ -19,7 +19,7 @@ public class PlayerStateMachine : EntityStateMachine<Player>
 
     protected override void MakeTransitions()
     {
-        //MakeTransition<DetectMonsterState, FindUsableSkillState>(SkillExecuteCommand.Find);
+        MakeTransition<DetectMonsterState, FindUsableSkillState>(state => (state as DetectMonsterState).IsFindSkill);
         ////MakeTransition<FindUsableSkillState, MoveToTargetState>(SkillExecuteCommand.Ready);
 
         MakeTransition<DetectMonsterState, CastingSkillState>(PlayerStateCommand.ToCastingSkillState);
@@ -33,7 +33,7 @@ public class PlayerStateMachine : EntityStateMachine<Player>
         MakeTransition<InSkillActionState, MoveToTargetState>(state => (state as InSkillActionState).IsStateEnded);
 
     }
-
+    
 
     private bool IsSkillInState<T>(State<Player> state) where T : State<Skill>
         => (state as PlayerSkillState).RunningSkill.IsInState<T>();

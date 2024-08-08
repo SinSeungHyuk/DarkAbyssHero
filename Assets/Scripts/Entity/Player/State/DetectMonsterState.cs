@@ -8,6 +8,7 @@ using System;
 
 public class DetectMonsterState : State<Player>
 {
+    public bool IsFindSkill { get; private set; }
     private float detectionRadius;
     private LayerMask monsterLayer;
     private Collider closestTarget;
@@ -20,6 +21,7 @@ public class DetectMonsterState : State<Player>
     {
         detectionRadius = Settings.detectionRadius;
         monsterLayer = Settings.monsterLayer;
+        IsFindSkill = false;
     }
 
     public override void Enter()
@@ -65,10 +67,12 @@ public class DetectMonsterState : State<Player>
                 Monster monster = closestTarget.GetComponent<Monster>();
                 TOwner.SetTarget(monster);
 
-                TOwner.SkillSystem.FindUsableSkill();
+                IsFindSkill = TOwner.SkillSystem.FindUsableSkill();
+
+                Debug.Log("find skill next");
                 TOwner.Movement.StopDistance = TOwner.SkillSystem.ReserveSkill.Distance;
 
-                TOwner.SkillSystem.ReserveSkill.Use();
+                //TOwner.SkillSystem.ReserveSkill.Use();
                 //Owner.ExecuteCommand(SkillExecuteCommand.Find); // 다음 스테이트로 전이
             }
 

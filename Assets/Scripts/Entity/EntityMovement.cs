@@ -40,7 +40,7 @@ public class EntityMovement : MonoBehaviour
 
     private void Start()
     {
-        agent.destination = (traceTarget.transform.position);
+        //agent.destination = (traceTarget.transform.position);
     }
     private void Update()
     {

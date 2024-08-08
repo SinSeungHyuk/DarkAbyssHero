@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Monster : Entity, IDamageable
 {
+    [SerializeField] private Player player;
 
-    // Start is called before the first frame update
+    private EntityMovement movement;
+
+
     void Start()
     {
-        
+        movement = GetComponent<EntityMovement>();
+
+        movement.TraceTarget = player.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         

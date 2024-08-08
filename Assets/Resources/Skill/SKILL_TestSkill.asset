@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: TestSkill
   displayName: TestSkill
   description: 
-  applyType: 1
+  applyType: 0
   gradeType: 2
   skillPriority: 1
   maxLevel: 40
@@ -29,8 +29,8 @@ MonoBehaviour:
       rid: 3630001521220124672
     runningFinishOption: 0
     duration: 0
-    applyCount: 1
-    applyCycle: 0
+    applyCount: 2
+    applyCycle: 3
     cooldown: 10
     distance: 3
     isUseCast: 1
@@ -39,7 +39,7 @@ MonoBehaviour:
     - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
     castAnimatorParameter: 4
-    actionAnimatorParameter: 2
+    actionAnimatorParameter: 0
     customActionsOnCast: []
     customActionsOnAction: []
   references:

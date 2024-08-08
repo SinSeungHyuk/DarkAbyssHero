@@ -16,5 +16,15 @@ public class FindUsableSkillState : State<Player>
         //TOwner.SkillSystem.ReserveSkill.Use();
 
         //Owner.ExecuteCommand(SkillExecuteCommand.Ready);
+
+        Debug.Log(TOwner.Movement.StopDistance);
+
+    }
+
+    public override void Update()
+    {
+        Debug.Log(TOwner.Movement.IsStop);
+
+
     }
 }

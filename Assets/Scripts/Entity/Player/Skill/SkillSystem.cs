@@ -107,7 +107,7 @@ public class SkillSystem : MonoBehaviour
         ownSkills.Add(skill);
     }
 
-    public void FindUsableSkill()
+    public bool FindUsableSkill()
     {
         // 장착중인 스킬리스트에서 IsReady 상태인 스킬
         // 그중에서 우선순위가 높은 순서대로 찾기
@@ -121,6 +121,8 @@ public class SkillSystem : MonoBehaviour
         ReserveSkill = (skill == null) ?  defaultSkill : skill;
 
         Debug.Log($"선정한 스킬 : {ReserveSkill.DisplayName}");
+        return !(ReserveSkill == null);
+
     }
 
     private void ApplyCurrentRunningSkill()
