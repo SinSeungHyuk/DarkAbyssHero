@@ -5,23 +5,18 @@ using UnityEngine;
 
 public class MoveToTargetState : State<Player>
 {
-    private EntityMovement movement;
-    private Skill skill;
-
     protected override void Awake()
     {
-        movement = TOwner.Movement;
     }
 
     public override void Enter()
     {
-        Debug.Log("MoveToTargetState  EnterEnterEnterEnter");
-        skill = TOwner.SkillSystem.ReserveSkill;
+        Debug.Log("MoveToTargetState enterrrrrrrrrr");
     }
 
     public override void Exit()
     {
         //skill.Use();
-        Debug.Log("exit");
+        Debug.Log("MoveToTargetState exit");
     }
 }

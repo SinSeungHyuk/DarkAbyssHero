@@ -12,7 +12,11 @@ public class SkillState : State<Skill>
         {
             // Transition이 Command를 받아들였으면, State로 UsingSKill Message와 Skill 정보를 보냄
             if (playerStateMachine.ExecuteCommand(command))
+            {
                 playerStateMachine.SendMessage(EntityStateMessage.UsingSkill, (skill, animatorParameter));
+
+                Debug.Log("TrySendCommandToPlayer : " + animatorParameter);
+            }
         }
     }
 }

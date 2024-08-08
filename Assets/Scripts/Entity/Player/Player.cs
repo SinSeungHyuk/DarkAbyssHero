@@ -56,7 +56,6 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     {
         Target = target;
         Movement.TraceTarget = target.transform;
-        //SkillSystem.ReserveSkill.Target = target;
     }
 
     #region Find Transform Socket By SocketName

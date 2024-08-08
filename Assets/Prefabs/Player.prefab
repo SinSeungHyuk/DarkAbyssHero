@@ -1511,7 +1511,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b360b34806b671b41bf44d140bc59cde, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1656,10 +1656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a727c31eca5fcd44ada92a861bda0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipSkills:
-  - {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
+  equipSkills: []
   defaultSkill: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
-  testSkill: {fileID: 0}
+  testSkill: {fileID: 11400000, guid: fb090cf0d7efb5f4baa4f2a59b5abe1b, type: 2}
 --- !u!1 &4093364367945835440
 GameObject:
   m_ObjectHideFlags: 0

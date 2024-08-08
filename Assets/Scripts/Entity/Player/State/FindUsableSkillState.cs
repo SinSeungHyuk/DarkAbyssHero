@@ -7,16 +7,13 @@ public class FindUsableSkillState : State<Player>
 {
     public override void Enter()
     {
-        SkillSystem skillSystem = TOwner.SkillSystem;
-        Skill reserveSkill = skillSystem.FindUsableSkill();
+        //SkillSystem skillSystem = TOwner.SkillSystem;
 
-        if (reserveSkill != null)
-            skillSystem.ReserveSkill = reserveSkill;
-        else skillSystem.ReserveSkill = skillSystem.DefaultSkill;
+        //skillSystem.FindUsableSkill();
 
-        TOwner.Movement.StopDistance = reserveSkill.Distance;
+        //TOwner.Movement.StopDistance = reserveSkill.Distance;
 
-        TOwner.SkillSystem.ReserveSkill.Use();
+        //TOwner.SkillSystem.ReserveSkill.Use();
 
         //Owner.ExecuteCommand(SkillExecuteCommand.Ready);
     }

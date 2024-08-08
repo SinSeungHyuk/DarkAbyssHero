@@ -22,7 +22,7 @@ public class InstantSkillStateMachine : StateMachine<Skill>
         // 위 조건을 넘어갔다는 뜻은 캐스팅이 아니라는 의미
         MakeTransition<ReadyState, InActionState>(SkillExecuteCommand.Use);
         // 쿨다운이 남아있다면 
-        MakeTransition<ReadyState, CooldownState>(state => !TOwner.IsCooldownCompleted);
+        //MakeTransition<ReadyState, CooldownState>(state => !TOwner.IsCooldownCompleted);
 
 
         // Casting State -> ToState
@@ -34,15 +34,15 @@ public class InstantSkillStateMachine : StateMachine<Skill>
         // InAction State -> ToState
         //
         // 스킬의 사용이 끝났고 쿨다운을 가지고 있다면 쿨다운상태로
-        MakeTransition<InActionState,CooldownState>(state => TOwner.IsFinished &&  TOwner.HasCooldown); 
+        MakeTransition<InActionState, CooldownState>(state => TOwner.IsFinished && TOwner.HasCooldown);
         // 스킬의 사용이 끝나고 쿨다운이 없는 스킬이라면 
-        MakeTransition<InActionState,CooldownState>(state => TOwner.IsFinished); 
+        MakeTransition<InActionState, CooldownState>(state => TOwner.IsFinished);
 
 
         // Cooldown State -> ToState
         //
         // 쿨다운이 모두 완료되었으면 준비상태로
-        MakeTransition<CooldownState,ReadyState>(state=> TOwner.IsCooldownCompleted);
+        MakeTransition<CooldownState, ReadyState>(state => TOwner.IsCooldownCompleted);
 
 
 

@@ -6,9 +6,9 @@ using UnityEngine;
 public class PlayerSkillState : State<Player>
 {
     // 현재 Entity가 실행중인 Skill
-    public Skill RunningSkill { get; private set; }
+    public Skill RunningSkill { get;  set; }
     // Entity가 실행해야할 Animation의 Hash
-    protected int AnimatorParameterHash { get; private set; }
+    protected int AnimatorParameterHash { get;  set; }
 
     public override void Enter()
     {
@@ -17,7 +17,7 @@ public class PlayerSkillState : State<Player>
 
     public override void Exit()
     {
-        TOwner.Animator?.SetBool(AnimatorParameterHash, false);
+        //TOwner.Animator?.SetBool(AnimatorParameterHash, false);
 
         RunningSkill = null;
     }
@@ -36,8 +36,9 @@ public class PlayerSkillState : State<Player>
         Debug.Assert(RunningSkill != null,
             $"CastingSkillState({message})::OnReceiveMessage - 잘못된 data가 전달되었습니다.");
 
+        Debug.Log("OnReceiveMessage : "+AnimatorParameterHash);
 
-        TOwner.Animator?.SetBool(AnimatorParameterHash, true);
+        TOwner.Animator?.SetTrigger(AnimatorParameterHash);
 
         return true;
     }

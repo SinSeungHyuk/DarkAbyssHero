@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 0
   codeName: TestSkill
-  displayName: 
+  displayName: TestSkill
   description: 
   applyType: 1
   gradeType: 2
@@ -31,10 +31,10 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 5
+    cooldown: 10
     distance: 3
-    isUseCast: 0
-    castTime: 0
+    isUseCast: 1
+    castTime: 2
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
@@ -48,7 +48,7 @@ MonoBehaviour:
     - rid: 3630001521220124672
       type: {class: SpawnProjectileAction, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 5778406573754477521, guid: d2b67af396bfa6940a00740de263da1e,
+        projectilePrefab: {fileID: 8426777113185849061, guid: 99a8578a2180fe04b894fa6decac87ac,
           type: 3}
         spawnPointSocketName: ShootPoint
         speed: 7

@@ -142,7 +142,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 만약 자신에게 버프'만' 주는 스킬이라면 Target이 Player 하나만 존재
     // 적에게 데미지를 주고 자신에게 버프를 준다면, Target은 몬스터로 설정하고 이펙트 두개 넣기
     public Monster Target => Player.Target; //{ get; set; }
-    public Vector3 TargetPosition { get; private set; }
+    public Vector3 TargetPosition => Target.transform.position;
 
     private bool IsDurationEnded => Mathf.Approximately(Duration, CurrentDuration);
     private bool IsApplyCompleted => CurrentApplyCount == ApplyCount;
@@ -261,13 +261,13 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
         CurrentApplyCycle = 0f;
         CurrentApplyCount = 0;
 
-        Debug.Log($"Reset!!! + {CurrentCastTime}");
+        Debug.Log($"Reset!!! + {CastTime} , {ApplyCount}");
     }
 
     #region Use & Activate
     public bool Use()
     {
-        Debug.Assert(IsReady, "Skill::Use - 사용 조건을 만족하지 못했습니다.");
+        Debug.Assert(IsReady, $"Skill::Use - {CurrentApplyCount} / {ApplyCount} , {CurrentApplyCycle} / {ApplyCycle}");
 
         // 이 스킬의 스테이트머신에 Use 커맨드를 보내서 스킬사용 시작하기
         bool isUsed = StateMachine.ExecuteCommand(SkillExecuteCommand.Use);
@@ -334,7 +334,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
 
     public void Apply()
     {
-        Debug.Assert(IsApplicable, "Skill - Apply를 할 수 없습니다.");
+        Debug.Assert(IsApplicable, $"Skill::Apply - {CurrentApplyCount} / {ApplyCount} , {CurrentApplyCycle} / {ApplyCycle}");
 
         RunCustomActions(SkillCustomActionType.Action);
 

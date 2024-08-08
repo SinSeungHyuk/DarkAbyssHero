@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EntityMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private Transform traceTarget; // 추적 대상
+    public Transform traceTarget; // 추적 대상
 
     public Entity Owner { get; private set; }
     public Transform TraceTarget
@@ -40,7 +40,7 @@ public class EntityMovement : MonoBehaviour
 
     private void Start()
     {
-        //agent.destination = (traceTarget.transform.position);
+        agent.destination = (traceTarget.transform.position);
     }
     private void Update()
     {

@@ -13,7 +13,7 @@ public class InActionState : SkillState
 
     public override void Enter()
     {
-        Debug.Log("InActionState Enter!!");
+        Debug.Log($"InActionState Enter\n카운트 : {TOwner.ApplyCount} , 커렌트 : {TOwner.CurrentApplyCount}");
 
         if (!TOwner.IsActivated)
             TOwner.Activate();
@@ -44,6 +44,8 @@ public class InActionState : SkillState
 
     private void Apply()
     {
+        Debug.Log($"증가 전 카운트 : {TOwner.ApplyCount} , 커렌트 : {TOwner.CurrentApplyCount}");
+
         // 플레이어에게 이 스킬을 사용했으니 ToInSkillActionState로 전환하라는 명령 보내기
         TrySendCommandToPlayer(TOwner, PlayerStateCommand.ToInSkillActionState, TOwner.ActionAnimationParameter);
 
@@ -51,7 +53,7 @@ public class InActionState : SkillState
         // 애니메이션이 재생되면서 자동으로 애니메이션의 특정 타이밍에서 호출하거나
         if (isInstantApplyType)
             TOwner.Apply();
-        else 
-            TOwner.CurrentApplyCount++;
+
+        Debug.Log($"증가 후 카운트 : {TOwner.ApplyCount} , 커렌트 : {TOwner.CurrentApplyCount}");
     }
 }

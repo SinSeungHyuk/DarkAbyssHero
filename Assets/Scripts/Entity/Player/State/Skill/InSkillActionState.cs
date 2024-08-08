@@ -6,20 +6,23 @@ using UnityEngine;
 public class InSkillActionState : PlayerSkillState
 {
     public bool IsStateEnded { get; private set; }
+    private AnimatorStateInfo lastStateInfo;
+
+    public override void Enter()
+    {
+        TOwner.Movement.Stop();
+    }
 
     public override void Update()
     {
-        IsStateEnded = RunningSkill.IsFinished;
+        //IsStateEnded = RunningSkill.IsFinished;
+        lastStateInfo = TOwner.Animator.GetCurrentAnimatorStateInfo(0);
+        //Debug.Log(lastStateInfo.IsName("Up Hand Cast"));
+
+
+        IsStateEnded = !lastStateInfo.IsName("Up Hand Cast");
         //IsStateEnded = !TOwner.Animator.GetBool(AnimatorParameterHash);
-    }
 
-    public override bool OnReceiveMessage(int message, object data)
-    {
-        // 올바른 Message가 아니라면 false를 return
-        if (!base.OnReceiveMessage(message, data))
-            return false;
-
-        return true;
     }
 
     public override void Exit()

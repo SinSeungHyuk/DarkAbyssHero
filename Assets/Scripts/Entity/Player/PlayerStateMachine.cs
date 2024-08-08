@@ -9,7 +9,7 @@ public class PlayerStateMachine : EntityStateMachine<Player>
     {
         AddState<DetectMonsterState>();
         AddState<FindUsableSkillState>();
-        //AddState<MoveToTargetState>();
+        AddState<MoveToTargetState>();
 
         AddState<CastingSkillState>();
         AddState<InSkillActionState>();
@@ -19,14 +19,22 @@ public class PlayerStateMachine : EntityStateMachine<Player>
 
     protected override void MakeTransitions()
     {
-        MakeTransition<DetectMonsterState, FindUsableSkillState>(SkillExecuteCommand.Find);
-        //MakeTransition<FindUsableSkillState, MoveToTargetState>(SkillExecuteCommand.Ready);
+        //MakeTransition<DetectMonsterState, FindUsableSkillState>(SkillExecuteCommand.Find);
+        ////MakeTransition<FindUsableSkillState, MoveToTargetState>(SkillExecuteCommand.Ready);
 
-        MakeTransition<FindUsableSkillState, CastingSkillState>(PlayerStateCommand.ToCastingSkillState);
-        MakeTransition<FindUsableSkillState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
+        MakeTransition<DetectMonsterState, CastingSkillState>(PlayerStateCommand.ToCastingSkillState);
+        MakeTransition<DetectMonsterState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
+
+        MakeTransition<MoveToTargetState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
         
         MakeTransition<CastingSkillState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
         
-        MakeTransition<InSkillActionState, DetectMonsterState>(state => (state as InSkillActionState).IsStateEnded);
+        //MakeTransition<InSkillActionState, DetectMonsterState>(state => !IsSkillInState<InActionState>(state));
+        MakeTransition<InSkillActionState, MoveToTargetState>(state => (state as InSkillActionState).IsStateEnded);
+
     }
+
+
+    private bool IsSkillInState<T>(State<Player> state) where T : State<Skill>
+        => (state as PlayerSkillState).RunningSkill.IsInState<T>();
 }

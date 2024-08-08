@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 1
   codeName: TestSkill2
-  displayName: 
+  displayName: skill2
   description: 
   applyType: 0
   gradeType: 1
@@ -48,7 +48,7 @@ MonoBehaviour:
     - rid: 3630001524195196929
       type: {class: SpawnProjectileAction, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 8426777113185849061, guid: 99a8578a2180fe04b894fa6decac87ac,
+        projectilePrefab: {fileID: 6269477357590604756, guid: 37be96c9356cdec4cbea554e8db1fd75,
           type: 3}
         spawnPointSocketName: ShootPoint
         speed: 0

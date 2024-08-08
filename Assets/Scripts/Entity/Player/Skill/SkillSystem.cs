@@ -26,7 +26,7 @@ public class SkillSystem : MonoBehaviour
     public IReadOnlyList<Skill> EquipSkills => equipSkills;
     public IReadOnlyList<Skill> OwnSkills => ownSkills;
     public Skill DefaultSkill => defaultSkill;
-    public Skill ReserveSkill { get; set; } // 플레이어가 사용할 예약스킬
+    public Skill ReserveSkill { get; private set; } // 플레이어가 사용할 예약스킬
 
     public Player Player { get; private set; }
 
@@ -48,6 +48,7 @@ public class SkillSystem : MonoBehaviour
         // 임시코드        
         var clone = testSkill.Clone() as Skill;
         clone.SetUp(Player);
+        DefaultSkill.SetUp(Player);
 
         equipSkills.Add(clone);
 
@@ -62,6 +63,8 @@ public class SkillSystem : MonoBehaviour
             // SkillSystem Update -> Skill Update -> StateMachine Update -> State Update
             skill.Update();
         }
+
+        DefaultSkill.Update();
     }
 
     public void EquipSkill(Skill skill, int level = 1)
@@ -104,17 +107,20 @@ public class SkillSystem : MonoBehaviour
         ownSkills.Add(skill);
     }
 
-    public Skill FindUsableSkill()
+    public void FindUsableSkill()
     {
         // 장착중인 스킬리스트에서 IsReady 상태인 스킬
-        // 그중에서 우선순위가 높은 순서대로 찾고 반환
-        // 사용가능한 스킬이 없으면 null을 리턴
+        // 그중에서 우선순위가 높은 순서대로 찾기
+        // 사용가능한 스킬이 없으면 ReserveSkill = null
+        // 사용가능한 스킬이 있으면 ReserveSkill = skill
 
-        return equipSkills.Where(x => x.IsReady)
+        Skill skill = equipSkills.Where(x => x.IsReady)
                           .OrderByDescending(x => x.SkillPriority)
                           .FirstOrDefault();
 
-        //return skill.Clone() as Skill;
+        ReserveSkill = (skill == null) ?  defaultSkill : skill;
+
+        Debug.Log($"선정한 스킬 : {ReserveSkill.DisplayName}");
     }
 
     private void ApplyCurrentRunningSkill()
@@ -122,7 +128,10 @@ public class SkillSystem : MonoBehaviour
         if (Player.StateMachine.GetCurrentState() is InSkillActionState ownerState)
         {
             var runnsingSkill = ownerState.RunningSkill;
+            if (runnsingSkill.ApplyType != SkillApplyType.Animation) return;
+
             runnsingSkill.Apply();
+            Debug.Log("ApplyCurrentRunningSkill");
         }
     }
 

@@ -10,7 +10,6 @@ public class DetectMonsterState : State<Player>
 {
     private float detectionRadius;
     private LayerMask monsterLayer;
-    private EntityMovement movement;
     private Collider closestTarget;
 
     // 모노비헤이비어가 없어서 코루틴을 못씀 -> UniTask로 대체
@@ -21,7 +20,6 @@ public class DetectMonsterState : State<Player>
     {
         detectionRadius = Settings.detectionRadius;
         monsterLayer = Settings.monsterLayer;
-        movement = TOwner.Movement;
     }
 
     public override void Enter()
@@ -67,7 +65,11 @@ public class DetectMonsterState : State<Player>
                 Monster monster = closestTarget.GetComponent<Monster>();
                 TOwner.SetTarget(monster);
 
-                Owner.ExecuteCommand(SkillExecuteCommand.Find); // 다음 스테이트로 전이
+                TOwner.SkillSystem.FindUsableSkill();
+                TOwner.Movement.StopDistance = TOwner.SkillSystem.ReserveSkill.Distance;
+
+                TOwner.SkillSystem.ReserveSkill.Use();
+                //Owner.ExecuteCommand(SkillExecuteCommand.Find); // 다음 스테이트로 전이
             }
 
             try
