@@ -25,7 +25,7 @@ public class SkillSystem : MonoBehaviour
     
     public IReadOnlyList<Skill> EquipSkills => equipSkills;
     public IReadOnlyList<Skill> OwnSkills => ownSkills;
-    public Skill DefaultSkill => defaultSkill;
+    public Skill DefaultSkill { get; private set; }
     public Skill ReserveSkill { get; private set; } // 플레이어가 사용할 예약스킬
 
     public Player Player { get; private set; }
@@ -48,7 +48,10 @@ public class SkillSystem : MonoBehaviour
         // 임시코드        
         var clone = testSkill.Clone() as Skill;
         clone.SetUp(Player);
-        DefaultSkill.SetUp(Player);
+
+        var defaultClone = defaultSkill.Clone() as Skill;
+        defaultClone.SetUp(Player);
+        DefaultSkill = defaultClone;
 
         equipSkills.Add(clone);
 
@@ -118,11 +121,22 @@ public class SkillSystem : MonoBehaviour
                           .OrderByDescending(x => x.SkillPriority)
                           .FirstOrDefault();
 
-        ReserveSkill = (skill == null) ?  defaultSkill : skill;
+        if (skill == null)
+        {
+            if (DefaultSkill.IsInState<ReadyState>())
+                ReserveSkill = DefaultSkill;
+            else return false;
+        }
+        else
+        {
+            ReserveSkill = skill;
+        }
 
-        Debug.Log($"선정한 스킬 : {ReserveSkill.DisplayName}");
-        return !(ReserveSkill == null);
+        Player.Movement.StopDistance = ReserveSkill.Distance;
 
+        Debug.Log(ReserveSkill.DisplayName);
+
+        return true;
     }
 
     private void ApplyCurrentRunningSkill()

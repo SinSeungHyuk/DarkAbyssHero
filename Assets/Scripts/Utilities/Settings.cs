@@ -10,6 +10,8 @@ public static class Settings
     #endregion
 
     #region Animator Parameter
+    public static int LocomotionState = Animator.StringToHash("Locomotion");
+
     public static int speed = Animator.StringToHash("speed");
     public static int isDead = Animator.StringToHash("isDead");
     public static int isMagicAreaAttack = Animator.StringToHash("isMagicAreaAttack");

@@ -31,8 +31,8 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 1
-    distance: 2
+    cooldown: 3
+    distance: 3
     isUseCast: 0
     castTime: 0
     effectSelectors:

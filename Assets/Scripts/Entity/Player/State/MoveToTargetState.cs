@@ -5,18 +5,9 @@ using UnityEngine;
 
 public class MoveToTargetState : State<Player>
 {
-    protected override void Awake()
+    public override void Update()
     {
-    }
-
-    public override void Enter()
-    {
-        Debug.Log("MoveToTargetState enterrrrrrrrrr");
-    }
-
-    public override void Exit()
-    {
-        //skill.Use();
-        Debug.Log("MoveToTargetState exit");
+        if (TOwner.Movement.IsStop)
+            TOwner.SkillSystem.ReserveSkill.Use();
     }
 }

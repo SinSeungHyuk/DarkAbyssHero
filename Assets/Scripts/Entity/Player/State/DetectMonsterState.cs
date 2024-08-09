@@ -28,11 +28,15 @@ public class DetectMonsterState : State<Player>
     {
         cts = new CancellationTokenSource();
         // 생성한 토큰의 유니태스크를 실행 (Forget : 경고메세지 무시)
-        DetectMonster(cts.Token).Forget();
+        UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: cts.Token)
+            .ContinueWith(() => DetectMonster(cts.Token))
+            .Forget();
     }
 
     public override void Exit()
     {
+        IsFindSkill = false;
+
         // 이 스테이트를 벗어나면서 토큰을 Cancel하고 Dispose해서 메모리 비우기
         // 이작업을 안하면 계속 메모리에 남아서 누수발생
         cts?.Cancel();
@@ -42,6 +46,8 @@ public class DetectMonsterState : State<Player>
 
     private async UniTaskVoid DetectMonster(CancellationToken cancellationToken)
     {
+        Debug.Log("detect enter");
+
         // cts?.Cancel(); 작업 취소를 요청할때까지 반복
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -68,12 +74,6 @@ public class DetectMonsterState : State<Player>
                 TOwner.SetTarget(monster);
 
                 IsFindSkill = TOwner.SkillSystem.FindUsableSkill();
-
-                Debug.Log("find skill next");
-                TOwner.Movement.StopDistance = TOwner.SkillSystem.ReserveSkill.Distance;
-
-                //TOwner.SkillSystem.ReserveSkill.Use();
-                //Owner.ExecuteCommand(SkillExecuteCommand.Find); // 다음 스테이트로 전이
             }
 
             try

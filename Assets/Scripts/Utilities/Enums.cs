@@ -67,13 +67,13 @@ public enum SkillExecuteCommand
 #region Player State Enum
 public enum PlayerStateCommand
 {
-    ToDefaultState,
+    ToDetectState,
     ToCastingSkillState,
     ToInSkillActionState,
     ToStunningState, // CC상태로 진입하라는 명령 (지금 당장은 사용x)
 }
 
-public enum EntityStateMessage { UsingSkill }
+public enum EntityStateMessage { UsingSkill, FinishSkill }
 #endregion
 
 

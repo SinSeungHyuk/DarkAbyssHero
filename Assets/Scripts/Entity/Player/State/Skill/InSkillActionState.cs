@@ -6,46 +6,58 @@ using UnityEngine;
 public class InSkillActionState : PlayerSkillState
 {
     public bool IsStateEnded { get; private set; }
+    public bool IsSkillFinished { get; private set; }
     private AnimatorStateInfo lastStateInfo;
+    private int LocomotionState;
+
+
+    protected override void Awake()
+    {
+        LocomotionState = Settings.LocomotionState;
+    }
 
     public override void Enter()
     {
-        TOwner.Movement.Stop();
+        base.Enter();
     }
 
     public override void Update()
     {
-        //IsStateEnded = RunningSkill.IsFinished;
         lastStateInfo = TOwner.Animator.GetCurrentAnimatorStateInfo(0);
-        //Debug.Log(lastStateInfo.IsName("Up Hand Cast"));
-
-
-        IsStateEnded = !lastStateInfo.IsName("Up Hand Cast");
-        //IsStateEnded = !TOwner.Animator.GetBool(AnimatorParameterHash);
-
+        if (lastStateInfo.normalizedTime > 0.1f && lastStateInfo.shortNameHash == LocomotionState)
+            IsStateEnded = true;
     }
 
     public override void Exit()
     {
         IsStateEnded = false;
-        //RunningSkill.onApplied -= OnSkillApplied;
+        IsSkillFinished = false;
 
         base.Exit();
     }
 
-    //private void OnSkillApplied(Skill skill, int currentApplyCount)
-    //{
-    //    switch (skill.InSkillActionFinishOption)
-    //    {
-    //        // Skill이 한번이라도 적용되었다면 State를 종료
-    //        case InSkillActionFinishOption.FinishOnceApplied:
-    //            IsStateEnded = true;
-    //            break;
 
-    //        // Skill이 모두 적용되었다면 State를 종료
-    //        case InSkillActionFinishOption.FinishWhenFullyApplied:
-    //            IsStateEnded = skill.IsFinished;
-    //            break;
-    //    }
-    //}
+    public override bool OnReceiveMessage(int message, object data)
+    {
+        // SkillState의 TrySendCommandToPlayer 함수를 통해 메세지 전달됨
+        if ((EntityStateMessage)message == EntityStateMessage.FinishSkill)
+        {
+            IsSkillFinished = true;
+            return true;
+        }
+
+        var tupleData = ((Skill, int))data;
+
+        RunningSkill = tupleData.Item1;
+        AnimatorParameterHash = tupleData.Item2;
+
+        Debug.Assert(RunningSkill != null,
+            $"CastingSkillState({message})::OnReceiveMessage - 잘못된 data가 전달되었습니다.");
+
+        Debug.Log("OnReceiveMessage : " + AnimatorParameterHash);
+
+        TOwner.Animator?.SetTrigger(AnimatorParameterHash);
+
+        return true;
+    }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class InActionState : SkillState
 {
@@ -13,8 +15,6 @@ public class InActionState : SkillState
 
     public override void Enter()
     {
-        Debug.Log($"InActionState Enter\n카운트 : {TOwner.ApplyCount} , 커렌트 : {TOwner.CurrentApplyCount}");
-
         if (!TOwner.IsActivated)
             TOwner.Activate();
 
@@ -39,8 +39,10 @@ public class InActionState : SkillState
 
     public override void Exit()
     {
-        Debug.Log("InActionState Exit!!");
         TOwner.ReleaseSkillAction();
+
+        // 플레이에게 스킬이 끝났음을 알리기
+        TOwner.Player.StateMachine.SendMessage(EntityStateMessage.FinishSkill);
     }
 
     private void Apply()

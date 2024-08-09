@@ -17,8 +17,6 @@ public class PlayerSkillState : State<Player>
 
     public override void Exit()
     {
-        //TOwner.Animator?.SetBool(AnimatorParameterHash, false);
-
         RunningSkill = null;
     }
 

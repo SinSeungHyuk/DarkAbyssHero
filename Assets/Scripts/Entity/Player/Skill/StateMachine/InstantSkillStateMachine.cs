@@ -35,8 +35,6 @@ public class InstantSkillStateMachine : StateMachine<Skill>
         //
         // 스킬의 사용이 끝났고 쿨다운을 가지고 있다면 쿨다운상태로
         MakeTransition<InActionState, CooldownState>(state => TOwner.IsFinished && TOwner.HasCooldown);
-        // 스킬의 사용이 끝나고 쿨다운이 없는 스킬이라면 
-        MakeTransition<InActionState, CooldownState>(state => TOwner.IsFinished);
 
 
         // Cooldown State -> ToState

@@ -8,8 +8,9 @@ public class PlayerStateMachine : EntityStateMachine<Player>
     protected override void AddStates()
     {
         AddState<DetectMonsterState>();
-        AddState<FindUsableSkillState>();
         AddState<MoveToTargetState>();
+        AddState<EmptyState>();
+        AddState<SkillFinishedState>();
 
         AddState<CastingSkillState>();
         AddState<InSkillActionState>();
@@ -19,22 +20,20 @@ public class PlayerStateMachine : EntityStateMachine<Player>
 
     protected override void MakeTransitions()
     {
-        MakeTransition<DetectMonsterState, FindUsableSkillState>(state => (state as DetectMonsterState).IsFindSkill);
-        ////MakeTransition<FindUsableSkillState, MoveToTargetState>(SkillExecuteCommand.Ready);
+        MakeTransition<DetectMonsterState, MoveToTargetState>(state => (state as DetectMonsterState).IsFindSkill == true);
 
-        MakeTransition<DetectMonsterState, CastingSkillState>(PlayerStateCommand.ToCastingSkillState);
-        MakeTransition<DetectMonsterState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
-
+        MakeTransition<MoveToTargetState, CastingSkillState>(PlayerStateCommand.ToCastingSkillState);
         MakeTransition<MoveToTargetState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
         
         MakeTransition<CastingSkillState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
         
-        //MakeTransition<InSkillActionState, DetectMonsterState>(state => !IsSkillInState<InActionState>(state));
-        MakeTransition<InSkillActionState, MoveToTargetState>(state => (state as InSkillActionState).IsStateEnded);
+        MakeTransition<InSkillActionState, DetectMonsterState>(state => (state as InSkillActionState).IsStateEnded && (state as InSkillActionState).IsSkillFinished);
+        MakeTransition<InSkillActionState, EmptyState>(state => (state as InSkillActionState).IsStateEnded);
 
+        MakeTransition<EmptyState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
     }
-    
 
-    private bool IsSkillInState<T>(State<Player> state) where T : State<Skill>
+    
+    public bool IsSkillInState<T>(State<Player> state) where T : State<Skill>
         => (state as PlayerSkillState).RunningSkill.IsInState<T>();
 }

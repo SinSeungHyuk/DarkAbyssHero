@@ -29,12 +29,12 @@ MonoBehaviour:
       rid: 3630001521220124672
     runningFinishOption: 0
     duration: 0
-    applyCount: 2
-    applyCycle: 3
-    cooldown: 10
-    distance: 3
-    isUseCast: 1
-    castTime: 2
+    applyCount: 1
+    applyCycle: 0
+    cooldown: 7
+    distance: 5
+    isUseCast: 0
+    castTime: 0
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}

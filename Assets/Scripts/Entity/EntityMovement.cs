@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EntityMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    public Transform traceTarget; // 추적 대상
+    private Transform traceTarget; // 추적 대상
 
     public Entity Owner { get; private set; }
     public Transform TraceTarget
@@ -15,12 +15,9 @@ public class EntityMovement : MonoBehaviour
         get => traceTarget;
         set
         {
-            if (traceTarget == value) return;
-
-            Stop();
+            if (value == traceTarget) return;
 
             traceTarget = value;
-            agent.SetDestination(traceTarget.position);
         }
     }
     public float StopDistance
@@ -28,7 +25,7 @@ public class EntityMovement : MonoBehaviour
         get => agent.stoppingDistance;
         set => agent.stoppingDistance = value;
     }
-    public bool IsStop => agent.stoppingDistance >= agent.remainingDistance;
+    public bool IsStop => agent.remainingDistance <= agent.stoppingDistance;
 
 
     public void SetUp(Entity owner)
@@ -38,13 +35,11 @@ public class EntityMovement : MonoBehaviour
         agent = Owner.GetComponent<NavMeshAgent>();
     }
 
-    private void Start()
+    private void FixedUpdate()
     {
-        //agent.destination = (traceTarget.transform.position);
-    }
-    private void Update()
-    {
+        if (traceTarget == null) return;  
 
+        agent.SetDestination(traceTarget.transform.position);
     }
 
     // 이동 멈추고 추적 대상 비우기

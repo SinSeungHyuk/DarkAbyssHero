@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GooglePlayGames.Editor.GPGSStrings;
 
 public class Monster : Entity, IDamageable
 {
-    [SerializeField] private Player player;
+    [SerializeField] private Transform player;
 
     private EntityMovement movement;
 
@@ -13,12 +14,12 @@ public class Monster : Entity, IDamageable
     {
         movement = GetComponent<EntityMovement>();
 
-        movement.TraceTarget = player.transform;
+        movement.SetUp(this);
     }
 
     void Update()
     {
-        
+        movement.TraceTarget = player;
     }
 
 
