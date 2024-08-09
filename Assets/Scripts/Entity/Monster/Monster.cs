@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static GooglePlayGames.Editor.GPGSStrings;
 
 public class Monster : Entity, IDamageable
 {

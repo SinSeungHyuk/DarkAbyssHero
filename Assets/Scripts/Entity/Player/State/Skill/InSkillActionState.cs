@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class InSkillActionState : PlayerSkillState
@@ -16,16 +15,14 @@ public class InSkillActionState : PlayerSkillState
         LocomotionState = Settings.LocomotionState;
     }
 
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
     public override void Update()
     {
         lastStateInfo = TOwner.Animator.GetCurrentAnimatorStateInfo(0);
-        if (lastStateInfo.normalizedTime > 0.1f && lastStateInfo.shortNameHash == LocomotionState)
+
+        if (lastStateInfo.shortNameHash == LocomotionState && IsStateEnded == false)
+        {
             IsStateEnded = true;
+        }
     }
 
     public override void Exit()

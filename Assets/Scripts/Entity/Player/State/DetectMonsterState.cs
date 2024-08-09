@@ -28,7 +28,7 @@ public class DetectMonsterState : State<Player>
     {
         cts = new CancellationTokenSource();
         // 생성한 토큰의 유니태스크를 실행 (Forget : 경고메세지 무시)
-        UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: cts.Token)
+        UniTask.Delay(TimeSpan.FromMilliseconds(500), cancellationToken: cts.Token)
             .ContinueWith(() => DetectMonster(cts.Token))
             .Forget();
     }
@@ -46,8 +46,6 @@ public class DetectMonsterState : State<Player>
 
     private async UniTaskVoid DetectMonster(CancellationToken cancellationToken)
     {
-        Debug.Log("detect enter");
-
         // cts?.Cancel(); 작업 취소를 요청할때까지 반복
         while (!cancellationToken.IsCancellationRequested)
         {

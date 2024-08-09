@@ -2,10 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
-using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(Player))]
 public class SkillSystem : MonoBehaviour
@@ -114,15 +111,14 @@ public class SkillSystem : MonoBehaviour
     {
         // 장착중인 스킬리스트에서 IsReady 상태인 스킬
         // 그중에서 우선순위가 높은 순서대로 찾기
-        // 사용가능한 스킬이 없으면 ReserveSkill = null
-        // 사용가능한 스킬이 있으면 ReserveSkill = skill
 
         Skill skill = equipSkills.Where(x => x.IsReady)
                           .OrderByDescending(x => x.SkillPriority)
                           .FirstOrDefault();
 
-        if (skill == null)
+        if (skill == null) // 장착스킬에서 사용가능한게 없을때
         {
+            // 기본스킬이 사용가능한 상태인지 검사
             if (DefaultSkill.IsInState<ReadyState>())
                 ReserveSkill = DefaultSkill;
             else return false;
@@ -133,8 +129,6 @@ public class SkillSystem : MonoBehaviour
         }
 
         Player.Movement.StopDistance = ReserveSkill.Distance;
-
-        Debug.Log(ReserveSkill.DisplayName);
 
         return true;
     }
