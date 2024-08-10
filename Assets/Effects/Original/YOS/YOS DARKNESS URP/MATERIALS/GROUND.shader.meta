@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 699f8ed64871e0043aae29cbe8c4455a
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _GRADIENTE: {fileID: 2800000, guid: d5f532af20f3aee4ca216b757d0e7dbb, type: 3}
+  - _NOISE: {fileID: 2800000, guid: 7e29b90f8efb65f49b24c11e95f63117, type: 3}
+  - _NOISEUV: {fileID: 2800000, guid: 4e3951c538fc8a647a4a10a99b480987, type: 3}
+  - _MASK: {fileID: 2800000, guid: b8e81f89fcf35134991472fb895535c8, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -12,13 +12,16 @@ public class InSkillActionState : PlayerSkillState
 
     protected override void Awake()
     {
+        // 현재 재생중인 애니메이션이 Locomotion 스테이트인지 확인하기 위한 변수
         LocomotionState = Settings.LocomotionState;
     }
 
     public override void Update()
     {
+        // GetCurrentAnimatorStateInfo : 지금 애니메이션의 상태정보 (Update에서 받아와야함)
         lastStateInfo = TOwner.Animator.GetCurrentAnimatorStateInfo(0);
 
+        // 지금 실행중인 애니메이션 Hash == Locomotion -> 현재 Idle,Run 애니메이션 재생중
         if (lastStateInfo.shortNameHash == LocomotionState && IsStateEnded == false)
         {
             IsStateEnded = true;
@@ -39,6 +42,7 @@ public class InSkillActionState : PlayerSkillState
         // SkillState의 TrySendCommandToPlayer 함수를 통해 메세지 전달됨
         if ((EntityStateMessage)message == EntityStateMessage.FinishSkill)
         {
+            // InActionState 에서 EntityStateMessage.FinishSkill 메세지가 전달되면
             IsSkillFinished = true;
             return true;
         }
@@ -50,8 +54,6 @@ public class InSkillActionState : PlayerSkillState
 
         Debug.Assert(RunningSkill != null,
             $"CastingSkillState({message})::OnReceiveMessage - 잘못된 data가 전달되었습니다.");
-
-        Debug.Log("OnReceiveMessage : " + AnimatorParameterHash);
 
         TOwner.Animator?.SetTrigger(AnimatorParameterHash);
 

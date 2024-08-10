@@ -26,29 +26,41 @@ MonoBehaviour:
   skillDatas:
   - level: 1
     action:
-      rid: 3630001521220124672
+      rid: 3630001586076385284
     runningFinishOption: 0
     duration: 0
     applyCount: 1
     applyCycle: 0
     cooldown: 7
     distance: 5
-    isUseCast: 0
-    castTime: 0
+    isUseCast: 1
+    castTime: 2
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
     castAnimatorParameter: 4
-    actionAnimatorParameter: 0
-    customActionsOnCast: []
-    customActionsOnAction: []
+    actionAnimatorParameter: 2
+    customActionsOnCast:
+    - rid: 3630001586076385282
+    customActionsOnAction:
+    - rid: 3630001586076385281
   references:
     version: 2
     RefIds:
-    - rid: 3630001521220124672
-      type: {class: SpawnProjectileAction, ns: , asm: Assembly-CSharp}
+    - rid: 3630001586076385281
+      type: {class: CameraShakeAction, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3630001586076385282
+      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
       data:
-        projectilePrefab: {fileID: 8426777113185849061, guid: 99a8578a2180fe04b894fa6decac87ac,
+        targetType: 0
+        methodType: 0
+        prefab: {fileID: 5114642830875328933, guid: 1a099cba8510e61469294bf8b48fe6f0,
           type: 3}
-        spawnPointSocketName: ShootPoint
-        speed: 7
+        offset: {x: 0, y: 0.01, z: 0}
+        scaleFactor: {x: 2, y: 1, z: 2}
+        isAttachToTarget: 1
+        isDestroyOnRelease: 1
+    - rid: 3630001586076385284
+      type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
+      data: 

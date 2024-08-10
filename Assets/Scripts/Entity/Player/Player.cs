@@ -18,6 +18,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public PlayerStateMachine StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
+
     // 플레이어가 공격할 몬스터 대상
     public Monster Target { get; private set; }
 

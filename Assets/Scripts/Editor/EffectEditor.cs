@@ -56,14 +56,14 @@ public class EffectEditor : IdentifiedObjectEditor
             return;
 
         // Property를 수정하지 못하게 GUI Enable의 false로 바꿈
-        GUI.enabled = false;
+        //GUI.enabled = false;
         // 마지막 EffectData(= 가장 높은 Level의 Data)를 가져옴
-        var lastEffectData = effectDatasProperty.GetArrayElementAtIndex(effectDatasProperty.arraySize - 1);
+        //var lastEffectData = effectDatasProperty.GetArrayElementAtIndex(effectDatasProperty.arraySize - 1);
         // maxLevel을 마지막 Data의 Level로 고정
-        maxLevelProperty.intValue = lastEffectData.FindPropertyRelative("level").intValue;
+        //maxLevelProperty.intValue = lastEffectData.FindPropertyRelative("level").intValue;
         // maxLevel Property를 그려줌
         EditorGUILayout.PropertyField(maxLevelProperty);
-        GUI.enabled = true;
+        //GUI.enabled = true;
 
 
         // effectDatas를 돌면서 GUI를 그려줌
@@ -114,6 +114,9 @@ public class EffectEditor : IdentifiedObjectEditor
         // EffectDatas에 새로운 Data를 추가하는 Button
         if (GUILayout.Button("Add New Level"))
         {
+            // 데이터를 추가할때마다 이펙트의 maxLevel 증가
+            maxLevelProperty.intValue++;
+
             // 배열 길이를 늘려서 새로운 Element를 생성
             var lastArraySize = effectDatasProperty.arraySize++;
             // 이전 Element Property를 가져옴

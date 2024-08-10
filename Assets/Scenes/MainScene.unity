@@ -265,7 +265,7 @@ PrefabInstance:
     - target: {fileID: 4421151865908168221, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.9998813
+      value: -0.00011873245
       objectReference: {fileID: 0}
     - target: {fileID: 4421151865908168221, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 4421151865908168221, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.993989
+      value: -9.993989
       objectReference: {fileID: 0}
     - target: {fileID: 4421151865908168221, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 967555713}
   - component: {fileID: 967555716}
   - component: {fileID: 967555715}
+  - component: {fileID: 967555717}
   m_Layer: 7
   m_Name: monsterCube
   m_TagString: Monster
@@ -751,6 +752,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17ecd5e40863ff43a71b224cefb55a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &967555717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967555708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80b5d4ebfd9891469f2ee442ff58639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1013435163
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013435165}
   - component: {fileID: 1013435164}
+  - component: {fileID: 1013435166}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -816,13 +830,36 @@ Transform:
   m_GameObject: {fileID: 1013435163}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9396927, z: -0.3420201, w: 0}
-  m_LocalPosition: {x: 5.999882, y: 6.427875, z: -8.333547}
+  m_LocalPosition: {x: -0.00011873248, y: 6.4278755, z: -2.3335452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 27233501}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 40, y: 180, z: 0}
+--- !u!114 &1013435166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013435163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
+  m_UseCameraSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1326369819
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +876,7 @@ GameObject:
   - component: {fileID: 1326369821}
   - component: {fileID: 1326369827}
   - component: {fileID: 1326369820}
+  - component: {fileID: 1326369828}
   m_Layer: 7
   m_Name: monsterCube (1)
   m_TagString: Monster
@@ -988,7 +1026,7 @@ Transform:
   m_GameObject: {fileID: 1326369819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1, z: 14}
+  m_LocalPosition: {x: 7, y: 1, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1006,6 +1044,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17ecd5e40863ff43a71b224cefb55a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1326369828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326369819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80b5d4ebfd9891469f2ee442ff58639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455252174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +1069,7 @@ GameObject:
   - component: {fileID: 1455252175}
   - component: {fileID: 1455252178}
   - component: {fileID: 1455252179}
+  - component: {fileID: 1455252180}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1094,7 +1145,7 @@ Transform:
   m_GameObject: {fileID: 1455252174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9396927, z: -0.3420201, w: 0}
-  m_LocalPosition: {x: 5.999882, y: 6.427875, z: -8.333547}
+  m_LocalPosition: {x: -0.00011873248, y: 6.4278755, z: -2.3335452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1178,6 +1229,59 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1455252180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455252174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 3
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 3
+    m_FrequencyGain: 3
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &1649961778
 GameObject:
   m_ObjectHideFlags: 0

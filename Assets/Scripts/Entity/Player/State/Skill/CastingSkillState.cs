@@ -23,7 +23,7 @@ public class CastingSkillState : PlayerSkillState
         Debug.Assert(RunningSkill != null,
             $"CastingSkillState({message})::OnReceiveMessage - 잘못된 data가 전달되었습니다.");
 
-
+        // 캐스팅 동작은 Bool 파라미터로 동작
         TOwner.Animator?.SetBool(AnimatorParameterHash,true);
 
         return true;

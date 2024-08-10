@@ -9,7 +9,7 @@ public class PlayerStateMachine : EntityStateMachine<Player>
         AddState<DetectMonsterState>();
         AddState<MoveToTargetState>();
         AddState<EmptyState>();
-        AddState<SkillFinishedState>();
+        //AddState<SkillFinishedState>();
 
         AddState<CastingSkillState>();
         AddState<InSkillActionState>();

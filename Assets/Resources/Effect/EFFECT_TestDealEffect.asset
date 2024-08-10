@@ -19,7 +19,7 @@ MonoBehaviour:
   displayName: 
   description: 
   effectType: 0
-  maxLevel: 1
+  maxLevel: 10
   effectDatas:
   - level: 1
     action:
@@ -36,5 +36,5 @@ MonoBehaviour:
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
-        defaultDamage: 1.5
+        defaultDamage: 1
         bonusDamagePerLevel: 0.1
