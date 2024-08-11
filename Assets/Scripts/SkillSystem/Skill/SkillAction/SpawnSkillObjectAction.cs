@@ -2,17 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnSkillObjectAction : MonoBehaviour
+[System.Serializable]
+public class SpawnSkillObjectAction : SkillAction
 {
-    // Start is called before the first frame update
-    void Start()
+    // 생성할 스킬 오브젝트
+    [SerializeField] private GameObject skillObjectPrefab;
+
+    // 스킬 오브젝트의 데이터
+    [SerializeField] private float duration;
+    [SerializeField] private float applyCount;
+    [SerializeField] private Vector3 objectScale = Vector3.one;
+
+
+    public override void Apply(Skill skill)
     {
+        SkillObject skillObject = GameObject.Instantiate(skillObjectPrefab).GetComponent<SkillObject>();
         
+        // 땅에 파묻히지 않도록 살짝 y축으로 띄워놓기
+        skillObject.transform.position = skill.TargetPosition + (Vector3.up * 0.01f);
+        skillObject.SetUp(skill, duration, applyCount, objectScale);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override object Clone()
     {
-        
+        return new SpawnSkillObjectAction()
+        {
+            applyCount = applyCount,
+            duration = duration,
+            objectScale = objectScale,
+            skillObjectPrefab = skillObjectPrefab,
+        };
     }
 }

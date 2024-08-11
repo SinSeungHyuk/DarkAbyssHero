@@ -72,7 +72,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
 
             // 새로운 Level과 가장 가까운 Level Data를 찾아옴
             var newData = skillDatas.Last(x => x.level <= level);
-            if (newData.level != currentData.level)
+            //if (newData.level != currentData.level)
                 ChangeData(newData);
 
             OnLevelChanged?.Invoke(this, level, prevLevel);
@@ -235,7 +235,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
         Effects = currentData.effectSelectors.Select(x => x.CreateEffect(this)).ToArray();
         // Skill의 현재 Level이 data의 Level보다 크면, 둘의 Level 차를 Effect의 Bonus Level 줌.
         // 만약 Skill이 2 Level이고, data가 1 level이라면, effect들은 2-1해서 1의 Bonus Level을 받게 됨.
-        if (level > 1)
+        if (level > currentData.level)
             UpdateCurrentEffectLevels();
 
         UpdateCustomActions();

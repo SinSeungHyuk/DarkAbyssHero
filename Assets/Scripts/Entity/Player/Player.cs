@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using static UnityEngine.UI.GridLayoutGroup;
 
 
 public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
@@ -50,12 +51,20 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SkillSystem.EquipSkills[0].Level++;
+            Debug.Log(SkillSystem.EquipSkills[0].Level);
+
+            Monster monster = ObjectPoolManager.Instance.GetGameObject("Monster", Vector3.zero, Quaternion.identity).GetComponent<Monster>();
+            monster.Init();
+        }
     }
 
     public void SetTarget(Monster target)
     {
         Target = target;
+        transform.LookAt(Target.transform);
         Movement.TraceTarget = target.transform;
     }
 

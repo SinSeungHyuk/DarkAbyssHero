@@ -12,6 +12,16 @@ public class Monster : Entity, IDamageable
     public EffectSystem EffectSystem => effectSystem;
 
 
+    private float hp = 100.0f;
+
+    float timer = 0.0f;
+
+
+    public void Init()
+    {
+        timer = 0f;
+    }
+
     void Start()
     {
         movement = GetComponent<EntityMovement>();
@@ -22,7 +32,11 @@ public class Monster : Entity, IDamageable
 
     void Update()
     {
-        movement.TraceTarget = player;
+        //movement.TraceTarget = player;
+
+        //timer += Time.deltaTime;
+
+        //if (timer > 5.0f) ObjectPoolManager.Instance.ReturnGameObject(gameObject,"Monster");
     }
 
     private void OnDestroy()
@@ -35,10 +49,12 @@ public class Monster : Entity, IDamageable
     public void TakeDamage(float damage)
     {
         Debug.Log($"{gameObject.name} + TakeDamage : {damage}");
+        hp -= damage;
+        if (hp <= 0 ) { OnDead(); }
     }
     public void OnDead()
     {
-        
+        //ObjectPoolManager.Instance.ReturnGameObject(gameObject, "Monster");
     }
     #endregion
 }

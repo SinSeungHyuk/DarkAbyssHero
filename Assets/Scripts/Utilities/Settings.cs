@@ -7,6 +7,8 @@ public static class Settings
     #region PLAYER PARAMETER
     public static float detectionRadius = 15.0f;
     public static LayerMask monsterLayer = LayerMask.GetMask("Monster");
+
+    public static float projectileDistance = 500.0f; 
     #endregion
 
     #region Animator Parameter

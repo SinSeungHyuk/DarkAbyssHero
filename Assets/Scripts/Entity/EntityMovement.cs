@@ -15,7 +15,7 @@ public class EntityMovement : MonoBehaviour
         get => traceTarget;
         set
         {
-            if (value == traceTarget) return;
+            agent.SetDestination(value.transform.position);
 
             traceTarget = value;
         }
@@ -26,6 +26,7 @@ public class EntityMovement : MonoBehaviour
         set => agent.stoppingDistance = value;
     }
     public bool IsStop => agent.remainingDistance <= agent.stoppingDistance;
+    public float remain => agent.remainingDistance;
 
 
     public void SetUp(Entity owner)

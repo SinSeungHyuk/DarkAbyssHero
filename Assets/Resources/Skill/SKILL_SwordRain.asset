@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15be8eea95e64a4fab54a14e5a62838, type: 3}
+  m_Name: SKILL_SwordRain
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 2
+  codeName: SwordRain
+  displayName: Sword Rain
+  description: 
+  applyType: 0
+  gradeType: 3
+  skillPriority: 5
+  maxLevel: 10
+  defaultLevel: 1
+  skillDatas:
+  - level: 1
+    action:
+      rid: 3630001606466994178
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 1
+    applyCycle: 0
+    cooldown: 100
+    distance: 5
+    isUseCast: 1
+    castTime: 2
+    effectSelectors:
+    - level: 1
+      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+    castAnimatorParameter: 4
+    actionAnimatorParameter: 1
+    customActionsOnCast:
+    - rid: 3630001606466994179
+    customActionsOnAction: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3630001606466994178
+      type: {class: SpawnSkillObjectAction, ns: , asm: Assembly-CSharp}
+      data:
+        skillObjectPrefab: {fileID: 1199681872097717848, guid: d9ac8b2ffa752734894d0c439ab85213,
+          type: 3}
+        duration: 5
+        applyCount: 6
+        objectScale: {x: 0.7, y: 1, z: 0.7}
+    - rid: 3630001606466994179
+      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
+      data:
+        targetType: 0
+        methodType: 0
+        prefab: {fileID: 5114642830875328933, guid: 1d6d1c0fd5f9e4444b0625a8fa7f5f37,
+          type: 3}
+        offset: {x: 0, y: 0.01, z: 0}
+        scaleFactor: {x: 1, y: 1, z: 1}
+        isAttachToTarget: 1
+        isDestroyOnRelease: 1

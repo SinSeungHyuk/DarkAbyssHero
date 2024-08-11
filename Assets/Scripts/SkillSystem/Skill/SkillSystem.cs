@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
@@ -15,7 +16,7 @@ public class SkillSystem : MonoBehaviour
     [SerializeField] private List<Skill> equipSkills = new(6);
     // 사용가능한 스킬이 없을때 사용할 기본스킬
     [SerializeField] private Skill defaultSkill;
-    [SerializeField] private Skill testSkill;
+    [SerializeField] private List<Skill> testSkill = new List<Skill>();
 
     // 소유 중인 스킬리스트 (실제 스킬셋에 장착과는 별개)
     private List<Skill> ownSkills = new();
@@ -43,17 +44,21 @@ public class SkillSystem : MonoBehaviour
         Player = player;
 
         // 임시코드        
-        var clone = testSkill.Clone() as Skill;
-        clone.SetUp(Player,5);
+        foreach (var skill in testSkill)
+        {
+            var clone = skill.Clone() as Skill;
+            clone.SetUp(Player, 5);
+
+            equipSkills.Add(clone);
+        }
 
         var defaultClone = defaultSkill.Clone() as Skill;
         defaultClone.SetUp(Player);
         DefaultSkill = defaultClone;
 
-        equipSkills.Add(clone);
 
         // 스킬 장착이벤트 : UI 스킬셋에 등록
-        OnSkillEquip?.Invoke(this, clone);
+        //OnSkillEquip?.Invoke(this, clone);
     }
 
     private void Update()

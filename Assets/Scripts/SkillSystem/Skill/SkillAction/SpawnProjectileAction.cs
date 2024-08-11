@@ -11,13 +11,15 @@ public class SpawnProjectileAction : SkillAction
     [SerializeField] private string spawnPointSocketName;
     // 투사체 속도
     [SerializeField] private float speed;
+    // 투사체 통과 여부
+    [SerializeField] private bool isPiercing;
 
     public override void Apply(Skill skill)
     {
         var socket = skill.Player.GetTransformSocket(spawnPointSocketName);
         var projectile = GameObject.Instantiate(projectilePrefab);
         projectile.transform.position = socket.position;
-        //projectile.GetComponent<Projectile>().Setup(skill.Owner, speed, socket.forward, skill);
+        projectile.GetComponent<Projectile>().SetUp(speed,isPiercing, socket.forward, skill);
     }
 
 
@@ -27,7 +29,8 @@ public class SpawnProjectileAction : SkillAction
         {
             projectilePrefab = projectilePrefab,
             spawnPointSocketName = spawnPointSocketName,
-            speed = speed
+            speed = speed,
+            isPiercing = isPiercing
         };
     }
 }
