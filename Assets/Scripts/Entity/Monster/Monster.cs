@@ -4,28 +4,35 @@ using UnityEngine;
 
 public class Monster : Entity, IDamageable
 {
-    [SerializeField] private Transform player;
+    private Transform player;
 
     private EntityMovement movement;
+    private Animator animator;
+    private MonsterStateMachine stateMachine;
     private EffectSystem effectSystem;
 
     public EffectSystem EffectSystem => effectSystem;
-
-
-    public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
     public Stats Stats { get; private set; }
+    public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
 
-    float timer = 0.0f;
 
 
-    public void Init()
+    private void Awake()
     {
         movement = GetComponent<EntityMovement>();
         effectSystem = GetComponent<EffectSystem>();
+        Stats = GetComponent<Stats>();
+        animator = GetComponent<Animator>();
+        stateMachine = GetComponent<MonsterStateMachine>();
+    }
+
+    public void Init()
+    {
+        player = GameManager.Instance.GetPlayer().transform;
 
         movement.SetUp(this);
 
-        Stats = GetComponent<Stats>();
+
         Stats.SetUp(this);
 
     }
@@ -40,10 +47,6 @@ public class Monster : Entity, IDamageable
     void Update()
     {
         movement.TraceTarget = player;
-
-        //timer += Time.deltaTime;
-
-        //if (timer > 5.0f) ObjectPoolManager.Instance.ReturnGameObject(gameObject,"Monster");
     }
 
     private void OnDestroy()

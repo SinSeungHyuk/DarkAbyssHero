@@ -6,6 +6,8 @@ using UnityEditor;
 [CustomEditor(typeof(Stat))]
 public class StatEditor : IdentifiedObjectEditor
 {
+    private SerializedProperty isUseMaxValueProperty;
+    private SerializedProperty maxValueProperty;
     private SerializedProperty defaultValueProperty;
     private SerializedProperty valuePerLevelProperty;
     private SerializedProperty goldPerLevelProperty;
@@ -15,6 +17,8 @@ public class StatEditor : IdentifiedObjectEditor
     {
         base.OnEnable();
 
+        isUseMaxValueProperty = serializedObject.FindProperty("isUseMaxValue");
+        maxValueProperty = serializedObject.FindProperty("maxValue");
         defaultValueProperty = serializedObject.FindProperty("defaultValue");
         valuePerLevelProperty = serializedObject.FindProperty("valuePerLevel");
         goldPerLevelProperty = serializedObject.FindProperty("goldPerLevel");
@@ -29,6 +33,8 @@ public class StatEditor : IdentifiedObjectEditor
 
         if (DrawFoldoutTitle("Setting"))
         {
+            EditorGUILayout.PropertyField(isUseMaxValueProperty);
+            EditorGUILayout.PropertyField(maxValueProperty);
             EditorGUILayout.PropertyField(defaultValueProperty);
             EditorGUILayout.PropertyField(valuePerLevelProperty);
             EditorGUILayout.PropertyField(goldPerLevelProperty);

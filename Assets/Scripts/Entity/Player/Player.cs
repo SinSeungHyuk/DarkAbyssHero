@@ -14,7 +14,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     public Animator Animator { get; private set; }
     public DamageEvent DamageEvent { get; private set; }
-    public bool IsDead => Stats.HPStat.Value <= 0f;
+    public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
     public Stats Stats { get; private set; }
     public PlayerStateMachine StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
@@ -58,6 +58,21 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
             Monster monster = ObjectPoolManager.Instance.GetGameObject("Monster", Vector3.zero, Quaternion.identity).GetComponent<Monster>();
             monster.Init();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Stats.HPStat.DefaultValue += 10.0f;
+
+            Debug.Log(Stats.HPStat.DefaultValue);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Stats.HPStat.Level++;
+
+            Debug.Log(Stats.HPStat.DefaultValue);
         }
     }
 

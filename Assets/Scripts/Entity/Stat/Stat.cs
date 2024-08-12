@@ -10,6 +10,8 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
     //             Stat 종류, 변경 후, 변경 전
     public event Action<Stat, float, float> OnValueChanged;
 
+    [SerializeField] private bool isUseMaxValue; // 최대 스탯이 있는지
+    [SerializeField] private float maxValue; // 최대수치
     [SerializeField] private float defaultValue; // 기본수치
     [SerializeField] private float valuePerLevel; // 레벨당 증가스탯
     [SerializeField] private float goldPerLevel; // 레벨당 증가비용
@@ -28,6 +30,10 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
             if (value != defaultValue)
             {
                 float prevValue = Value;
+                
+                if (isUseMaxValue && value >= maxValue)               
+                    value = maxValue;
+                
                 defaultValue = value;
                 OnValueChanged?.Invoke(this, Value, prevValue);
             }
@@ -44,6 +50,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 
             int addLevel = value - level;
             float prevValue = Value;
+            if (isUseMaxValue) maxValue += (valuePerLevel * addLevel);
             defaultValue += (valuePerLevel * addLevel);
             level = value;
             OnValueChanged?.Invoke(this, Value, prevValue);
@@ -98,6 +105,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
         => new StatSaveData
         {
             id = ID,
+            maxValue = maxValue,
             defaultValue = defaultValue,
             level = level
         };
@@ -105,6 +113,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
     public void FromSaveData(StatSaveData saveData)
     {
         // 저장된 ID는 Stats에서 사용
+        maxValue = saveData.maxValue;
         defaultValue = saveData.defaultValue;
         level = saveData.level;
     }
@@ -114,6 +123,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 public struct StatSaveData
 {
     public int id;
+    public float maxValue;
     public float defaultValue;
     public int level; // 스탯의 성장레벨
 }
