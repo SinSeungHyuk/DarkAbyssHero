@@ -14,7 +14,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     public Animator Animator { get; private set; }
     public DamageEvent DamageEvent { get; private set; }
-    public bool IsDead => Mathf.Approximately(Stats.HPStat.Value, 0f);
+    public bool IsDead => Stats.HPStat.Value <= 0f;
     public Stats Stats { get; private set; }
     public PlayerStateMachine StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }

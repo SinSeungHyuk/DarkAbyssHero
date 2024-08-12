@@ -12,6 +12,8 @@ public class SkillObject : MonoBehaviour
 
     // 이 오브젝트와 부딪힌 오브젝트들 저장 (사이클마다 검사)
     private HashSet<Monster> collidingObjects = new HashSet<Monster>();
+    // 파괴된 몬스터를 담아서 한번에 처리하는 큐
+    private Queue<Monster> deadMonster = new Queue<Monster>();
 
     private float duration;
     private float applyCount;
@@ -64,11 +66,23 @@ public class SkillObject : MonoBehaviour
     {
         foreach (Monster monster in collidingObjects)
         {
-            monster.EffectSystem.Apply(skill);
+            if (monster.IsDead) deadMonster.Enqueue(monster);
+            else monster.EffectSystem.Apply(skill);
         }
+
+        DestroyDeadMonsters();
 
         currentApplyCount++;
         currentApplyCycle %= applyCycle;
+    }
+
+    private void DestroyDeadMonsters()
+    {
+        while (deadMonster.Count > 0)
+        {
+            Monster monster = deadMonster.Dequeue();
+            collidingObjects.Remove(monster);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

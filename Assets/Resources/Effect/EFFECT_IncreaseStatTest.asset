@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1867b9986f07ad44f8f3f326b519c5a9, type: 3}
+  m_Name: EFFECT_IncreaseStatTest
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 2
+  codeName: IncreaseStatTest
+  displayName: 
+  description: 
+  effectType: 1
+  maxLevel: 40
+  effectDatas:
+  - level: 1
+    action:
+      rid: 3630001631855378432
+    runningFinishOption: 1
+    duration: 4
+    applyCount: 1
+    applyCycle: 0
+    customActions:
+    - rid: 3630001631855378433
+  references:
+    version: 2
+    RefIds:
+    - rid: 3630001631855378432
+      type: {class: IncreaseStatAction, ns: , asm: Assembly-CSharp}
+      data:
+        stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
+        bonusValuePercent: 0.15
+        bonusValuePerLevel: 0.05
+        isUndoOnRelease: 1
+    - rid: 3630001631855378433
+      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
+      data:
+        targetType: 0
+        methodType: 0
+        prefab: {fileID: 5845424203269617360, guid: 4ec4b6c482e9ca34fa648cdd8e3b3e75,
+          type: 3}
+        offset: {x: 0, y: 0.01, z: 0}
+        scaleFactor: {x: 1, y: 1, z: 1}
+        isAttachToTarget: 1
+        isDestroyOnRelease: 1

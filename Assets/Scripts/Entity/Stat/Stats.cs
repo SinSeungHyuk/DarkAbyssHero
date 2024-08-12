@@ -7,15 +7,24 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     [SerializeField] private Stat hpStat; // 고정적인 HP스탯
-    [SerializeField] private List<Stat> stats = new List<Stat>(6); // 최대 6종류 스탯
+    [SerializeField] private List<Stat> defaultStats = new List<Stat>(6); // 최대 6종류 스탯
+
+    private List<Stat> stats = new List<Stat>(6);
 
     public Entity Owner { get; private set; }
     public Stat HPStat { get; private set; }
+    
 
 
     public void SetUp(Entity entity)
     {
         Owner = entity;
+
+        foreach (Stat stat in defaultStats)
+        {
+            Stat clone = stat.Clone() as Stat;
+            stats.Add(clone);
+        }
 
         HPStat = hpStat ? GetStat(hpStat) : null;
     }

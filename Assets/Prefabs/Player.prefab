@@ -1615,7 +1615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17ecd5e40863ff43a71b224cefb55a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  traceTarget: {fileID: 0}
 --- !u!114 &1832209321146579766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1629,7 +1628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpStat: {fileID: 11400000, guid: 2ec0afa2390e21946a60d86ad5261f50, type: 2}
-  stats:
+  defaultStats:
   - {fileID: 11400000, guid: 2ec0afa2390e21946a60d86ad5261f50, type: 2}
   - {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
 --- !u!114 &2210976091281335704
@@ -1658,7 +1657,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipSkills: []
   defaultSkill: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
-  testSkill: {fileID: 11400000, guid: fb090cf0d7efb5f4baa4f2a59b5abe1b, type: 2}
+  testSkill:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &4093364367945835440
 GameObject:
   m_ObjectHideFlags: 0

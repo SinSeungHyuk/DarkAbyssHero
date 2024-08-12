@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: Attack
   displayName: Atk
   description: Player / Monster 's Base Attack Damage
-  defaultValue: 50
+  defaultValue: 100
   valuePerLevel: 20
   goldPerLevel: 20
   defaultGold: 100

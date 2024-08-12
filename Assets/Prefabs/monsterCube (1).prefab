@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4027128239758865155}
   - component: {fileID: 6562248729952541202}
   - component: {fileID: 3640930602717417263}
+  - component: {fileID: -5982540165151229636}
   m_Layer: 7
   m_Name: monsterCube (1)
   m_TagString: Monster
@@ -33,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 6341957212313804328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -149,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bfe82ed4dd8a442b5f386b6f0ba35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 4421151865908168221, guid: 99080f0e7d0affa459dc65be79172638, type: 3}
 --- !u!114 &4027128239758865155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
 --- !u!114 &3640930602717417263
@@ -196,3 +197,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5d4ebfd9891469f2ee442ff58639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5982540165151229636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341957212313804328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68c7114a18af6f46a3acd29e486b65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpStat: {fileID: 11400000, guid: 2ec0afa2390e21946a60d86ad5261f50, type: 2}
+  defaultStats:
+  - {fileID: 11400000, guid: 2ec0afa2390e21946a60d86ad5261f50, type: 2}
+  - {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}

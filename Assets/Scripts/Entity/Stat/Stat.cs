@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 {
@@ -86,6 +87,10 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
         // 전체 Value의 percent% 만큼의 수치를 계산 후 key값을 통해 보너스밸류에 넣기
         // 예를들어 버프스킬로 공격력 10% 버프 -> 전체 공격력 Value의 10% 계산
         // 이후 해당 스킬을 key값으로 계산한 10% 수치를 보너스밸류에 더하기
+
+        float bonusValue = Value * percent;
+
+        IncreaseBonusValue(key, bonusValue);
     }
 
 

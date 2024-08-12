@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: HPStat
   displayName: HP
   description: Player / Monster 's HP
-  defaultValue: 100
+  defaultValue: 1000
   valuePerLevel: 50
   goldPerLevel: 50
   defaultGold: 100

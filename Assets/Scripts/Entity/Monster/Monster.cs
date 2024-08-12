@@ -12,27 +12,34 @@ public class Monster : Entity, IDamageable
     public EffectSystem EffectSystem => effectSystem;
 
 
-    private float hp = 100.0f;
+    public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
+    public Stats Stats { get; private set; }
 
     float timer = 0.0f;
 
 
     public void Init()
     {
-        timer = 0f;
-    }
-
-    void Start()
-    {
         movement = GetComponent<EntityMovement>();
         effectSystem = GetComponent<EffectSystem>();
 
         movement.SetUp(this);
+
+        Stats = GetComponent<Stats>();
+        Stats.SetUp(this);
+
+    }
+
+    void Start()
+    {
+        //Init();
+        Debug.Log($"{IsDead} , {Stats.HPStat.DefaultValue}");
+
     }
 
     void Update()
     {
-        //movement.TraceTarget = player;
+        movement.TraceTarget = player;
 
         //timer += Time.deltaTime;
 
@@ -48,13 +55,17 @@ public class Monster : Entity, IDamageable
     #region Interface
     public void TakeDamage(float damage)
     {
-        Debug.Log($"{gameObject.name} + TakeDamage : {damage}");
-        hp -= damage;
-        if (hp <= 0 ) { OnDead(); }
+        if (IsDead) return;
+
+        Stats.HPStat.DefaultValue -= damage;
+        Debug.Log($"{gameObject.name} + TakeDamage : {Stats.HPStat.DefaultValue} , {damage}");
+
+        if (Stats.HPStat.DefaultValue <= 0f)
+            OnDead();
     }
     public void OnDead()
     {
-        //ObjectPoolManager.Instance.ReturnGameObject(gameObject, "Monster");
+        ObjectPoolManager.Instance.ReturnGameObject(gameObject, "Monster");
     }
     #endregion
 }
