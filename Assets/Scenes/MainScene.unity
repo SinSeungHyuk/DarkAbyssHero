@@ -406,7 +406,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolArray:
-  - name: Monster
+  - name: Monster_Creep
+    initialSize: 2
+    prefab: {fileID: 155707170189226576, guid: 31ad4d8e60f1046459a5f29bf3f64682, type: 3}
+  - name: Monster_Titan
     initialSize: 2
     prefab: {fileID: 6042039840789622146, guid: 759c1c1ef58faca419dd7c486abe6250,
       type: 3}

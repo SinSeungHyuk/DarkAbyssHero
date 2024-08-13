@@ -1,7 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+
+[RequireComponent(typeof(EntityMovement))]
+[RequireComponent(typeof(EffectSystem))]
+[RequireComponent(typeof(Stats))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Monster : Entity, IDamageable
 {
     //[SerializeField] 
@@ -68,8 +76,6 @@ public class Monster : Entity, IDamageable
 
     private void ApplyMonsterAttack()
     {
-        //Stats.GetStat(StatType.Attack).SetValueByPercent("test", 0.2f);
-
         Debug.Log(Stats.GetStat(StatType.Attack).Value);
     } 
 
