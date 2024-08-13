@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Monster : Entity, IDamageable
 {
+    //[SerializeField] 
     private Transform player;
 
     private EntityMovement movement;
@@ -14,7 +15,9 @@ public class Monster : Entity, IDamageable
     public EffectSystem EffectSystem => effectSystem;
     public Stats Stats { get; private set; }
     public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
+    public bool IsAttacking { get; set; }
 
+    private float timer;
 
 
     private void Awake()
@@ -31,28 +34,44 @@ public class Monster : Entity, IDamageable
         player = GameManager.Instance.GetPlayer().transform;
 
         movement.SetUp(this);
-
-
         Stats.SetUp(this);
 
+        IsAttacking = false;
+        timer = 0f;
     }
 
     void Start()
     {
-        //Init();
-        Debug.Log($"{IsDead} , {Stats.HPStat.DefaultValue}");
-
+        
     }
 
-    void Update()
+    void FixedUpdate()
     {
         movement.TraceTarget = player;
+
+        if (timer < 1f)
+        {
+            timer += Time.fixedDeltaTime;
+            return;
+        }
+
+        if (!IsAttacking)
+        {
+            animator.SetTrigger(Settings.isAttack);
+        }
     }
 
     private void OnDestroy()
     {
 
     }
+
+    private void ApplyMonsterAttack()
+    {
+        //Stats.GetStat(StatType.Attack).SetValueByPercent("test", 0.2f);
+
+        Debug.Log(Stats.GetStat(StatType.Attack).Value);
+    } 
 
 
     #region Interface

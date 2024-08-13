@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ public class Stats : MonoBehaviour
     [SerializeField] private Stat hpStat; // 고정적인 HP스탯
     [SerializeField] private List<Stat> defaultStats = new List<Stat>(6); // 최대 6종류 스탯
 
-    private List<Stat> stats = new List<Stat>(6);
+    public List<Stat> stats = new List<Stat>(6);
 
     public Entity Owner { get; private set; }
     public Stat HPStat { get; private set; }
@@ -26,12 +27,14 @@ public class Stats : MonoBehaviour
             stats.Add(clone);
         }
 
-        HPStat = hpStat ? GetStat(hpStat) : null;
+        HPStat = GetStat(hpStat);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-
+        foreach (Stat stat in stats)
+            Destroy(stat);
+        stats.Clear();
     }
 
     public Stat GetStat(Stat stat)
@@ -41,10 +44,11 @@ public class Stats : MonoBehaviour
         Debug.Assert(stat != null, "Stat is null!!!!");
         return stats.FirstOrDefault(x => x.ID == stat.ID);
     }
-    public Stat GetStat(int id)
-    {
-        return stats.FirstOrDefault(x => x.ID == id);
-    }
+    public Stat GetStat(int id)    
+        => stats.FirstOrDefault(x => x.ID == id);
+    public Stat GetStat(StatType statType)
+    => GetStat(Convert.ToInt32(statType));
+
 
     public float GetValue(Stat stat) 
         => GetStat(stat).Value;
@@ -65,6 +69,6 @@ public class Stats : MonoBehaviour
 
     public float GetBonusValue(Stat stat)
         => GetStat(stat).BonusValue;
-    public void SetDefaultValueByPercent(Stat stat,object key, float value)
+    public void SetValueByPercent(Stat stat,object key, float value)
         => GetStat(stat).SetValueByPercent(key, value);   
 }

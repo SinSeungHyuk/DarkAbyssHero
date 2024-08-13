@@ -18,7 +18,7 @@ public class InSkillActionState : PlayerSkillState
 
     public override void Update()
     {
-        // GetCurrentAnimatorStateInfo : 지금 애니메이션의 상태정보 (Update에서 받아와야함)
+        //GetCurrentAnimatorStateInfo: 지금 애니메이션의 상태정보(Update에서 받아와야함)
         lastStateInfo = TOwner.Animator.GetCurrentAnimatorStateInfo(0);
 
         // 지금 실행중인 애니메이션 Hash == Locomotion -> 현재 Idle,Run 애니메이션 재생중

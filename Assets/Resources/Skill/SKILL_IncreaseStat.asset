@@ -31,21 +31,20 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 15
+    cooldown: 2
     distance: 4
-    isUseCast: 1
+    isUseCast: 0
     castTime: 3
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: 7d28f82fde5d5e742836770dfbef9567, type: 2}
+      effect: {fileID: 11400000, guid: 9114dd582ed09644381fc28df67fc71d, type: 2}
     - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
     castAnimatorParameter: 4
     actionAnimatorParameter: 1
     customActionsOnCast:
     - rid: 3630001631855378435
-    customActionsOnAction:
-    - rid: 3630001631855378436
+    customActionsOnAction: []
   references:
     version: 2
     RefIds:
@@ -62,15 +61,4 @@ MonoBehaviour:
         offset: {x: 0, y: 0.01, z: 0}
         scaleFactor: {x: 1, y: 1, z: 1}
         isAttachToTarget: 1
-        isDestroyOnRelease: 1
-    - rid: 3630001631855378436
-      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
-      data:
-        targetType: 1
-        methodType: 0
-        prefab: {fileID: 1566239723596968, guid: b9a866892e8767641a3f6e707a7dbdfc,
-          type: 3}
-        offset: {x: 0, y: 0, z: 0}
-        scaleFactor: {x: 1, y: 1, z: 1}
-        isAttachToTarget: 0
         isDestroyOnRelease: 1

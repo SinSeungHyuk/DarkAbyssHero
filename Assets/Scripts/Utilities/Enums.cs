@@ -85,6 +85,16 @@ public enum GradeType
     Epic,
     Legend
 }
+
+public enum StatType
+{
+    HP,
+    Attack,
+    HPRegen,
+    HPRegenToKill,
+    CriticChance,
+    CriticDamage,
+}
 #endregion
 
 

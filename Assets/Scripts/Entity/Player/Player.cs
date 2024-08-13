@@ -70,9 +70,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Stats.HPStat.Level++;
+            Stats.GetStat(StatType.Attack).SetValueByPercent("test",0.2f);
 
-            Debug.Log(Stats.HPStat.DefaultValue);
+            Debug.Log(Stats.GetStat(StatType.Attack).Value);
         }
     }
 

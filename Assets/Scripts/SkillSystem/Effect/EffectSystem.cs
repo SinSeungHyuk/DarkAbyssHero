@@ -26,6 +26,12 @@ public class EffectSystem : MonoBehaviour
             Destroy(effect);
     }
 
+    private void OnDisable()
+    {
+        foreach (var effect in runningEffects)
+            Destroy(effect);
+    }
+
     private void Update()
     {
         UpdateRunningEffects();

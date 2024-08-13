@@ -10,31 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1867b9986f07ad44f8f3f326b519c5a9, type: 3}
-  m_Name: EFFECT_TestEffect2
+  m_Name: EFFECT_DebuffTest
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 1
-  codeName: TestEffect2
+  id: 3
+  codeName: DebuffTest
   displayName: 
   description: 
-  effectType: 0
-  maxLevel: 1
+  effectType: 2
+  maxLevel: 40
   effectDatas:
   - level: 1
     action:
-      rid: 3630001524195196928
-    runningFinishOption: 0
-    duration: 0
+      rid: 3630001656175001600
+    runningFinishOption: 1
+    duration: 10
     applyCount: 1
     applyCycle: 0
     customActions: []
   references:
     version: 2
     RefIds:
-    - rid: 3630001524195196928
-      type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
+    - rid: 3630001656175001600
+      type: {class: IncreaseStatAction, ns: , asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
-        defaultDamage: 1
-        bonusDamagePerLevel: 0
+        bonusValuePercent: 0.3
+        bonusValuePerLevel: 0
+        isUndoOnRelease: 0

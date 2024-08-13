@@ -21,6 +21,9 @@ public static class Settings
     public static int isClapCast = Animator.StringToHash("isClapCast");
     public static int isStandingShoot = Animator.StringToHash("isStandingShoot");
     public static int isCasting = Animator.StringToHash("isCasting");
+
+    public static int isAttack = Animator.StringToHash("isAttack");
+    public static int AttackState = Animator.StringToHash("Attack");
     #endregion
 
 

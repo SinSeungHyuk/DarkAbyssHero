@@ -58758,6 +58758,7 @@ GameObject:
   - component: {fileID: 4819517065090546}
   - component: {fileID: 198616071226855620}
   - component: {fileID: 199914149446718558}
+  - component: {fileID: -5773454379181363336}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Untagged
@@ -63693,6 +63694,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-5773454379181363336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566239723596968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac75419a94d1104eb4a6046bcc115dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDelayFirstApplyByCycle: 0
+  isDelayDestroyByCycle: 0
 --- !u!1 &1613568630839220
 GameObject:
   m_ObjectHideFlags: 0

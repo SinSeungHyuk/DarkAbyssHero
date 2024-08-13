@@ -30,12 +30,13 @@ public class PlayerBaseLayerBehaviour : StateMachineBehaviour
             animator.SetFloat(Settings.speed, agent.velocity.sqrMagnitude);
 
         animator.SetBool(Settings.isDead, entity.IsDead);
-    }      
-           
+    }
+
 
 
     //public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{      
-    //}      
-          
+    //{
+
+    //}
+
 }

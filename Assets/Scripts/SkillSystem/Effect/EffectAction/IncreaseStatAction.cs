@@ -15,12 +15,13 @@ public class IncreaseStatAction : EffectAction
     public override bool Apply(Effect effect, Player user, Monster target, int level)
     {
         // EffectType이 Buff냐 Debuff냐에 따라 대상이 달라짐
+        Debug.Log(target.name);
 
         if (effect.EffectType == EffectType.Buff)
             user.Stats.GetStat(stat).SetValueByPercent(this, (effect.DataBonusLevel * bonusValuePerLevel) + bonusValuePercent);
 
         else if (effect.EffectType == EffectType.Debuff)
-            target.Stats.GetStat(stat).SetValueByPercent(this, -((effect.DataBonusLevel * bonusValuePerLevel) + bonusValuePercent));
+            target.Stats.SetValueByPercent(stat,this, -((effect.DataBonusLevel * bonusValuePerLevel) + bonusValuePercent));
         
 
         return true;
