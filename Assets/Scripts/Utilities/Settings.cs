@@ -5,11 +5,17 @@ using UnityEngine;
 public static class Settings
 {
     #region PLAYER PARAMETER
-    public static float detectionRadius = 15.0f;
+    public static float detectionRadius = 10.0f;
     public static LayerMask monsterLayer = LayerMask.GetMask("Monster");
 
-    public static float projectileDistance = 500.0f; 
+    public static float projectileDistance = 500.0f;
     #endregion
+
+
+    #region STAGE PARAMETER
+    public static float spawnTimer = 3.0f;
+    #endregion
+
 
     #region Animator Parameter
     public static int LocomotionState = Animator.StringToHash("Locomotion");

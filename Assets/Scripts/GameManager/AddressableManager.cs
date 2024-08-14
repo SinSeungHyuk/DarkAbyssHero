@@ -36,6 +36,7 @@ public class AddressableManager : Singleton<AddressableManager>
     }
 
     // 어드레서블 그룹에 저장한 리소스의 key값으로 가져오기
+    // key : 어드레서블에 저장한 리소스의 이름
     public T GetResource<T>(string key) where T : Object
     {
         if (Resources.TryGetValue(key, out var resource))

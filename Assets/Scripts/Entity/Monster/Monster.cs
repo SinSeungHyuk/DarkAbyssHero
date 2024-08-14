@@ -37,12 +37,15 @@ public class Monster : Entity, IDamageable
         stateMachine = GetComponent<MonsterStateMachine>();
     }
 
-    public void Init()
+    public void Init(MonsterSpawnParameter parameter)
     {
         player = GameManager.Instance.GetPlayer().transform;
 
         movement.SetUp(this);
         Stats.SetUp(this);
+
+        Stats.SetDefaultValue(Stats.HPStat, parameter.Hp);
+        Stats.SetDefaultValue(StatType.Attack, parameter.Attack);
 
         IsAttacking = false;
         timer = 0f;
@@ -50,7 +53,7 @@ public class Monster : Entity, IDamageable
 
     void Start()
     {
-        
+        Debug.Log($"Start : {Stats.GetStat(StatType.Attack).Value} , {Stats.HPStat.Value}");
     }
 
     void FixedUpdate()
@@ -93,7 +96,7 @@ public class Monster : Entity, IDamageable
     }
     public void OnDead()
     {
-        ObjectPoolManager.Instance.ReturnGameObject(gameObject, "Monster");
+        ObjectPoolManager.Instance.Release(gameObject, "Monster");
     }
     #endregion
 }

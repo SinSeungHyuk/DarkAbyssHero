@@ -1561,7 +1561,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1631,6 +1631,7 @@ MonoBehaviour:
   defaultStats:
   - {fileID: 11400000, guid: 2ec0afa2390e21946a60d86ad5261f50, type: 2}
   - {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
+  stats: []
 --- !u!114 &2210976091281335704
 MonoBehaviour:
   m_ObjectHideFlags: 0

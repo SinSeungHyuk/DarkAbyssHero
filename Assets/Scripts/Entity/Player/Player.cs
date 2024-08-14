@@ -55,12 +55,6 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         {
             SkillSystem.EquipSkills[0].Level++;
             Debug.Log(SkillSystem.EquipSkills[0].Level);
-
-            Monster monster = ObjectPoolManager.Instance.GetGameObject("Monster_Titan", Vector3.zero, Quaternion.identity).GetComponent<Monster>();
-            monster.Init();
-
-            Monster monster1 = ObjectPoolManager.Instance.GetGameObject("Monster_Creep", Vector3.zero, Quaternion.identity).GetComponent<Monster>();
-            monster1.Init();
         }
 
         if (Input.GetKeyDown(KeyCode.W))

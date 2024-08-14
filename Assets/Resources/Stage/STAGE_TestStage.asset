@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b462b6d07ecdd8c41b12bc6532306320, type: 3}
+  m_Name: STAGE_TestStage
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 0
+  codeName: TestStage
+  displayName: Stage 1-1
+  description: 
+  stagePrefab: {fileID: 2272219957523880681, guid: 7a4970d1d157bd54899858eaff98358c,
+    type: 3}
+  monsterParameters:
+  - Name: Monster_Titan
+    Hp: 115
+    Attack: 27
+    Gold: 30
+    Exp: 31
+    Ratio: 5
+  - Name: Monster_Creep
+    Hp: 60
+    Attack: 72
+    Gold: 30
+    Exp: 31
+    Ratio: 5

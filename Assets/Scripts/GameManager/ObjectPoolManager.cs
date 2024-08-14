@@ -54,7 +54,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return obj;
     }
 
-    public GameObject GetGameObject(string name, Vector3 position, Quaternion rotation)
+    public GameObject Get(string name, Vector3 position, Quaternion rotation)
     {
         if (poolDic.TryGetValue(name, out ObjectPool objectPool))
         {
@@ -81,8 +81,10 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
         return null;
     }
+    public GameObject Get(string name, Transform transform)
+        => Get(name, transform.position, transform.rotation);
 
-    public void ReturnGameObject(GameObject obj, string poolName)
+    public void Release(GameObject obj, string poolName)
     {
         if (poolDic.TryGetValue(poolName, out ObjectPool objectPool))
         {
