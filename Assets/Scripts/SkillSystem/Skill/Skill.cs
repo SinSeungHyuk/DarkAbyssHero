@@ -140,8 +140,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 스킬의 타겟 (플레이어 자신도 포함)
     // 만약 자신에게 버프'만' 주는 스킬이라면 Target이 Player 하나만 존재
     // 적에게 데미지를 주고 자신에게 버프를 준다면, Target은 몬스터로 설정하고 이펙트 두개 넣기
-    public Monster Target => Player.Target; //{ get; set; }
-    public Vector3 TargetPosition => Target.transform.position;
+    public Monster Target { get; set; }
+    public Vector3 TargetPosition => Player.Target.transform.position;
 
     private bool IsDurationEnded => Mathf.Approximately(Duration, CurrentDuration);
     private bool IsApplyCompleted => CurrentApplyCount == ApplyCount;

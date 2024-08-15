@@ -22,6 +22,22 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
     private Dictionary<object, float> bonusValuesByKey = new();
 
 
+    public float MaxValue
+    {
+        get => maxValue;
+        set
+        {
+            if (value != maxValue && isUseMaxValue)
+            {
+                float prevValue = Value;
+
+                maxValue = value;
+                defaultValue += value;
+
+                OnValueChanged?.Invoke(this, Value, prevValue);
+            }
+        }
+    }
     public float DefaultValue
     {
         get => defaultValue;
@@ -72,8 +88,6 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
         bonusValuesByKey[key] = value;
         BonusValue += value; // 현재의 보너스 스탯에 value 추가
 
-        Debug.Log($"BV : {BonusValue} , TV : {Value}  ,  : {this.name}" );
-
         OnValueChanged?.Invoke(this, Value, prevValue);
     }
 
@@ -98,7 +112,6 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
         // 이후 해당 스킬을 key값으로 계산한 10% 수치를 보너스밸류에 더하기
 
         float bonusValue = Value * percent;
-        //DefaultValue += bonusValue;
         IncreaseBonusValue(key, bonusValue);
     }
 

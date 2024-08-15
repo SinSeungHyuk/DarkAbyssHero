@@ -34,13 +34,13 @@ public class MonsterSpawner : MonoBehaviour
         int i = 0;
         while (true)
         {
+
             MonsterSpawnParameter parameter = randomEnemy[i%100];
 
             Monster monster = ObjectPoolManager.Instance.Get(parameter.Name, transform).GetComponent<Monster>();
             monster.Init(parameter);
 
             i++;
-
             yield return new WaitForSeconds(Settings.spawnTimer);
         }
     }

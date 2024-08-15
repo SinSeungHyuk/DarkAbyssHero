@@ -19,6 +19,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public PlayerStateMachine StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
+    public CurrencySystem CurrencySystem { get; private set; }
+    public LevelSystem LevelSystem { get; private set; }
 
     // 플레이어가 공격할 몬스터 대상
     public Monster Target { get; private set; }
@@ -28,14 +30,16 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     private void Awake()
     {
         Animator = GetComponent<Animator>();
-
         DamageEvent = GetComponent<DamageEvent>();
+        CurrencySystem = GetComponent<CurrencySystem>();
+        LevelSystem = GetComponent<LevelSystem>();
 
         Movement = GetComponent<EntityMovement>();
         Movement.SetUp(this);
 
         Stats = GetComponent<Stats>();
         Stats.SetUp(this);
+        Stats.HPStat.DefaultValue = Stats.HPStat.MaxValue;
 
         StateMachine = GetComponent<PlayerStateMachine>();
         StateMachine?.SetUp(this);
@@ -46,7 +50,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        
+        Debug.Log($"{IsDead} , Start: {Stats.GetStat(StatType.Attack).Value} , {Stats.HPStat.DefaultValue}");
+
     }
 
     void Update()
@@ -61,15 +66,15 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         {
             Stats.HPStat.DefaultValue += 10.0f;
 
-            Debug.Log(Stats.HPStat.DefaultValue);
+            Debug.Log(Stats.HPStat.DefaultValue + " / " + Stats.HPStat.MaxValue);
         }
 
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Stats.GetStat(StatType.Attack).SetValueByPercent("test",0.2f);
+            Stats.HPStat.Level++;
 
-            Debug.Log(Stats.GetStat(StatType.Attack).Value);
+            Debug.Log(Stats.HPStat.DefaultValue + " / " + Stats.HPStat.MaxValue);
         }
     }
 
@@ -78,6 +83,11 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         Target = target;
         transform.LookAt(Target.transform);
         Movement.TraceTarget = target.transform;
+    }
+
+    private void OnDead()
+    {
+
     }
 
     #region Find Transform Socket By SocketName
@@ -118,14 +128,11 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     #region Interface
     public void TakeDamage(float damage)
     {
-        // Stats.HPStat.Value -= damage;
+        if (IsDead) return;
 
-        DamageEvent.CallTakeDamageEvent(damage);
-    }
-
-    public void OnDead()
-    {
-        
+        Stats.HPStat.DefaultValue -= damage;
+        Debug.Log($"{gameObject.name} + TakeDamage : {Stats.HPStat.DefaultValue} , {damage}");
+        //DamageEvent.CallTakeDamageEvent(damage);
     }
 
     public PlayerSaveData ToSaveData()

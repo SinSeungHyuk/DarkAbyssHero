@@ -22,14 +22,14 @@ MonoBehaviour:
     type: 3}
   monsterParameters:
   - Name: Monster_Titan
-    Hp: 115
+    Hp: 120
     Attack: 27
     Gold: 30
     Exp: 31
-    Ratio: 5
+    Ratio: 1
   - Name: Monster_Creep
-    Hp: 60
-    Attack: 72
+    Hp: 80
+    Attack: 10
     Gold: 30
     Exp: 31
-    Ratio: 5
+    Ratio: 1

@@ -13,7 +13,7 @@ public static class Settings
 
 
     #region STAGE PARAMETER
-    public static float spawnTimer = 3.0f;
+    public static float spawnTimer = 8.0f;
     #endregion
 
 

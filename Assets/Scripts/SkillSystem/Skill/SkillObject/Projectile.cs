@@ -54,7 +54,10 @@ public class Projectile : MonoBehaviour
 
         var entity = other.GetComponent<Monster>();
         if (entity)
+        {
+            skill.Target = entity;
             entity.EffectSystem.Apply(skill);
+        }
 
         if (!isPiercing) Destroy(gameObject);
     }

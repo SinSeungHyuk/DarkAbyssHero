@@ -20,7 +20,7 @@ MonoBehaviour:
   description: 
   applyType: 0
   gradeType: 3
-  skillPriority: 3
+  skillPriority: 500
   maxLevel: 40
   defaultLevel: 1
   skillDatas:
@@ -31,19 +31,16 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 2
+    cooldown: 20
     distance: 4
     isUseCast: 0
     castTime: 3
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: 9114dd582ed09644381fc28df67fc71d, type: 2}
-    - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
     castAnimatorParameter: 4
     actionAnimatorParameter: 1
-    customActionsOnCast:
-    - rid: 3630001631855378435
+    customActionsOnCast: []
     customActionsOnAction: []
   references:
     version: 2
@@ -51,14 +48,3 @@ MonoBehaviour:
     - rid: 3630001631855378434
       type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 3630001631855378435
-      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
-      data:
-        targetType: 0
-        methodType: 0
-        prefab: {fileID: 5114642830875328933, guid: 1a099cba8510e61469294bf8b48fe6f0,
-          type: 3}
-        offset: {x: 0, y: 0.01, z: 0}
-        scaleFactor: {x: 1, y: 1, z: 1}
-        isAttachToTarget: 1
-        isDestroyOnRelease: 1

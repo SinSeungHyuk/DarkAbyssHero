@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,17 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(DamageEvent))]
 public class Monster : Entity, IDamageable
 {
     //[SerializeField] 
-    private Transform player;
+    private Player player;
 
     private EntityMovement movement;
     private Animator animator;
-    private MonsterStateMachine stateMachine;
     private EffectSystem effectSystem;
+    private MonsterSpawnParameter monsterInfo;
+    private DamageEvent damageEvent;
 
     public EffectSystem EffectSystem => effectSystem;
     public Stats Stats { get; private set; }
@@ -34,17 +37,29 @@ public class Monster : Entity, IDamageable
         effectSystem = GetComponent<EffectSystem>();
         Stats = GetComponent<Stats>();
         animator = GetComponent<Animator>();
-        stateMachine = GetComponent<MonsterStateMachine>();
+        damageEvent = GetComponent<DamageEvent>();
+    }
+
+    private void OnEnable()
+    {
+        damageEvent.OnDead += DamageEvent_OnDead;
+        damageEvent.OnTakeDamage += DamageEvent_OnTakeDamage;
+    }
+    private void OnDisable()
+    {
+        damageEvent.OnDead -= DamageEvent_OnDead;
+        damageEvent.OnTakeDamage -= DamageEvent_OnTakeDamage;
     }
 
     public void Init(MonsterSpawnParameter parameter)
     {
-        player = GameManager.Instance.GetPlayer().transform;
+        player = GameManager.Instance.GetPlayer();
 
         movement.SetUp(this);
         Stats.SetUp(this);
 
-        Stats.SetDefaultValue(Stats.HPStat, parameter.Hp);
+        monsterInfo = parameter;
+        Stats.HPStat.MaxValue = parameter.Hp;
         Stats.SetDefaultValue(StatType.Attack, parameter.Attack);
 
         IsAttacking = false;
@@ -53,12 +68,11 @@ public class Monster : Entity, IDamageable
 
     void Start()
     {
-        Debug.Log($"Start : {Stats.GetStat(StatType.Attack).Value} , {Stats.HPStat.Value}");
     }
 
     void FixedUpdate()
     {
-        movement.TraceTarget = player;
+        movement.TraceTarget = player.transform;
 
         if (timer < 1f)
         {
@@ -72,16 +86,27 @@ public class Monster : Entity, IDamageable
         }
     }
 
-    private void OnDestroy()
-    {
-
-    }
-
     private void ApplyMonsterAttack()
     {
-        Debug.Log(Stats.GetStat(StatType.Attack).Value);
+        //player.TakeDamage(Stats.GetStat(StatType.Attack).Value);
     } 
 
+    private void OnDead()
+    {
+        damageEvent.CallDeadEvent();
+        ObjectPoolManager.Instance.Release(gameObject, monsterInfo.Name);
+    }
+
+    private void DamageEvent_OnTakeDamage(DamageEvent @event, TakeDamageEventArgs args)
+    {
+        
+    }
+
+    private void DamageEvent_OnDead(DamageEvent @event)
+    {
+        player.LevelSystem.Test(monsterInfo.Exp);
+        player.CurrencySystem.Test(monsterInfo.Gold);
+    }
 
     #region Interface
     public void TakeDamage(float damage)
@@ -89,14 +114,6 @@ public class Monster : Entity, IDamageable
         if (IsDead) return;
 
         Stats.HPStat.DefaultValue -= damage;
-        Debug.Log($"{gameObject.name} + TakeDamage : {Stats.HPStat.DefaultValue} , {damage}");
-
-        if (Stats.HPStat.DefaultValue <= 0f)
-            OnDead();
-    }
-    public void OnDead()
-    {
-        ObjectPoolManager.Instance.Release(gameObject, "Monster");
     }
     #endregion
 }
