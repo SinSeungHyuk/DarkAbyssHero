@@ -23,6 +23,7 @@ public class Monster : Entity, IDamageable
     private MonsterSpawnParameter monsterInfo;
     private DamageEvent damageEvent;
 
+    public DamageEvent DamageEvent => damageEvent;
     public EffectSystem EffectSystem => effectSystem;
     public Stats Stats { get; private set; }
     public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
@@ -43,12 +44,10 @@ public class Monster : Entity, IDamageable
     private void OnEnable()
     {
         damageEvent.OnDead += DamageEvent_OnDead;
-        damageEvent.OnTakeDamage += DamageEvent_OnTakeDamage;
     }
     private void OnDisable()
     {
         damageEvent.OnDead -= DamageEvent_OnDead;
-        damageEvent.OnTakeDamage -= DamageEvent_OnTakeDamage;
     }
 
     public void Init(MonsterSpawnParameter parameter)
@@ -64,6 +63,7 @@ public class Monster : Entity, IDamageable
 
         IsAttacking = false;
         timer = 0f;
+        damageEvent.CallTakeDamageEvent(0); // 체력바 UI 초기화
     }
 
     void Start()
@@ -71,8 +71,9 @@ public class Monster : Entity, IDamageable
     }
 
     void FixedUpdate()
-    {
-        movement.TraceTarget = player.transform;
+    {  
+        if (!IsDead)
+            movement.TraceTarget = player.transform;
 
         if (timer < 1f)
         {
@@ -93,20 +94,15 @@ public class Monster : Entity, IDamageable
 
     private void OnDead()
     {
-        damageEvent.CallDeadEvent();
         ObjectPoolManager.Instance.Release(gameObject, monsterInfo.Name);
-    }
-
-    private void DamageEvent_OnTakeDamage(DamageEvent @event, TakeDamageEventArgs args)
-    {
-        
     }
 
     private void DamageEvent_OnDead(DamageEvent @event)
     {
-        player.LevelSystem.Test(monsterInfo.Exp);
-        player.CurrencySystem.Test(monsterInfo.Gold);
+        player.LevelSystem.Exp = monsterInfo.Exp;
+        //player.CurrencySystem.Test(monsterInfo.Gold);
     }
+
 
     #region Interface
     public void TakeDamage(float damage)
@@ -114,6 +110,13 @@ public class Monster : Entity, IDamageable
         if (IsDead) return;
 
         Stats.HPStat.DefaultValue -= damage;
+        damageEvent.CallTakeDamageEvent(damage);
+
+        if (Stats.HPStat.DefaultValue <= 0f)
+        {
+            movement.Stop();
+            damageEvent.CallDeadEvent();
+        }
     }
     #endregion
 }

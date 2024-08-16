@@ -9,6 +9,9 @@ public static class Settings
     public static LayerMask monsterLayer = LayerMask.GetMask("Monster");
 
     public static float projectileDistance = 500.0f;
+
+    public static int startExp = 100;
+    public static float expPerLevel = 0.04f;
     #endregion
 
 

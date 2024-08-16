@@ -64,10 +64,9 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
         {
             if (value <= level) return;
 
-            int addLevel = value - level;
             float prevValue = Value;
-            if (isUseMaxValue) maxValue += (valuePerLevel * addLevel);
-            defaultValue += (valuePerLevel * addLevel);
+            if (isUseMaxValue) maxValue += valuePerLevel;
+            defaultValue += valuePerLevel;
             level = value;
             OnValueChanged?.Invoke(this, Value, prevValue);
         }

@@ -37,6 +37,11 @@ public class Stats : MonoBehaviour
         stats.Clear();
     }
 
+    public float GetHPStatRatio()
+    {
+        return HPStat.DefaultValue / HPStat.MaxValue;
+    }
+
     public Stat GetStat(Stat stat)
     {
         // 매개변수로 받은 stat ID를 이용

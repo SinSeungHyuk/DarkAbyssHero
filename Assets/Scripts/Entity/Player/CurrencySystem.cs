@@ -8,6 +8,6 @@ public class CurrencySystem : MonoBehaviour
 
     public void Test(int i)
     {
-        Debug.Log("È­Æó Å×½ºÆ® " + i);
+        //Debug.Log("È­Æó Å×½ºÆ® " + i);
     }
 }

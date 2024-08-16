@@ -32,7 +32,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         Animator = GetComponent<Animator>();
         DamageEvent = GetComponent<DamageEvent>();
         CurrencySystem = GetComponent<CurrencySystem>();
+
         LevelSystem = GetComponent<LevelSystem>();
+        LevelSystem.SetUp(this);
 
         Movement = GetComponent<EntityMovement>();
         Movement.SetUp(this);
