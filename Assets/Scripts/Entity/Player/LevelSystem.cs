@@ -19,14 +19,12 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
     public int Level
     {
         get => level;
-        set
+        private set
         {
-
             exp -= levelExp;
             levelExp *= 1 + Settings.expPerLevel;
 
             level = value;
-            Debug.Log($"level : {level} / {levelExp}");
 
             OnExpChanged?.Invoke(this, exp,levelExp);
             OnLevelChanged?.Invoke(this, level);
@@ -36,8 +34,6 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         get => exp;
         set {
             exp += value;
-
-            Debug.Log($"value : {value} , exp: {exp}");
 
             if (exp >= levelExp)
             {

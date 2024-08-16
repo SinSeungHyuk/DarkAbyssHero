@@ -981,7 +981,7 @@ PrefabInstance:
     - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
       propertyPath: testSkill.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
@@ -992,13 +992,13 @@ PrefabInstance:
         type: 3}
       propertyPath: testSkill.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: c46f964e31dafff49af5d4242912448f,
+      objectReference: {fileID: 11400000, guid: cd9cea5d5b36029409820ae62680bcfa,
         type: 2}
     - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
       propertyPath: testSkill.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: ecbd2226063258044b695fc6e286637f,
+      objectReference: {fileID: 11400000, guid: c46f964e31dafff49af5d4242912448f,
         type: 2}
     - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
@@ -1058,6 +1058,9 @@ MonoBehaviour:
     initialSize: 10
     prefab: {fileID: 6042039840789622146, guid: 759c1c1ef58faca419dd7c486abe6250,
       type: 3}
+  - name: FloatingText
+    initialSize: 50
+    prefab: {fileID: 404724107077848345, guid: ace47792863332949a53654f50427d94, type: 3}
 --- !u!4 &274411095
 Transform:
   m_ObjectHideFlags: 0

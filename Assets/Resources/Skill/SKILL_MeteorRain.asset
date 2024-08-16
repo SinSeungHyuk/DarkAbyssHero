@@ -33,7 +33,7 @@ MonoBehaviour:
     applyCycle: 0
     cooldown: 20
     distance: 10
-    isUseCast: 1
+    isUseCast: 0
     castTime: 3
     effectSelectors:
     - level: 1
