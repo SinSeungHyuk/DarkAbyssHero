@@ -154,7 +154,7 @@ public class FirebaseController : MonoBehaviour
 
         nicknameDic.Add(user.UserId, inpNickname.text);
 
-        // chatDB에 updateMsg를 추가해서 데이터 업데이트
+        // nameDB에 updateMsg를 추가해서 데이터 업데이트
         nameDB.UpdateChildrenAsync(nicknameDic).ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted || task.IsCanceled) dlgNickname.SetActive(false); 

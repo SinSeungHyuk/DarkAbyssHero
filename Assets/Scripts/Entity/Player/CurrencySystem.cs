@@ -20,7 +20,7 @@ public class CurrencySystem : MonoBehaviour, ISaveData<CurrencySaveData>
     {
         Player = player;
 
-        currencyList = new int[5];
+        currencyList = new int[5]; // 5Á¾·ùÀÇ È­Æó
     }
 
     public void IncreaseCurrency(CurrencyType type, int amount)
