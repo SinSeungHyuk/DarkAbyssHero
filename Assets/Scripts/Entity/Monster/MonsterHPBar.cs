@@ -25,6 +25,7 @@ public class MonsterHPBar : MonoBehaviour
 
     private void DamageEvent_OnTakeDamage(DamageEvent @event, TakeDamageEventArgs args)
     {
+        // 체력바의 fillAmount를 체력 비율만큼 조절
         imgBar.fillAmount = monster.Stats.GetHPStatRatio();
     }
 }

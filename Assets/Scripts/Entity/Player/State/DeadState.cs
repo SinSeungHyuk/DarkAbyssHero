@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeadState : State<Player>
 {
     private EntityMovement movement;
+
     protected override void Awake()
     {
         movement = TOwner.GetComponent<EntityMovement>();

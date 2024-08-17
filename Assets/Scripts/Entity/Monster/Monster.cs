@@ -66,51 +66,47 @@ public class Monster : Entity, IDamageable
         damageEvent.CallTakeDamageEvent(0); // 체력바 UI 초기화
     }
 
-    void Start()
-    {
-    }
-
     void FixedUpdate()
     {  
+        // 플레이어의 위치를 계속 찾아주기
         if (!IsDead)
             movement.TraceTarget = player.transform;
 
-        if (timer < 1f)
+        if (timer < 1f) // 처음 스폰되고 1초동안 공격x
         {
             timer += Time.fixedDeltaTime;
             return;
         }
 
         if (!IsAttacking)
-        {
             animator.SetTrigger(Settings.isAttack);
-        }
     }
 
-    private void ApplyMonsterAttack()
+    private void ApplyMonsterAttack() // 몬스터의 공격 애니메이션 이벤트
     {
-        //player.TakeDamage(Stats.GetStat(StatType.Attack).Value);
+        player.TakeDamage(Stats.GetStat(StatType.Attack).Value);
     } 
 
-    private void OnDead()
+    private void OnDead() // 몬스터의 사망 애니메이션 이벤트
     {
         ObjectPoolManager.Instance.Release(gameObject, monsterInfo.Name);
     }
 
     private void DamageEvent_OnDead(DamageEvent @event)
     {
+        player.Stats.HPStat.DefaultValue += player.Stats.GetStat(StatType.HPOnKill).Value;
         player.LevelSystem.Exp = monsterInfo.Exp;
-        //player.CurrencySystem.Test(monsterInfo.Gold);
+        player.CurrencySystem.IncreaseCurrency(CurrencyType.Gold,monsterInfo.Gold);
     }
 
 
     #region Interface
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool isCritic = false)
     {
         if (IsDead) return;
 
         Stats.HPStat.DefaultValue -= damage;
-        damageEvent.CallTakeDamageEvent(damage);
+        damageEvent.CallTakeDamageEvent(damage, isCritic);
 
         if (Stats.HPStat.DefaultValue <= 0f)
         {

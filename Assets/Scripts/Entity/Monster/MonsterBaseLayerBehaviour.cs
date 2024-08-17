@@ -17,10 +17,9 @@ public class MonsterBaseLayerBehaviour : StateMachineBehaviour
         entity = animator.GetComponent<Monster>();
         agent = animator.GetComponent<NavMeshAgent>();
 
+        // 진입한 애니메이션이 공격애니메이션이라면
         if (stateInfo.shortNameHash == Settings.AttackState)
-        {
             entity.IsAttacking = true;
-        }
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -33,9 +32,8 @@ public class MonsterBaseLayerBehaviour : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // 끝난 애니메이션이 공격애니메이션이라면
         if (stateInfo.shortNameHash == Settings.AttackState)
-        {
             entity.IsAttacking = false;
-        }
     }
 }

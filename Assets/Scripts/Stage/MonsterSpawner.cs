@@ -25,6 +25,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         monsterParameters = stage.MonsterParameters;
 
+        // 미리 스폰할 몬스터의 종류를 정해놓고 코루틴 시작
         SetRandomSpawnMonster();
         StartCoroutine(SpawnEnemiesRoutine());
     }
@@ -34,7 +35,7 @@ public class MonsterSpawner : MonoBehaviour
         int i = 0;
         while (true)
         {
-
+            // 미리 만든 randomEnemy 리스트에서 스폰할 몬스터 선택
             MonsterSpawnParameter parameter = randomEnemy[i%100];
 
             Monster monster = ObjectPoolManager.Instance.Get(parameter.Name, transform).GetComponent<Monster>();

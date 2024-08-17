@@ -10,9 +10,9 @@ public class DamageEvent : MonoBehaviour
     public event Action<DamageEvent, TakeDamageEventArgs> OnTakeDamage;
     public event Action<DamageEvent> OnDead;
 
-    public void CallTakeDamageEvent(float damage)
+    public void CallTakeDamageEvent(float damage, bool isCritic = false)
     {
-        OnTakeDamage?.Invoke(this, new TakeDamageEventArgs()  { Damage = damage });
+        OnTakeDamage?.Invoke(this, new TakeDamageEventArgs()  { Damage = damage , isCritic = isCritic });
     }
 
     public void CallDeadEvent()
@@ -24,4 +24,5 @@ public class DamageEvent : MonoBehaviour
 public class TakeDamageEventArgs : EventArgs
 {
     public float Damage;
+    public bool isCritic;
 }

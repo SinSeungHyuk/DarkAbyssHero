@@ -27,14 +27,14 @@ public class FloatingTextView : MonoBehaviour
         if (isCritic)
         {
             TxtDamage.color = Settings.critical;
-            TxtDamage.fontSize = 4;
+            TxtDamage.fontSize = 3;
 
-            rect.DOMoveY(yPos + 0.8f, 0.8f).SetEase(Ease.InOutQuad)
+            rect.DOMoveY(yPos + 0.6f, 1f).SetEase(Ease.InOutQuad)
                 .OnComplete(() => ObjectPoolManager.Instance.Release(gameObject, "FloatingText"));
         }
         else
         {
-            TxtDamage.color = Settings.red;
+            TxtDamage.color = Color.white;
             TxtDamage.fontSize = 2;
 
             rect.DOMoveY(yPos + 0.4f, 0.7f).SetEase(Ease.InOutQuad)

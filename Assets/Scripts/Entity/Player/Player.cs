@@ -11,11 +11,14 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 {
     // 스킬의 발사 위치 등을 찾기위한 딕셔너리
     private Dictionary<string, Transform> socketsByName = new();
+    // HP 리젠을 위한 1초 간격의 WaitForSeconds 캐싱
+    private readonly WaitForSeconds _wait = new WaitForSeconds(1f);
+    private DamageEvent damageEvent;
 
+    public DamageEvent DamageEvent => damageEvent;
     public Animator Animator { get; private set; }
-    public DamageEvent DamageEvent { get; private set; }
-    public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
     public Stats Stats { get; private set; }
+    public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
     public PlayerStateMachine StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
@@ -30,8 +33,10 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     private void Awake()
     {
         Animator = GetComponent<Animator>();
-        DamageEvent = GetComponent<DamageEvent>();
+        damageEvent = GetComponent<DamageEvent>();
+
         CurrencySystem = GetComponent<CurrencySystem>();
+        CurrencySystem.SetUp(this);
 
         LevelSystem = GetComponent<LevelSystem>();
         LevelSystem.SetUp(this);
@@ -52,8 +57,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        Debug.Log($"{IsDead} , Start: {Stats.GetStat(StatType.Attack).Value} , {Stats.HPStat.DefaultValue}");
-
+        damageEvent.CallTakeDamageEvent(0); // 체력 UI 초기화
+        StartCoroutine(HPRegenRoutine());
     }
 
     void Update()
@@ -80,6 +85,17 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         }
     }
 
+    private IEnumerator HPRegenRoutine()
+    {
+        while (true)
+        {
+            yield return _wait;
+
+            Stats.HPStat.DefaultValue += Stats.GetStat(StatType.HPRegen).Value;
+            damageEvent.CallTakeDamageEvent(0);
+        }
+    }
+
     public void SetTarget(Monster target)
     {
         Target = target;
@@ -87,7 +103,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         Movement.TraceTarget = target.transform;
     }
 
-    private void OnDead()
+    private void OnDead() // 플레이어의 사망 애니메이션 이벤트
     {
 
     }
@@ -128,13 +144,15 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     #endregion
 
     #region Interface
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool isCritic = false)
     {
         if (IsDead) return;
 
         Stats.HPStat.DefaultValue -= damage;
-        Debug.Log($"{gameObject.name} + TakeDamage : {Stats.HPStat.DefaultValue} , {damage}");
-        //DamageEvent.CallTakeDamageEvent(damage);
+        damageEvent.CallTakeDamageEvent(damage);
+
+        if (Stats.HPStat.DefaultValue <= 0f)
+            StopCoroutine(HPRegenRoutine());
     }
 
     public PlayerSaveData ToSaveData()

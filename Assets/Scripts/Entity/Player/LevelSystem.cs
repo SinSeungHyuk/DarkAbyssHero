@@ -19,7 +19,7 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
     public int Level
     {
         get => level;
-        private set
+        private set // 레벨시스템 내에서만 수정 가능
         {
             exp -= levelExp;
             levelExp *= 1 + Settings.expPerLevel;
@@ -53,7 +53,7 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         Debug.Assert(owner != null, $"level::Setup - Owner는 Null이 될 수 없습니다.");
 
         Player = owner;
-        level = 1;
+        level = 1; // 로드할 데이터가 있으면 무조건 로드를 하므로 1레벨로 셋업
         exp = 0;
         levelExp = Settings.startExp;
 
@@ -75,6 +75,8 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         level = saveData.level;
         exp = saveData.exp;
 
+        // 기본레벨 : 1 , 로드한 레벨 : 40
+        // levelExp는 총 39레벨만큼 증가해야함 (= expPerLevel의 39제곱)
         levelExp *= (float)Math.Pow(1 + Settings.expPerLevel, level - 1);
 
         OnExpChanged?.Invoke(this, exp, levelExp);

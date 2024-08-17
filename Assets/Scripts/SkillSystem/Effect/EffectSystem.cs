@@ -28,6 +28,7 @@ public class EffectSystem : MonoBehaviour
 
     private void OnDisable()
     {
+        // 오브젝트 풀링을 사용하므로 비활성화때도 파괴해주기
         foreach (var effect in runningEffects)
             Destroy(effect);
     }

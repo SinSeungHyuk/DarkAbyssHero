@@ -146,7 +146,6 @@ public class SkillSystem : MonoBehaviour
             if (runnsingSkill.ApplyType != SkillApplyType.Animation) return;
 
             runnsingSkill.Apply();
-            Debug.Log("ApplyCurrentRunningSkill");
         }
     }
 

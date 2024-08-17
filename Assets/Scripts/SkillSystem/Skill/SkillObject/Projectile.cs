@@ -8,6 +8,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
+    // 충돌시 이펙트
     [SerializeField] private GameObject hitEffect;
 
     private Rigidbody rigidBody;
@@ -39,7 +40,7 @@ public class Projectile : MonoBehaviour
     {
         // FixedUpdate에서 물리적 연산으로 전방을 향해 speed만큼 이동
         distanceVector = transform.forward * speed;
-        currentDistance += distanceVector.magnitude;
+        currentDistance += distanceVector.magnitude; // 날아간 거리계산을 위한 magnitude
         rigidBody.velocity = distanceVector;
 
         if (currentDistance > distance) 

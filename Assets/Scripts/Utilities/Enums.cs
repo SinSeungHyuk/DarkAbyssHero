@@ -64,7 +64,7 @@ public enum SkillExecuteCommand
 #endregion
 
 
-#region Player State Enum
+#region Player State Enums
 public enum PlayerStateCommand
 {
     ToDetectState,
@@ -91,11 +91,20 @@ public enum StatType
     HP,
     Attack,
     HPRegen,
-    HPRegenToKill,
+    HPOnKill,
     CriticChance,
     CriticDamage,
 }
 #endregion
 
 
-
+#region Player Info Enums
+public enum CurrencyType
+{
+    Gold,
+    EquipmentTicket,
+    SkillTicket,
+    EquipmentUp,
+    SkillUp,
+}
+#endregion

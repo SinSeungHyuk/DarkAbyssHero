@@ -68,6 +68,7 @@ public class SkillObject : MonoBehaviour
     {
         foreach (var monster in collidingObjects)
         {
+            // 이미 몬스터가 죽은 상태라면 Apply 대신 큐에 넣기
             if (monster.IsDead) deadMonster.Enqueue(monster);
             else
             {
@@ -76,6 +77,7 @@ public class SkillObject : MonoBehaviour
             }
         }
 
+        // 순회가 끝난 후 큐에 있는 몬스터들 처리
         DestroyDeadMonsters();
 
         currentApplyCount++;
