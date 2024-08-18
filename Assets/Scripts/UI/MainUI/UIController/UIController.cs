@@ -5,4 +5,9 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     
+
+    public void GameExit()
+    {
+        Application.Quit();
+    }
 }

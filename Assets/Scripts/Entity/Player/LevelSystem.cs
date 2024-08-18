@@ -56,9 +56,6 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         level = 1; // 로드할 데이터가 있으면 무조건 로드를 하므로 1레벨로 셋업
         exp = 0;
         levelExp = Settings.startExp;
-
-        OnExpChanged?.Invoke(this, exp, levelExp);
-        OnLevelChanged?.Invoke(this, level);
     }
 
 
@@ -72,6 +69,7 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
 
     public void FromSaveData(LevelSaveData saveData)
     {
+        Debug.Log("Level FromSaveData : "+saveData.exp);
         level = saveData.level;
         exp = saveData.exp;
 

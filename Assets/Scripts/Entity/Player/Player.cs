@@ -60,7 +60,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         damageEvent.CallTakeDamageEvent(0); // 체력 UI 초기화
         StartCoroutine(HPRegenRoutine());
 
-        //SaveManager.Instance.LoadGame();
+        SaveManager.Instance.LoadGame();
     }
 
     void Update()
@@ -160,6 +160,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public PlayerSaveData ToSaveData()
     {
         var saveData = new PlayerSaveData();
+
         saveData.LevelData = LevelSystem.ToSaveData();
 
         return saveData;
@@ -167,6 +168,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     public void FromSaveData(PlayerSaveData saveData)
     {
+        Debug.Log($"Player FromSaveData : {saveData.LevelData.exp}");
         LevelSystem.FromSaveData(saveData.LevelData);
     }
     #endregion
@@ -175,8 +177,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 [Serializable]
 public struct PlayerSaveData
 {
-    public StatSaveData StatData;
-    public SkillSaveData SkillData;
-    public CurrencySaveData CurrencyData;
     public LevelSaveData LevelData;
 }
+
+    //public StatSaveData StatData;
+    //public SkillSaveData SkillData;
+    //public CurrencySaveData CurrencyData;
