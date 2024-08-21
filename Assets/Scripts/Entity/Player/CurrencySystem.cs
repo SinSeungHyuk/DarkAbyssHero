@@ -9,7 +9,7 @@ public class CurrencySystem : MonoBehaviour, ISaveData<CurrencySaveData>
 {   //                                   È­ÆóÁ¾·ù
     public event Action<CurrencySystem, CurrencyType> OnCurrencyChanged;
 
-    private int[] currencyList;
+    private int[] currencyList = new int[5];
 
 
     public Player Player { get; private set; }
@@ -19,8 +19,6 @@ public class CurrencySystem : MonoBehaviour, ISaveData<CurrencySaveData>
     public void SetUp(Player player)
     {
         Player = player;
-
-        currencyList = new int[5]; // 5Á¾·ùÀÇ È­Æó
     }
 
     public void IncreaseCurrency(CurrencyType type, int amount)
@@ -36,13 +34,13 @@ public class CurrencySystem : MonoBehaviour, ISaveData<CurrencySaveData>
 
 
     public CurrencySaveData ToSaveData()
-        => new CurrencySaveData() { currencyList = currencyList };
+        => new CurrencySaveData() { currencyList = currencyList.ToList() };
     public void FromSaveData(CurrencySaveData saveData)
-        => currencyList = saveData.currencyList;
+        => currencyList = saveData.currencyList.ToArray();
 }
 
 [Serializable]
 public struct CurrencySaveData
 {
-    public int[] currencyList;
+    public List<int> currencyList;
 }

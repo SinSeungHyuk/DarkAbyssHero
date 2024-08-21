@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SKILL_SwordRain
   m_EditorClassIdentifier: 
   categories: []
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: de3b35b8f06544f46ab3a7fc7cbe502b, type: 3}
   id: 2
   codeName: SwordRain
   displayName: Sword Rain

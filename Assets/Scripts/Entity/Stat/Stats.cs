@@ -77,5 +77,14 @@ public class Stats : MonoBehaviour
     public float GetBonusValue(Stat stat)
         => GetStat(stat).BonusValue;
     public void SetValueByPercent(Stat stat,object key, float value)
-        => GetStat(stat).SetValueByPercent(key, value);   
+        => GetStat(stat).SetValueByPercent(key, value);
+
+
+
+    public List<StatSaveData> ToSaveData()
+        => stats.Select(x => x.ToSaveData()).ToList();
+
+    public void FromSaveData(List<StatSaveData> statDatas)
+        => statDatas.ForEach(data => 
+            stats.FirstOrDefault(x => x.ID == data.id).FromSaveData(data));
 }

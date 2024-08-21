@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SKILL_MeteorRain
   m_EditorClassIdentifier: 
   categories: []
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e1223c43e85dd8248838c0975b9da8d0, type: 3}
   id: 4
   codeName: MeteorRain
   displayName: 

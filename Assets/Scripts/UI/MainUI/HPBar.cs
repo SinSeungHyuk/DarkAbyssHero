@@ -16,10 +16,10 @@ public class HPBar : MonoBehaviour
     {
         player = GameManager.Instance.GetPlayer();
 
-        player.DamageEvent.OnTakeDamage += UpdateHPBar;
+        player.Stats.HPStat.OnValueChanged += UpdateHPBar;
     }
 
-    private void UpdateHPBar(DamageEvent @event, TakeDamageEventArgs args)
+    private void UpdateHPBar(Stat hp, float current, float prev)
     {
         float ratio = player.Stats.GetHPStatRatio();
 

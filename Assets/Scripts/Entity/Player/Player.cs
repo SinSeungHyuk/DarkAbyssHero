@@ -57,10 +57,10 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        damageEvent.CallTakeDamageEvent(0); // 체력 UI 초기화
+        SaveManager.Instance.LoadGame();
         StartCoroutine(HPRegenRoutine());
 
-        SaveManager.Instance.LoadGame();
+        damageEvent.CallTakeDamageEvent(0); // 체력 UI 초기화
     }
 
     void Update()
@@ -87,6 +87,11 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         }
     }
 
+    public void Test()
+    {
+        Stats.HPStat.Level++;
+    }
+
     private IEnumerator HPRegenRoutine()
     {
         while (true)
@@ -94,7 +99,6 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
             yield return _wait;
 
             Stats.HPStat.DefaultValue += Stats.GetStat(StatType.HPRegen).Value;
-            damageEvent.CallTakeDamageEvent(0);
         }
     }
 
@@ -162,14 +166,17 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         var saveData = new PlayerSaveData();
 
         saveData.LevelData = LevelSystem.ToSaveData();
+        saveData.StatDatas = Stats.ToSaveData();
+        saveData.CurrencyData = CurrencySystem.ToSaveData();
 
         return saveData;
     }
 
     public void FromSaveData(PlayerSaveData saveData)
     {
-        Debug.Log($"Player FromSaveData : {saveData.LevelData.exp}");
         LevelSystem.FromSaveData(saveData.LevelData);
+        Stats.FromSaveData(saveData.StatDatas);
+        CurrencySystem.FromSaveData(saveData.CurrencyData);
     }
     #endregion
 }
@@ -178,8 +185,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 public struct PlayerSaveData
 {
     public LevelSaveData LevelData;
+    public List<StatSaveData> StatDatas;
+    public CurrencySaveData CurrencyData;
 }
 
-    //public StatSaveData StatData;
     //public SkillSaveData SkillData;
-    //public CurrencySaveData CurrencyData;

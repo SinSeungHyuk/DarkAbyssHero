@@ -25,6 +25,14 @@ public class CurrencyController : UIController
     {
         player = GameManager.Instance.GetPlayer();
         player.CurrencySystem.OnCurrencyChanged += UpdateCurrencyUI;
+
+        SetStartCurrency();
+    }
+
+    private void SetStartCurrency()
+    {
+        var txt = currencyUIElements.FirstOrDefault(x => x.type == CurrencyType.Gold).txtCurrency;
+        txt.text = player.CurrencySystem.GetCurrency(CurrencyType.Gold).ToString("N0");
     }
 
     private void UpdateCurrencyUI(CurrencySystem system, CurrencyType type)
