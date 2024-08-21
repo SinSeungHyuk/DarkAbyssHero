@@ -57,7 +57,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        SaveManager.Instance.LoadGame();
+        //SaveManager.Instance.LoadGame();
+        StageManager.Instance.OnStageChanged += OnStageChanged;
         StartCoroutine(HPRegenRoutine());
 
         damageEvent.CallTakeDamageEvent(0); // 체력 UI 초기화
@@ -87,9 +88,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         }
     }
 
-    public void Test()
+    private void OnStageChanged(Stage stage, int level)
     {
-        Stats.HPStat.Level++;
+        this.transform.position = Vector3.zero;
     }
 
     private IEnumerator HPRegenRoutine()

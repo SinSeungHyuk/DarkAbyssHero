@@ -8,9 +8,11 @@ public class Stage : IdentifiedObject
 {
     // 생성할 Stage 프리팹
     [SerializeField] private GameObject stagePrefab;
+    [SerializeField] private int stageLevel;
     [SerializeField] private List<MonsterSpawnParameter> monsterParameters = new();
 
     public GameObject StagePrefab => stagePrefab;
+    public int StageRequiredLevel => stageLevel;
     public IReadOnlyList<MonsterSpawnParameter> MonsterParameters => monsterParameters;
     public int StageLevel => ID + 1;
 }

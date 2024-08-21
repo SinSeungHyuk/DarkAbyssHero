@@ -10,8 +10,16 @@ public class AddressableManager : Singleton<AddressableManager>
 {
     // 메모리에 올려둔 리소스가 저장된 딕셔너리
     private Dictionary<string, object> resources = new Dictionary<string, object>();
-    public Dictionary<string, object> Resources => resources;
+    public IReadOnlyDictionary<string, object> Resources => resources;
 
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        LoadResources<Database>("Database");
+    }
 
     // 리소스를 어드레서블 그룹의 label 단위로 로드
     public void LoadResources<T>(string label) where T : Object

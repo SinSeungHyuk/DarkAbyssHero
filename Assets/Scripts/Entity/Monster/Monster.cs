@@ -53,6 +53,7 @@ public class Monster : Entity, IDamageable
     public void Init(MonsterSpawnParameter parameter)
     {
         player = GameManager.Instance.GetPlayer();
+        StageManager.Instance.OnStageChanged += OnStageChanged;
 
         movement.SetUp(this);
         Stats.SetUp(this);
@@ -88,6 +89,11 @@ public class Monster : Entity, IDamageable
     } 
 
     private void OnDead() // 몬스터의 사망 애니메이션 이벤트
+    {
+        ObjectPoolManager.Instance.Release(gameObject, monsterInfo.Name);
+    }
+
+    private void OnStageChanged(Stage stage, int level) // 스테이지 변경될때
     {
         ObjectPoolManager.Instance.Release(gameObject, monsterInfo.Name);
     }

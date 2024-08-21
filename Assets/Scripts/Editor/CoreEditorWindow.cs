@@ -86,20 +86,20 @@ public class CoreEditorWindow : EditorWindow
         if (databasesByType.Count == 0)
         {
             // Resources Folder에 Database Folder가 있는지 확인
-            if (!AssetDatabase.IsValidFolder("Assets/Resources/Database"))
+            if (!AssetDatabase.IsValidFolder("Assets/@Resources/Database"))
             {
                 // 없다면 Database Folder를 만들어줌
-                AssetDatabase.CreateFolder("Assets/Resources", "Database");
+                AssetDatabase.CreateFolder("Assets/@Resources", "Database");
             }
 
             foreach (var type in dataTypes)
             {
-                var database = AssetDatabase.LoadAssetAtPath<Database>($"Assets/Resources/Database/{type.Name}Database.asset");
+                var database = AssetDatabase.LoadAssetAtPath<Database>($"Assets/@Resources/Database/{type.Name}Database.asset");
                 if (database == null)
                 {
                     database = CreateInstance<Database>();
                     // 지정한 주소에 IODatabase를 생성
-                    AssetDatabase.CreateAsset(database, $"Assets/Resources/Database/{type.Name}Database.asset");
+                    AssetDatabase.CreateAsset(database, $"Assets/@Resources/Database/{type.Name}Database.asset");
                     // 지정한 주소의 하위 Folder를 생성, 이 Folder는 Window에 의해 생성된 IdentifiedObject가 저장될 장소임
                     AssetDatabase.CreateFolder("Assets/Resources", type.Name);
                 }

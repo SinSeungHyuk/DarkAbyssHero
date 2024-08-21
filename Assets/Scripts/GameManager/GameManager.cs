@@ -14,11 +14,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Database stageDB;
 
 
-
     private void Start()
     {
         Stage stage = stageDB.GetDataByID(0) as Stage;
-
         StageManager.Instance.CreateStage(stage);
     }
 

@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f97d5a79ec45fc44b4a3dc58c263459, type: 3}
-  m_Name: StageDatabase
+  m_Script: {fileID: 11500000, guid: b462b6d07ecdd8c41b12bc6532306320, type: 3}
+  m_Name: STAGE_TestStage3
   m_EditorClassIdentifier: 
-  datas:
-  - {fileID: 11400000, guid: 4f29909353d33934bb96985f34cf2e40, type: 2}
+  categories: []
+  icon: {fileID: 0}
+  id: 2
+  codeName: TestStage3
+  displayName: 1-3. ThirdStage
+  description: 
+  stagePrefab: {fileID: 0}
+  stageLevel: 20
+  monsterParameters: []

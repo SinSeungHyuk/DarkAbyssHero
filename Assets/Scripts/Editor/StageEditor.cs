@@ -7,6 +7,7 @@ using UnityEditor;
 public class StageEditor : IdentifiedObjectEditor
 {
     private SerializedProperty stagePrefabProperty;
+    private SerializedProperty stageLevelProperty;
     private SerializedProperty monsterParametersProperty;
 
 
@@ -15,6 +16,7 @@ public class StageEditor : IdentifiedObjectEditor
         base.OnEnable();
 
         stagePrefabProperty = serializedObject.FindProperty("stagePrefab");
+        stageLevelProperty = serializedObject.FindProperty("stageLevel");
         monsterParametersProperty = serializedObject.FindProperty("monsterParameters");
     }
 
@@ -26,6 +28,7 @@ public class StageEditor : IdentifiedObjectEditor
 
 
         EditorGUILayout.PropertyField(stagePrefabProperty);
+        EditorGUILayout.PropertyField(stageLevelProperty);
         EditorGUILayout.PropertyField(monsterParametersProperty);
 
 

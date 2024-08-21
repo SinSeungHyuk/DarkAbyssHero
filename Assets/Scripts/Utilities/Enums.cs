@@ -95,6 +95,16 @@ public enum StatType
     CriticChance,
     CriticDamage,
 }
+
+public enum ContentsType
+{
+    Stage,
+    Stats,
+    LevelUp,
+    Skill,
+    Equipment,
+    Shop
+}
 #endregion
 
 

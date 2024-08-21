@@ -23,6 +23,36 @@ MonoBehaviour:
     m_SerializedLabels:
     - Stage
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 500674f3592cead45b9ebd410d7e2017
+    m_Address: StatDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03d5411162faf8c439b121d9a054fd4f
+    m_Address: EffectDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55a0cde69e30e4242bb87b38fd60b7f4
+    m_Address: SkillDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b05ee0ecc65e62a46a632b0bcb5b59ce
+    m_Address: StageDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38795ea04fc37c54d9578b800ffcdda2
+    m_Address: CategoryDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c811501f47ba5eb44b83eece54bd6db8, type: 2}
   m_SchemaSet:

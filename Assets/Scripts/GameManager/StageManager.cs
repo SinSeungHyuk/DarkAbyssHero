@@ -11,6 +11,9 @@ public class StageManager : Singleton<StageManager>
     private GameObject currentStagePrefab = null;
     private Stage currentStage;
     
+    public Stage CurrentStage => currentStage;
+
+
 
     public void CreateStage(Stage stage)
     {

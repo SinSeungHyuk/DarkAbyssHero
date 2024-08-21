@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b462b6d07ecdd8c41b12bc6532306320, type: 3}
-  m_Name: STAGE_TestStage
+  m_Name: STAGE_TestStage2
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 0
-  codeName: TestStage
-  displayName: '1-1. Entrance '
+  id: 1
+  codeName: TestStage2
+  displayName: 1-2. SecondStage
   description: 
   stagePrefab: {fileID: 2272219957523880681, guid: 7a4970d1d157bd54899858eaff98358c,
     type: 3}
-  stageLevel: 1
+  stageLevel: 2
   monsterParameters:
   - Name: Monster_Titan
-    Hp: 120
-    Attack: 10
-    Gold: 7560
-    Exp: 50
-    Ratio: 1
-  - Name: Monster_Creep
-    Hp: 80
-    Attack: 5
-    Gold: 124000
-    Exp: 50
-    Ratio: 1
+    Hp: 2
+    Attack: 2
+    Gold: 2
+    Exp: 2
+    Ratio: 2
