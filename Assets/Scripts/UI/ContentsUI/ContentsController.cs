@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,10 +42,35 @@ public class ContentsController : MonoBehaviour
         }
     }
 
+    public void BtnStats()
+    {
+        BtnContents((int)ContentsType.Stats);
+
+        txtModalViewTitle.text = "Stats";
+
+        StatsUI statsUI = contentsView[(int)ContentsType.Stats].GetComponent<StatsUI>();
+        statsUI.SetUp(player);
+    }
+
+    public void BtnLevelUp()
+    {
+        BtnContents((int)ContentsType.LevelUp);
+
+        txtModalViewTitle.text = "Level UP";
+
+        ItemLevelUp[] btnLevelUp = contentsView[(int)ContentsType.LevelUp].GetComponentsInChildren<ItemLevelUp>();
+        for (int i = 0; i < btnLevelUp.Length; i++)
+        {
+            btnLevelUp[i].SetUp(player);
+        }
+    }
+
+
     private void BtnContents(int idx)
     {
         if (contentsView[idx].activeSelf) return;
 
+        foreach (var content in contentsView) content.gameObject.SetActive(false);
         modalView.SetActive(true);
         contentsView[idx].SetActive(true);
         btnClose.gameObject.SetActive(true);

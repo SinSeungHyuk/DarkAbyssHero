@@ -18,6 +18,7 @@ MonoBehaviour:
   codeName: CriticDamage
   displayName: 
   description: 
+  requiredLevel: 15
   isUseMaxValue: 0
   maxValue: 0
   defaultValue: 1.5

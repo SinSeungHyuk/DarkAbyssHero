@@ -43,6 +43,13 @@ public class BtnStage : MonoBehaviour
             });
     }
 
+    private void OnDisable()
+    {
+        player.LevelSystem.OnLevelChanged -= OnLevelChanged;
+        StageManager.Instance.OnStageChanged -= OnStageChanged;
+        btnEnter.onClick.RemoveAllListeners();
+    }
+
     private void OnLevelChanged(LevelSystem system, int level)
     {
         if (level >= stageRequiredLevel && StageManager.Instance.CurrentStage != stage)

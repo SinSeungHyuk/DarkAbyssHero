@@ -57,6 +57,8 @@ public class Stats : MonoBehaviour
 
     public float GetValue(Stat stat) 
         => GetStat(stat).Value;
+    public float GetValue(StatType statType)
+    => GetStat(statType).Value;
 
 
     public void SetDefaultValue(Stat stat, float value)

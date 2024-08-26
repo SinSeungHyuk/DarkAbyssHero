@@ -9,13 +9,16 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 {
     //             Stat 종류, 변경 후, 변경 전
     public event Action<Stat, float, float> OnValueChanged;
+    public event Action<Stat, float> OnLevelChanged;
+
+    [SerializeField] private int requiredLevel; // 스탯성장 요구사항
 
     [SerializeField] private bool isUseMaxValue; // 최대 스탯이 있는지
     [SerializeField] private float maxValue; // 최대수치
     [SerializeField] private float defaultValue; // 기본수치
     [SerializeField] private float valuePerLevel; // 레벨당 증가스탯
-    [SerializeField] private float goldPerLevel; // 레벨당 증가비용
-    [SerializeField] private float defaultGold; // 기본 업글비용
+    [SerializeField] private int goldPerLevel; // 레벨당 증가비용
+    [SerializeField] private int defaultGold; // 기본 업글비용
     
     private int level = 1; // 모든 스탯은 1레벨 시작
     // key : 보너스 스탯을 준 대상, value : 얻은 보너스 스탯 수치
@@ -68,13 +71,15 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
             if (isUseMaxValue) maxValue += valuePerLevel;
             defaultValue += valuePerLevel;
             level = value;
-            OnValueChanged?.Invoke(this, Value, prevValue);
+            OnLevelChanged?.Invoke(this, level);
         }
     }
 
+    public int RequiredLevel => requiredLevel;
     public float ValuePerLevel => valuePerLevel;
-    public float GoldPerLevel => goldPerLevel;
-    public float DefaultGold => defaultGold;
+    public int GoldPerLevel => goldPerLevel;
+    public int DefaultGold => defaultGold;
+    public int CurrentGold => defaultGold + (goldPerLevel * (level-1));
 
 
     public void IncreaseBonusValue(object key, float value)

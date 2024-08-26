@@ -26,6 +26,7 @@ public class EntityMovement : MonoBehaviour
         set => agent.stoppingDistance = value;
     }
     public bool IsStop => agent.remainingDistance <= agent.stoppingDistance;
+    public float Speed => agent.speed;
 
 
     public void SetUp(Entity owner)

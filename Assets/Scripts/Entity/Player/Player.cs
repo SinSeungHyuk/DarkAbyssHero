@@ -57,7 +57,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        //SaveManager.Instance.LoadGame();
+        SaveManager.Instance.LoadGame();
         StageManager.Instance.OnStageChanged += OnStageChanged;
         StartCoroutine(HPRegenRoutine());
 
