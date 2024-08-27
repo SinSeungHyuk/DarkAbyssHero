@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: SKILL_IncreaseStat
   m_EditorClassIdentifier: 
   categories: []
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e8938436daa56dd4e9a30fe7b3571d3d, type: 3}
   id: 1
   codeName: IncreaseStat
   displayName: skill2
   description: 
   applyType: 0
-  gradeType: 3
+  gradeType: 2
   skillPriority: 500
   maxLevel: 40
   defaultLevel: 1

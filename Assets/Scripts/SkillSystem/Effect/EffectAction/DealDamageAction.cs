@@ -11,7 +11,7 @@ public class DealDamageAction : EffectAction
     [SerializeField] private float defaultDamage = 1.0f;
     // 레벨당 상승할 데미지 계수 (0.1 = 레벨당 10% 상승)
     [SerializeField] private float bonusDamagePerLevel;
-
+ 
 
     // Example
     // stat의 Value = 100 (공격력)
@@ -36,6 +36,11 @@ public class DealDamageAction : EffectAction
         target.TakeDamage(totalDamage, isCritic);
 
         return true;
+    }
+
+    public override float GetEffectCoefficient(int level)
+    {
+        return (level * bonusDamagePerLevel) + defaultDamage;
     }
 
 

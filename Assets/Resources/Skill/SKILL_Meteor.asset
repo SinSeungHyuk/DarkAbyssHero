@@ -16,8 +16,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: fde6dab4eb454af459073bef678bc207, type: 3}
   id: 3
   codeName: Meteor
-  displayName: 
-  description: 
+  displayName: Meteor
+  description: Drops a Meteor on the nearest enemy, dealing massive Damage.
   applyType: 1
   gradeType: 1
   skillPriority: 1

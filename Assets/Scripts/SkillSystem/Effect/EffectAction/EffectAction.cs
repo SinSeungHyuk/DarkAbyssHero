@@ -16,5 +16,8 @@ public abstract class EffectAction : ICloneable
     public virtual void Release(Effect effect, Player user, Monster target, int level) { }
 
 
+    public abstract float GetEffectCoefficient(int level);
+
+
     public abstract object Clone();
 }

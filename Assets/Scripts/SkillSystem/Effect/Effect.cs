@@ -79,7 +79,7 @@ public class Effect : IdentifiedObject
         set => currentApplyCycle = Mathf.Clamp(value, 0f, ApplyCycle);
     }
 
-    private EffectAction effectAction => currentData.action;
+    public EffectAction EffectAction => currentData.action;
     private CustomAction[] customActions => currentData.customActions;
 
     // Effect의 Owner는 Player가 아니라 Skill
@@ -96,7 +96,7 @@ public class Effect : IdentifiedObject
     // IsFinished와는 별개로 다른 외부에 의해 Effect가 종료되면 그 즉시 true되는 옵션
     public bool IsReleased { get; private set; }
     // 스킬 적용이 가능한지 여부 (적용횟수가 남았고 적용간격 시간이 충분히 지났으면)
-    public bool IsApplicable => effectAction != null &&
+    public bool IsApplicable => EffectAction != null &&
     (CurrentApplyCount < ApplyCount) && CurrentApplyCycle >= ApplyCycle;
 
 
@@ -116,7 +116,7 @@ public class Effect : IdentifiedObject
         Debug.Assert(!IsReleased, "Effect::Start - 이미 종료된 Effect");
 
         // 이펙트 액션의 Start 호출
-        effectAction?.Start(this, Player, Target, Level);
+        EffectAction?.Start(this, Player, Target, Level);
 
         foreach (var customAction in customActions)
             customAction?.Start(this);
@@ -144,9 +144,9 @@ public class Effect : IdentifiedObject
     {
         Debug.Assert(!IsReleased, "Effect::Apply - 이미 종료된 Effect");
 
-        if (effectAction == null) return;
+        if (EffectAction == null) return;
 
-        if (effectAction.Apply(this, Player, Target, level))
+        if (EffectAction.Apply(this, Player, Target, level))
         {
             foreach (var customAction in customActions)
                 customAction.Run(this);
@@ -176,7 +176,7 @@ public class Effect : IdentifiedObject
     {
         Debug.Assert(!IsReleased, "Effect::Release - 이미 종료된 Effect입니다.");
 
-        effectAction?.Release(this, Player, Target, level);
+        EffectAction?.Release(this, Player, Target, level);
 
         foreach (var customAction in customActions)
             customAction.Release(this);

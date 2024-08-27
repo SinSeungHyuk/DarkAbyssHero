@@ -19,7 +19,7 @@ MonoBehaviour:
   displayName: TestSkill
   description: 
   applyType: 0
-  gradeType: 2
+  gradeType: 0
   skillPriority: 1
   maxLevel: 40
   defaultLevel: 1

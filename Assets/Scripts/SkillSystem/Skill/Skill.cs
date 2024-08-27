@@ -48,6 +48,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
 
     public SkillApplyType ApplyType => applyType;
 
+    public GradeType GradeType => gradeType;
     public Grade SkillGrade { get; private set; }
 
     public int SkillPriority => skillPriority;

@@ -40,6 +40,11 @@ public class IncreaseStatAction : EffectAction
             target.Stats.RemoveBonusValue(stat, this);
     }
 
+    public override float GetEffectCoefficient(int level)
+    {
+        return (level * bonusValuePerLevel) + bonusValuePercent;
+    }
+
 
     public override object Clone()
     {

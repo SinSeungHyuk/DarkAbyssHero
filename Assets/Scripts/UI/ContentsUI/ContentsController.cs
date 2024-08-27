@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class ContentsController : MonoBehaviour
 {
     [SerializeField] private GameObject modalView; // 공통적으로 보여줄 UI메뉴 틀
+    [SerializeField] private GameObject innerContentView; // 공통적으로 보여줄 UI메뉴 틀
     [SerializeField] private TextMeshProUGUI txtModalViewTitle; // UI메뉴의 제목
     [SerializeField] private Button btnClose; // 닫기버튼
     [SerializeField] private List<GameObject> contentsView = new(); // 컨텐츠UI들이 들어있는 리스트
@@ -38,7 +39,7 @@ public class ContentsController : MonoBehaviour
         BtnStage[] btnStages = contentsView[(int)ContentsType.Stage].GetComponentsInChildren<BtnStage>();
         for (int i = 0; i < btnStages.Length; i++) 
         {
-                btnStages[i].SetUp(player, stageDB.GetDataByID(i) as Stage);
+            btnStages[i].SetUp(player, stageDB.GetDataByID(i) as Stage);
         }
     }
 
@@ -65,6 +66,19 @@ public class ContentsController : MonoBehaviour
         }
     }
 
+    public void BtnSkill()
+    {
+        BtnContents((int)ContentsType.Skill);
+
+        txtModalViewTitle.text = "Skill";
+
+        BtnSkill[] btnSkill = contentsView[(int)ContentsType.Skill].GetComponentsInChildren<BtnSkill>();
+        for (int i = 1; i < btnSkill.Length; i++)
+        {
+            btnSkill[i].SetUp(player, skillDB.GetDataByID(i) as Skill);
+        }
+    }
+
 
     private void BtnContents(int idx)
     {
@@ -82,5 +96,6 @@ public class ContentsController : MonoBehaviour
     {
         contentsView[idx].gameObject.SetActive(false);
         modalView.SetActive(false);
+        innerContentView.SetActive(false);
     }
 }

@@ -57,7 +57,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        SaveManager.Instance.LoadGame();
+        //SaveManager.Instance.LoadGame();
         StageManager.Instance.OnStageChanged += OnStageChanged;
         StartCoroutine(HPRegenRoutine());
 
@@ -68,8 +68,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SkillSystem.EquipSkills[0].Level++;
-            Debug.Log(SkillSystem.EquipSkills[0].Level);
+            CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, 5000);
         }
 
         if (Input.GetKeyDown(KeyCode.W))

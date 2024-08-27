@@ -47,9 +47,10 @@ public class SkillSystem : MonoBehaviour
         foreach (var skill in testSkill)
         {
             var clone = skill.Clone() as Skill;
-            clone.SetUp(Player, 5);
+            clone.SetUp(Player, 1);
 
             equipSkills.Add(clone);
+            ownSkills.Add(clone);
         }
 
         var defaultClone = defaultSkill.Clone() as Skill;
