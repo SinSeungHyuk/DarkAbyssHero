@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class InnerContentUI : MonoBehaviour
 {
+    [SerializeField] private BtnEquipSkills btnEquipSkills;
     [SerializeField] private TextMeshProUGUI txtName;
     [SerializeField] private TextMeshProUGUI txtLevel;
     [SerializeField] private TextMeshProUGUI txtInfo1;
@@ -35,18 +36,12 @@ public class InnerContentUI : MonoBehaviour
         red = ColorUtility.ToHtmlStringRGB(Settings.red);
     }
 
-    private void OnDisable()
-    {
-        btnLevelUp.onClick.RemoveAllListeners();
-        btnEquip.onClick.RemoveAllListeners();
-    }
-
     public void SetUp(Player player, Skill skill)
     {
         this.player = player;
         ownSkill = player.SkillSystem.FindOwnSkills(skill);
 
-        txtLevel.text = $"Lv. {ownSkill.Level}";
+        txtLevel.text = $"Lv. {ownSkill.Level} / {ownSkill.MaxLevel}";
         txtUpCurrency.text = $"{ownSkill.SkillGrade.GradeCurrency}";
         ShowInfo();
 
@@ -55,17 +50,20 @@ public class InnerContentUI : MonoBehaviour
         txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>" +
             $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level+1)}</color>";
 
+        btnLevelUp.onClick.RemoveAllListeners();
+        btnEquip.onClick.RemoveAllListeners();
         btnLevelUp.onClick.AddListener(() => SkillLevelUp());
         btnEquip.onClick.AddListener(() => SkillEquip());
     }
 
     private void SkillLevelUp()
     {
-        if (player.CurrencySystem.GetCurrency(CurrencyType.SkillUp) >= ownSkill.SkillGrade.GradeCurrency)
+        if (player.CurrencySystem.GetCurrency(CurrencyType.SkillUp) >= ownSkill.SkillGrade.GradeCurrency
+            && ownSkill.MaxLevel > ownSkill.Level)
         {
             player.CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, -ownSkill.SkillGrade.GradeCurrency);
             ownSkill.Level++;
-            txtLevel.text = $"Lv. {ownSkill.Level}";
+            txtLevel.text = $"Lv. {ownSkill.Level} / {ownSkill.MaxLevel}";
             txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>" +
                 $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>";
         }
@@ -73,7 +71,11 @@ public class InnerContentUI : MonoBehaviour
 
     private void SkillEquip()
     {
+        // 이미 장착중인 스킬은 리턴
+        if (player.SkillSystem.ContainsEquipSkills(ownSkill)) return;
 
+        btnEquipSkills.gameObject.SetActive(true);
+        btnEquipSkills.SetUp(player, ownSkill);
     }
 
 

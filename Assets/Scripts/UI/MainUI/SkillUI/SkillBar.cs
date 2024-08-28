@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,6 @@ public class SkillBar : MonoBehaviour
 {
     private SkillSystem skillSystem;
     private List<SkillSlot> slots = new(6);
-    private int emptySlotIndex;
 
 
     private void Awake()
@@ -17,30 +17,17 @@ public class SkillBar : MonoBehaviour
 
     private void Start()
     {
-
-
         Player player = GameManager.Instance.GetPlayer();
         skillSystem = player.SkillSystem;
-        slots[3].Skill = skillSystem.EquipSkills[0];
-        //skillSystem.OnSkillRegistered += OnSkillRegistered;
 
-        //var ownSkills = skillSystem.EquipSkills;
+        // 처음 0번 자리에 기본스킬 등록
+        slots[0].Skill = skillSystem.EquipSkills[0];
 
-        //    slotPrefab.Skill = ownSkills[0];
-        //    slots.Add(slotPrefab);
+        skillSystem.OnSkillEquip += OnSkillEquip;
     }
 
-    //private void OnDestroy() => skillSystem.onSkillRegistered -= OnSkillRegistered;
-
-
-    //private void TryAddToEmptySlot(Skill skill)
-    //{
-    //    if (emptySlotIndex >= slotCount || skill.IsPassive)
-    //        return;
-
-    //    slots[emptySlotIndex++].Skill = skill;
-    //}
-
-    //private void OnSkillRegistered(SkillSystem skillSystem, Skill skill)
-    //    => TryAddToEmptySlot(skill);
+    private void OnSkillEquip(SkillSystem system, Skill skill, int idx)
+    {
+        slots[idx].Skill = skill;
+    }
 }

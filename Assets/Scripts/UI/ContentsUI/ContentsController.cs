@@ -75,7 +75,7 @@ public class ContentsController : MonoBehaviour
         BtnSkill[] btnSkill = contentsView[(int)ContentsType.Skill].GetComponentsInChildren<BtnSkill>();
         for (int i = 1; i < btnSkill.Length; i++)
         {
-            btnSkill[i].SetUp(player, skillDB.GetDataByID(i) as Skill);
+            btnSkill[i - 1].SetUp(player, skillDB.GetDataByID(i) as Skill);
         }
     }
 

@@ -29,6 +29,10 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public Monster Target { get; private set; }
 
 
+    // Test
+    public Skill skill;
+
+
 
     private void Awake()
     {
@@ -73,9 +77,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Stats.HPStat.DefaultValue += 10.0f;
-
-            Debug.Log(Stats.HPStat.DefaultValue + " / " + Stats.HPStat.MaxValue);
+            SkillSystem.RegisterSkill(skill);
         }
 
 

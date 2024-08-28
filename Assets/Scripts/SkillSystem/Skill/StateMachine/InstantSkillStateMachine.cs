@@ -45,5 +45,6 @@ public class InstantSkillStateMachine : StateMachine<Skill>
 
 
         // 필요에 따라서 MakeAnyTransition 으로 스킬캔슬시 쿨다운 스테이트로 돌입 만들기
+        MakeAnyTransition<ReadyState>(SkillExecuteCommand.Cancel);
     }
 }

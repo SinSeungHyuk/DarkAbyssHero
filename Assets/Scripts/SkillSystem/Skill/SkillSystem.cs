@@ -10,6 +10,7 @@ public class SkillSystem : MonoBehaviour
 {   //                                     index
     public event Action<SkillSystem, Skill, int> OnSkillEquip;
     public event Action<SkillSystem, Skill, int> OnSkillUnequip;
+    public event Action<SkillSystem, Skill> OnSkillRegister;
 
 
     // 임시로 테스트를 위해 직렬화필드로 선언
@@ -85,7 +86,7 @@ public class SkillSystem : MonoBehaviour
         equipSkills[idx] = equipSkill;
 
         //// 스킬 장착이벤트 : UI 스킬셋에 등록
-        //OnSkillEquip?.Invoke(this, equipSkill, idx);
+        OnSkillEquip?.Invoke(this, equipSkill, idx);
     }
 
     public bool UnequipSkill(Skill skill, int idx)
@@ -110,6 +111,8 @@ public class SkillSystem : MonoBehaviour
         var clone = skill.Clone() as Skill;
         clone.SetUp(Player, level);
         ownSkills.Add(clone);
+
+        OnSkillRegister?.Invoke(this, clone);
     }
 
     public bool FindUsableSkill()

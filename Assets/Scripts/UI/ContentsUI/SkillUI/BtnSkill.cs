@@ -35,13 +35,37 @@ public class BtnSkill : MonoBehaviour
         ShowSkillGradeColor();
 
         if (!player.SkillSystem.ContainsOwnSkills(skill))
+        {
             imgBlind.gameObject.SetActive(true);
+            player.SkillSystem.OnSkillRegister += OnSkillRegister;
+        }
         else
             ShowSkillLevel();
         if (player.SkillSystem.ContainsEquipSkills(skill))
             txtEquipped.gameObject.SetActive(true);
+
+        player.SkillSystem.OnSkillEquip -= OnEquip;
+        player.SkillSystem.OnSkillUnequip -= OnUnequip;
+        player.SkillSystem.OnSkillEquip += OnEquip;
+        player.SkillSystem.OnSkillUnequip += OnUnequip;
     }
 
+    private void OnUnequip(SkillSystem system, Skill skill, int arg3)
+    {
+        if (skill.ID == this.skill.ID)
+            txtEquipped.gameObject.SetActive(false);
+    }
+
+    private void OnEquip(SkillSystem system, Skill skill, int arg3)
+    {
+        if (skill.ID == this.skill.ID)
+            txtEquipped.gameObject.SetActive(true);
+    }
+
+    private void OnSkillRegister(SkillSystem system, Skill skill)
+    {
+        imgBlind.gameObject.SetActive(false);
+    }
 
     private void OnBtnSkillClick()
     {
@@ -60,26 +84,9 @@ public class BtnSkill : MonoBehaviour
 
     private void ShowSkillGradeColor()
     {
-        switch (skill.GradeType)
-        {
-            case GradeType.Normal:
-                imgFrame.color = Color.white;
-                gradeColor = Color.white;
-                break;
-            case GradeType.Rare:
-                imgFrame.color = Settings.rare;
-                gradeColor = Settings.rare;
-                break;
-            case GradeType.Epic:
-                imgFrame.color = Settings.epic;
-                gradeColor = Settings.epic;
-                break;
-            case GradeType.Legend:
-                imgFrame.color = Settings.legend;
-                gradeColor = Settings.legend;
-                break;
-            default:
-                break;
-        };
+        Color32 color = UtilitieHelper.GetGradeColor(skill.GradeType);
+
+        imgFrame.color = color;
+        gradeColor = color;
     }
 }

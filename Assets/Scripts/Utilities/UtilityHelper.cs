@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -35,6 +36,32 @@ public static class UtilitieHelper
         float totalCombatPower = basePower + healthPower + critPower;
 
         return totalCombatPower;
+    }
+
+    // 등급별 색상 리턴 =================================================================
+    public static Color32 GetGradeColor(GradeType type)
+    {
+        Color32 color = Color.white;
+
+        switch (type)
+        {
+            case GradeType.Normal:
+                color = Color.white;
+                break;
+            case GradeType.Rare:
+                color = Settings.rare;
+                break;
+            case GradeType.Epic:
+                color = Settings.epic;
+                break;
+            case GradeType.Legend:
+                color = Settings.legend;
+                break;
+            default:
+                break;
+        };
+
+        return color;
     }
 
     // 선형 볼륨 스케일을 데시벨로 변환 ====================================================================
