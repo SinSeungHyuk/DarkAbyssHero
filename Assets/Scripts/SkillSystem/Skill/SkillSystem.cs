@@ -7,9 +7,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Player))]
 public class SkillSystem : MonoBehaviour
-{
-    public event Action<SkillSystem, Skill> OnSkillEquip;
-    public event Action<SkillSystem, Skill> OnSkillUnequip;
+{   //                                     index
+    public event Action<SkillSystem, Skill, int> OnSkillEquip;
+    public event Action<SkillSystem, Skill, int> OnSkillUnequip;
 
 
     // 임시로 테스트를 위해 직렬화필드로 선언
@@ -32,11 +32,19 @@ public class SkillSystem : MonoBehaviour
 
     private void OnDestroy()
     {
-        //foreach (var skill in ownSkills)
-        //    Destroy(skill);
+        foreach (var skill in ownSkills)
+            Destroy(skill);
 
         foreach (var skill in equipSkills)
             Destroy(skill);
+    }
+
+    void Awake()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            equipSkills.Add(null);
+        }
     }
 
     public void SetUp(Player player)
@@ -46,20 +54,13 @@ public class SkillSystem : MonoBehaviour
         // 임시코드        
         foreach (var skill in testSkill)
         {
-            var clone = skill.Clone() as Skill;
-            clone.SetUp(Player, 1);
-
-            equipSkills.Add(clone);
-            ownSkills.Add(clone);
+            RegisterSkill(skill);          
+            EquipSkill(skill,0);
         }
 
         var defaultClone = defaultSkill.Clone() as Skill;
-        defaultClone.SetUp(Player);
+        defaultClone.SetUp(Player,1);
         DefaultSkill = defaultClone;
-
-
-        // 스킬 장착이벤트 : UI 스킬셋에 등록
-        //OnSkillEquip?.Invoke(this, clone);
     }
 
     private void Update()
@@ -67,50 +68,48 @@ public class SkillSystem : MonoBehaviour
         foreach (var skill in equipSkills)
         {
             // SkillSystem Update -> Skill Update -> StateMachine Update -> State Update
+            if (skill == null) continue;
             skill.Update();
         }
 
         DefaultSkill.Update();
     }
 
-    public void EquipSkill(Skill skill, int level = 1)
+    public void EquipSkill(Skill skill, int idx)
     {
-        Debug.Assert(!equipSkills.Exists(x => x.ID == skill.ID), "SkillSystem::EquipSkill - 이미 장착한 Skill입니다.");
+        Skill equipSkill = FindOwnSkills(skill);
+        if (equipSkill == null) return;
 
-        var clone = skill.Clone() as Skill;
-        if (level > 1)
-            clone.SetUp(Player, level);
-        else         
-            clone.SetUp(Player);
+        if (equipSkills[idx] != null)
+            UnequipSkill(equipSkills[idx], idx);
+        equipSkills[idx] = equipSkill;
 
-        equipSkills.Add(clone);
-
-        // 스킬 장착이벤트 : UI 스킬셋에 등록
-        OnSkillEquip?.Invoke(this, clone);
+        //// 스킬 장착이벤트 : UI 스킬셋에 등록
+        //OnSkillEquip?.Invoke(this, equipSkill, idx);
     }
 
-    public bool UnequipSkill(Skill skill)
+    public bool UnequipSkill(Skill skill, int idx)
     {
         skill = FindEquipSkills(skill);
-        if (skill == null)
-            return false;
+        if (skill == null) return false;
 
         skill.Cancel();
         equipSkills.Remove(skill);
 
         // 스킬 해제시 스킬셋 UI에 반영
-        OnSkillUnequip?.Invoke(this, skill);
-
-        Destroy(skill);
+        OnSkillUnequip?.Invoke(this, skill, idx);
 
         return true;
     }
 
-    public void RegisterSkill(Skill skill)
+    public void RegisterSkill(Skill skill, int level = 1)
     {
         if (ownSkills.Contains(skill)) return;
 
-        ownSkills.Add(skill);
+        // 보유중인 스킬도 각자 레벨을 관리하므로 복제해야함
+        var clone = skill.Clone() as Skill;
+        clone.SetUp(Player, level);
+        ownSkills.Add(clone);
     }
 
     public bool FindUsableSkill()
@@ -118,7 +117,7 @@ public class SkillSystem : MonoBehaviour
         // 장착중인 스킬리스트에서 IsReady 상태인 스킬
         // 그중에서 우선순위가 높은 순서대로 찾기
 
-        Skill skill = equipSkills.Where(x => x.IsReady)
+        Skill skill = equipSkills.Where(x => x != null && x.IsReady)
                           .OrderByDescending(x => x.SkillPriority)
                           .FirstOrDefault();
 
@@ -153,7 +152,7 @@ public class SkillSystem : MonoBehaviour
 
     #region Utility
     public Skill FindEquipSkills(Skill skill)
-        => equipSkills.Find(x => x.ID == skill.ID);
+        => equipSkills.Find(x => x != null && x.ID == skill.ID);
 
     public Skill FindOwnSkills(Skill skill)
     => ownSkills.Find(x => x.ID == skill.ID);

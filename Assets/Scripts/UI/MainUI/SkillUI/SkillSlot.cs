@@ -42,11 +42,6 @@ public class SkillSlot : MonoBehaviour
         SetSkillUIActive(false);
     }
 
-    public void SetUp()
-    {
-
-    }
-
     private void SetSkillUIActive(bool isOn)
     {
         blindObject.gameObject.SetActive(isOn);

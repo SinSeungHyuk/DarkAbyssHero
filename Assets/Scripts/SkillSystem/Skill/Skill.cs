@@ -176,9 +176,6 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
             => OnStateChanged?.Invoke(this, newState, prevState);
     }
 
-    public void SetUp(Player owner)
-        => SetUp(owner, defaultLevel);
-
     // SkillSystem Update -> Skill Update -> StateMachine Update -> State Update
     public void Update() => StateMachine.Update();
 

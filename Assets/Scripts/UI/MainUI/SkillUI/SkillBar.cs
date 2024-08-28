@@ -1,25 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SkillBar : MonoBehaviour
 {
-    [SerializeField] private SkillSlot slotPrefab;
-
     private SkillSystem skillSystem;
-    private List<SkillSlot> slots = new();
+    private List<SkillSlot> slots = new(6);
     private int emptySlotIndex;
+
+
+    private void Awake()
+    {
+        slots = GetComponentsInChildren<SkillSlot>().ToList();
+    }
 
     private void Start()
     {
+
+
         Player player = GameManager.Instance.GetPlayer();
         skillSystem = player.SkillSystem;
+        slots[3].Skill = skillSystem.EquipSkills[0];
         //skillSystem.OnSkillRegistered += OnSkillRegistered;
 
-        var ownSkills = skillSystem.EquipSkills;
+        //var ownSkills = skillSystem.EquipSkills;
 
-            slotPrefab.Skill = ownSkills[0];
-            slots.Add(slotPrefab);
+        //    slotPrefab.Skill = ownSkills[0];
+        //    slots.Add(slotPrefab);
     }
 
     //private void OnDestroy() => skillSystem.onSkillRegistered -= OnSkillRegistered;
