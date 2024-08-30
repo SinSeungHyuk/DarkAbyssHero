@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 4
   codeName: CriticChance
-  displayName: 
+  displayName: Crit Chance
   description: 
   requiredLevel: 10
   isUseMaxValue: 0

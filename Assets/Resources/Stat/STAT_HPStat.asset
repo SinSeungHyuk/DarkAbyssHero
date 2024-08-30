@@ -16,8 +16,9 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 0
   codeName: HPStat
-  displayName: HP
+  displayName: MaxHP
   description: Player / Monster 's HP
+  requiredLevel: 0
   isUseMaxValue: 1
   maxValue: 175
   defaultValue: 0

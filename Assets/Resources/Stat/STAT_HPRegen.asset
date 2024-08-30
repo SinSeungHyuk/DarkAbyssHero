@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 2
   codeName: HPRegen
-  displayName: 
+  displayName: HP Recovery/sec
   description: 
   requiredLevel: 3
   isUseMaxValue: 0

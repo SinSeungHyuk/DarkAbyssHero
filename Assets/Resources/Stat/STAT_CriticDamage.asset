@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 5
   codeName: CriticDamage
-  displayName: 
+  displayName: Crit DMG
   description: 
   requiredLevel: 15
   isUseMaxValue: 0

@@ -17,7 +17,6 @@ public class BtnSkill : MonoBehaviour
     private Button btnSkill;
     private Skill skill;
     private Player player;
-    private Color32 gradeColor;
 
 
     private void Awake()
@@ -35,10 +34,7 @@ public class BtnSkill : MonoBehaviour
         ShowSkillGradeColor();
 
         if (!player.SkillSystem.ContainsOwnSkills(skill))
-        {
             imgBlind.gameObject.SetActive(true);
-            player.SkillSystem.OnSkillRegister += OnSkillRegister;
-        }
         else
             ShowSkillLevel();
         if (player.SkillSystem.ContainsEquipSkills(skill))
@@ -62,10 +58,6 @@ public class BtnSkill : MonoBehaviour
             txtEquipped.gameObject.SetActive(true);
     }
 
-    private void OnSkillRegister(SkillSystem system, Skill skill)
-    {
-        imgBlind.gameObject.SetActive(false);
-    }
 
     private void OnBtnSkillClick()
     {
@@ -87,6 +79,5 @@ public class BtnSkill : MonoBehaviour
         Color32 color = UtilitieHelper.GetGradeColor(skill.GradeType);
 
         imgFrame.color = color;
-        gradeColor = color;
     }
 }

@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-
+    public event Action<WeaponSystem, Weapon> OnWeaponEquiped;
+    public event Action<WeaponSystem, Weapon> OnWeaponUnequiped;
 
     [SerializeField] private Weapon defaultWeapon; // 기본무기
     [SerializeField] private Weapon testWeapon; // 테스트 무기
@@ -41,13 +42,29 @@ public class WeaponSystem : MonoBehaviour
         foreach (WeaponData weaponData in weapon.CurrentDatas)
         {
             Player.Stats.IncreaseBonusValue(weaponData.Stat, weapon, weaponData.BonusStatValue);
+            CurrentWeapon = weapon;
+            OnWeaponEquiped?.Invoke(this, weapon);
+            // 무기 레벨업 이벤트 구독,해지해서 데이터 실시간으로 가져오기
         }
     }
 
     public bool UnequipWeapon(Weapon weapon)
     {
-        
+        foreach (WeaponData weaponData in weapon.CurrentDatas)
+        {
+            Player.Stats.RemoveBonusValue(weaponData.Stat, weapon);
+            OnWeaponUnequiped?.Invoke(this, weapon);
+        }
 
         return true;
     }
+
+
+    #region Utility
+    public Weapon FindOwnWeapon(Weapon weapon)
+    => ownWeapons.Find(x => x.ID == weapon.ID);
+
+    public bool ContainsOwnWeapons(Weapon weapon)
+    => FindOwnWeapon(weapon) != null;
+    #endregion
 }

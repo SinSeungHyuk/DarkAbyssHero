@@ -85,9 +85,9 @@ public class ContentsController : MonoBehaviour
         txtModalViewTitle.text = "Equipment";
 
         BtnWeapon[] btnSkill = contentsView[(int)ContentsType.Equipment].GetComponentsInChildren<BtnWeapon>();
-        for (int i = 1; i < btnSkill.Length; i++)
+        for (int i = 0; i < btnSkill.Length; i++)
         {
-            btnSkill[i - 1].SetUp(player, weaponDB.GetDataByID(i) as Weapon);
+            btnSkill[i].SetUp(player, weaponDB.GetDataByID(i) as Weapon);
         }
     }
 
@@ -97,6 +97,7 @@ public class ContentsController : MonoBehaviour
         if (contentsView[idx].activeSelf) return;
 
         foreach (var content in contentsView) content.gameObject.SetActive(false);
+        innerContentView.SetActive(false);
         modalView.SetActive(true);
         contentsView[idx].SetActive(true);
         btnClose.gameObject.SetActive(true);

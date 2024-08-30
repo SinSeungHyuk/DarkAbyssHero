@@ -16,8 +16,9 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 1
   codeName: Attack
-  displayName: Atk
+  displayName: ATK
   description: Player / Monster 's Base Attack Damage
+  requiredLevel: 0
   isUseMaxValue: 0
   maxValue: 0
   defaultValue: 100

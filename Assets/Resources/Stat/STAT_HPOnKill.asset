@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   id: 3
   codeName: HPOnKill
-  displayName: 
+  displayName: HP Recovery/kill
   description: 
   requiredLevel: 5
   isUseMaxValue: 0
