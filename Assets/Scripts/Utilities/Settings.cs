@@ -12,6 +12,8 @@ public static class Settings
 
     public static int startExp = 100;
     public static float expPerLevel = 0.04f;
+
+    public static int maxLevel = 10;
     #endregion
 
 

@@ -52,8 +52,7 @@ public class CoreEditorWindow : EditorWindow
     private void OnEnable()
     {
         SetupStyle();
-        SetupDatabases(new[] { typeof(Stage), typeof(Stat), typeof(Effect), typeof(Skill) });
-        //, typeof(Monster), typeof(Weapon)
+        SetupDatabases(new[] { typeof(Stage), typeof(Stat), typeof(Effect), typeof(Skill), typeof(Weapon) });
     }
 
     private void OnDisable()

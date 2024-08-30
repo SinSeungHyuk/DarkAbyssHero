@@ -21,6 +21,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     public bool IsDead => Stats.HPStat.DefaultValue <= 0f;
     public PlayerStateMachine StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
+    public WeaponSystem WeaponSystem { get; private set; }
     public EntityMovement Movement { get; private set; }
     public CurrencySystem CurrencySystem { get; private set; }
     public LevelSystem LevelSystem { get; private set; }
@@ -57,6 +58,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
         SkillSystem = GetComponent<SkillSystem>();
         SkillSystem?.SetUp(this);
+
+        WeaponSystem = GetComponent<WeaponSystem>();
+        WeaponSystem?.SetUp(this);
     }
 
     private void Start()
@@ -83,9 +87,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Stats.HPStat.Level++;
-
-            Debug.Log(Stats.HPStat.DefaultValue + " / " + Stats.HPStat.MaxValue);
+           Debug.Log(Stats.GetStat(StatType.Attack));
         }
     }
 

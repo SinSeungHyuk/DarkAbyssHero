@@ -21,18 +21,16 @@ MonoBehaviour:
   applyType: 1
   gradeType: 1
   skillPriority: 1
-  maxLevel: 40
-  defaultLevel: 1
   skillDatas:
-  - level: 1
+    level: 0
     action:
-      rid: 3630001700050567168
+      rid: 3630002019085320201
     runningFinishOption: 0
     duration: 0
     applyCount: 1
     applyCycle: 0
     cooldown: 8
-    distance: 7
+    distance: 6
     isUseCast: 0
     castTime: 0
     effectSelectors:
@@ -41,12 +39,11 @@ MonoBehaviour:
     castAnimatorParameter: 0
     actionAnimatorParameter: 0
     customActionsOnCast: []
-    customActionsOnAction:
-    - rid: 3630001700050567169
+    customActionsOnAction: []
   references:
     version: 2
     RefIds:
-    - rid: 3630001700050567168
+    - rid: 3630002019085320201
       type: {class: SpawnSkillObjectAction, ns: , asm: Assembly-CSharp}
       data:
         skillObjectPrefab: {fileID: 1566239723596968, guid: b9a866892e8767641a3f6e707a7dbdfc,
@@ -54,6 +51,3 @@ MonoBehaviour:
         duration: 2
         applyCount: 1
         objectScale: {x: 1, y: 1, z: 1}
-    - rid: 3630001700050567169
-      type: {class: CameraShakeAction, ns: , asm: Assembly-CSharp}
-      data: 

@@ -16,9 +16,8 @@ public class ContentsController : MonoBehaviour
 
     private Player player;
     private Database stageDB;
-    private Database statDB;
     private Database skillDB;
-    //private Database weaponDB;
+    private Database weaponDB;
 
 
     private void Start()
@@ -26,8 +25,8 @@ public class ContentsController : MonoBehaviour
         player = GameManager.Instance.GetPlayer();
 
         stageDB = AddressableManager.Instance.GetResource<Database>("StageDatabase");
-        statDB = AddressableManager.Instance.GetResource<Database>("StatDatabase");
         skillDB = AddressableManager.Instance.GetResource<Database>("SkillDatabase");
+        weaponDB = AddressableManager.Instance.GetResource<Database>("WeaponDatabase");
     }
 
     public void BtnStage()
@@ -76,6 +75,19 @@ public class ContentsController : MonoBehaviour
         for (int i = 1; i < btnSkill.Length; i++)
         {
             btnSkill[i - 1].SetUp(player, skillDB.GetDataByID(i) as Skill);
+        }
+    }
+
+    public void BtnEquipment()
+    {
+        BtnContents((int)ContentsType.Equipment);
+
+        txtModalViewTitle.text = "Equipment";
+
+        BtnWeapon[] btnSkill = contentsView[(int)ContentsType.Equipment].GetComponentsInChildren<BtnWeapon>();
+        for (int i = 1; i < btnSkill.Length; i++)
+        {
+            btnSkill[i - 1].SetUp(player, weaponDB.GetDataByID(i) as Weapon);
         }
     }
 

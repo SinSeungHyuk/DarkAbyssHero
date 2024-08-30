@@ -11,9 +11,7 @@ public class SkillEditor : IdentifiedObjectEditor
     private SerializedProperty gradeTypeProperty;
     private SerializedProperty skillPriorityProperty;
 
-    private SerializedProperty maxLevelProperty;
-    private SerializedProperty defaultLevelProperty;
-    private SerializedProperty skillDatasProperty;
+    private SerializedProperty skillDataProperty;
 
 
     protected override void OnEnable()
@@ -24,9 +22,7 @@ public class SkillEditor : IdentifiedObjectEditor
         gradeTypeProperty = serializedObject.FindProperty("gradeType");
         skillPriorityProperty = serializedObject.FindProperty("skillPriority");
 
-        maxLevelProperty = serializedObject.FindProperty("maxLevel");
-        defaultLevelProperty = serializedObject.FindProperty("defaultLevel");
-        skillDatasProperty = serializedObject.FindProperty("skillDatas");
+        skillDataProperty = serializedObject.FindProperty("skillDatas");
     }
 
     public override void OnInspectorGUI()
@@ -59,128 +55,68 @@ public class SkillEditor : IdentifiedObjectEditor
 
     private void DrawSkillDatas()
     {
-        // Skill의 Data가 아무것도 존재하지 않으면 1개를 자동적으로 만들어줌
-        if (skillDatasProperty.arraySize == 0)
+        var actionProperty = skillDataProperty.FindPropertyRelative("action");
+        EditorGUILayout.PropertyField(actionProperty);
+
+        var runningFinishOptionProperty = skillDataProperty.FindPropertyRelative("runningFinishOption");
+        CustomEditorUtility.DrawEnumToolbar(runningFinishOptionProperty);
+
+        EditorGUILayout.Space();
+        CustomEditorUtility.DrawUnderline();
+        EditorGUILayout.Space();
+
+        // Settings
+        var durationProperty = skillDataProperty.FindPropertyRelative("duration");
+        EditorGUILayout.PropertyField(durationProperty);
+        var applyCountProperty = skillDataProperty.FindPropertyRelative("applyCount");
+        EditorGUILayout.PropertyField(applyCountProperty);
+        var applyCycleProperty = skillDataProperty.FindPropertyRelative("applyCycle");
+        EditorGUILayout.PropertyField(applyCycleProperty);
+        var cooldownProperty = skillDataProperty.FindPropertyRelative("cooldown");
+        EditorGUILayout.PropertyField(cooldownProperty);
+        var distanceProperty = skillDataProperty.FindPropertyRelative("distance");
+        EditorGUILayout.PropertyField(distanceProperty);
+
+        // Cast
+        var isUseCastProperty = skillDataProperty.FindPropertyRelative("isUseCast");
+        EditorGUILayout.PropertyField(isUseCastProperty);
+        var castTimeProperty = skillDataProperty.FindPropertyRelative("castTime");
+        EditorGUILayout.PropertyField(castTimeProperty);
+
+
+        // EffectSelector[] 배열 프로퍼티 그리기
+        var effectSelectorsProperty = skillDataProperty.FindPropertyRelative("effectSelectors");
+        EditorGUILayout.PropertyField(effectSelectorsProperty);
+        // EffectSelector 배열 프로퍼티의 arraySize 만큼 순회하면서 이펙트의 최대레벨 가져오기
+        for (int j = 0; j < effectSelectorsProperty.arraySize; j++)
         {
-            // 배열 길이를 늘려서 새로운 Element를 생성
-            skillDatasProperty.arraySize++;
-            // 추가한 Data의 Level을 1로 설정
-            skillDatasProperty.GetArrayElementAtIndex(0).FindPropertyRelative("level").intValue = 1;
+            // 배열 프로퍼티를 순회하면서 각 EffectSelector 하나씩 가져오기
+            var effectSelectorProperty = effectSelectorsProperty.GetArrayElementAtIndex(j);
+            // EffectSelector 프로퍼티의 level 프로퍼티 가져오기
+            var levelProperty = effectSelectorProperty.FindPropertyRelative("level");
+            // EffectSelector 프로퍼티의 effect 프로퍼티 가져오기
+            var effect = effectSelectorProperty.FindPropertyRelative("effect").objectReferenceValue as Effect;
+            var maxLevel = effect != null ? effect.MaxLevel : 0;
+            var minLevel = maxLevel == 0 ? 0 : 1;
+            // levelProperty의 int값을 자동으로 가져온 EffectSelector 프로퍼티의 레벨로 맞춰주기
+            levelProperty.intValue = Mathf.Clamp(levelProperty.intValue, minLevel, maxLevel);
         }
 
-        if (!DrawFoldoutTitle("Data"))
-            return;
 
+        // 애니메이터 파라미터 enum 프로퍼티 (enum툴바로 그리면 길어서 짤림)
+        var castAnimatorParameterProperty = skillDataProperty.FindPropertyRelative("castAnimatorParameter");
+        var actionAnimatorParameterProperty = skillDataProperty.FindPropertyRelative("actionAnimatorParameter");
+        EditorGUILayout.PropertyField(castAnimatorParameterProperty);
+        EditorGUILayout.PropertyField(actionAnimatorParameterProperty);
 
-        // maxLevel, defaultLevel Property를 그려줌
-        EditorGUILayout.PropertyField(maxLevelProperty);
-        GUI.enabled = false;
-        EditorGUILayout.PropertyField(defaultLevelProperty);
-        GUI.enabled = true;
+        // Custom Action
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Custom Action", EditorStyles.boldLabel);
+        CustomEditorUtility.DrawUnderline();
 
-
-        // 스킬데이터 원소 하나하나 그려주기
-        for (int i = 0; i < skillDatasProperty.arraySize; i++)
-        {
-            var skillDataProperty = skillDatasProperty.GetArrayElementAtIndex(i);
-
-            EditorGUILayout.BeginVertical("HelpBox");
-            {
-                // Data의 Level과 Data 삭제를 위한 X Button을 그려주는 Foldout Title을 그려줌
-                // 단, 첫번째 Data(= index 0) 지우면 안되기 때문에 X Button을 그려주지 않음
-                // X Button을 눌러서 Data가 지워지면 true를 return함
-                if (DrawRemovableLevelFoldout(skillDatasProperty, skillDataProperty, i, i != 0))
-                {
-                    // Data가 삭제되었으며 더 이상 GUI를 그리지 않고 바로 빠져나감
-                    // 다음 Frame에 처음부터 다시 그리기 위함
-                    EditorGUILayout.EndVertical();
-                    break;
-                }
-            }
-
-            var actionProperty = skillDataProperty.FindPropertyRelative("action");
-            EditorGUILayout.PropertyField(actionProperty);
-
-            var runningFinishOptionProperty = skillDataProperty.FindPropertyRelative("runningFinishOption");
-            CustomEditorUtility.DrawEnumToolbar(runningFinishOptionProperty);
-
-            EditorGUILayout.Space();
-            CustomEditorUtility.DrawUnderline();
-            EditorGUILayout.Space();
-
-            // Settings
-            var durationProperty = skillDataProperty.FindPropertyRelative("duration");
-            EditorGUILayout.PropertyField(durationProperty);
-            var applyCountProperty = skillDataProperty.FindPropertyRelative("applyCount");
-            EditorGUILayout.PropertyField(applyCountProperty);
-            var applyCycleProperty = skillDataProperty.FindPropertyRelative("applyCycle");
-            EditorGUILayout.PropertyField(applyCycleProperty);
-            var cooldownProperty = skillDataProperty.FindPropertyRelative("cooldown");
-            EditorGUILayout.PropertyField(cooldownProperty);            
-            var distanceProperty = skillDataProperty.FindPropertyRelative("distance");
-            EditorGUILayout.PropertyField(distanceProperty);
-
-            // Cast
-            var isUseCastProperty = skillDataProperty.FindPropertyRelative("isUseCast");
-            EditorGUILayout.PropertyField(isUseCastProperty);
-            var castTimeProperty = skillDataProperty.FindPropertyRelative("castTime");
-            EditorGUILayout.PropertyField(castTimeProperty);
-
-
-            // EffectSelector[] 배열 프로퍼티 그리기
-            var effectSelectorsProperty = skillDataProperty.FindPropertyRelative("effectSelectors");
-            EditorGUILayout.PropertyField(effectSelectorsProperty);
-            // EffectSelector 배열 프로퍼티의 arraySize 만큼 순회하면서 이펙트의 최대레벨 가져오기
-            for (int j = 0; j < effectSelectorsProperty.arraySize; j++)
-            {
-                // 배열 프로퍼티를 순회하면서 각 EffectSelector 하나씩 가져오기
-                var effectSelectorProperty = effectSelectorsProperty.GetArrayElementAtIndex(j);
-                // EffectSelector 프로퍼티의 level 프로퍼티 가져오기
-                var levelProperty = effectSelectorProperty.FindPropertyRelative("level");
-                // EffectSelector 프로퍼티의 effect 프로퍼티 가져오기
-                var effect = effectSelectorProperty.FindPropertyRelative("effect").objectReferenceValue as Effect;
-                var maxLevel = effect != null ? effect.MaxLevel : 0;
-                var minLevel = maxLevel == 0 ? 0 : 1;
-                // levelProperty의 int값을 자동으로 가져온 EffectSelector 프로퍼티의 레벨로 맞춰주기
-                levelProperty.intValue = Mathf.Clamp(levelProperty.intValue, minLevel, maxLevel);
-            }
-
-
-            // 애니메이터 파라미터 enum 프로퍼티 (enum툴바로 그리면 길어서 짤림)
-            var castAnimatorParameterProperty = skillDataProperty.FindPropertyRelative("castAnimatorParameter");
-            var actionAnimatorParameterProperty = skillDataProperty.FindPropertyRelative("actionAnimatorParameter");
-            EditorGUILayout.PropertyField(castAnimatorParameterProperty);
-            EditorGUILayout.PropertyField(actionAnimatorParameterProperty);
-
-            // Custom Action
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Custom Action", EditorStyles.boldLabel);
-            CustomEditorUtility.DrawUnderline();
-
-            var customActionsOnCastProperty = skillDataProperty.FindPropertyRelative("customActionsOnCast");
-            var customActionsOnActionProperty = skillDataProperty.FindPropertyRelative("customActionsOnAction");
-            EditorGUILayout.PropertyField(customActionsOnCastProperty);
-            EditorGUILayout.PropertyField(customActionsOnActionProperty);
-
-
-            EditorGUILayout.EndVertical();
-        }
-
-        if (GUILayout.Button("Add New Level"))
-        {
-            // Level Change
-            var lastArraySize = skillDatasProperty.arraySize++;
-            var prevElementalProperty = skillDatasProperty.GetArrayElementAtIndex(lastArraySize - 1);
-            var newElementProperty = skillDatasProperty.GetArrayElementAtIndex(lastArraySize);
-            var newElementLevel = prevElementalProperty.FindPropertyRelative("level").intValue + 1;
-            newElementProperty.FindPropertyRelative("level").intValue = newElementLevel;
-            newElementProperty.isExpanded = true;
-
-
-            CustomEditorUtility.DeepCopySerializeReference(newElementProperty.FindPropertyRelative("action"));
-
-            CustomEditorUtility.DeepCopySerializeReferenceArray(newElementProperty.FindPropertyRelative("customActionsOnCast"));
-            CustomEditorUtility.DeepCopySerializeReferenceArray(newElementProperty.FindPropertyRelative("customActionsOnAction"));
-        }
+        var customActionsOnCastProperty = skillDataProperty.FindPropertyRelative("customActionsOnCast");
+        var customActionsOnActionProperty = skillDataProperty.FindPropertyRelative("customActionsOnAction");
+        EditorGUILayout.PropertyField(customActionsOnCastProperty);
+        EditorGUILayout.PropertyField(customActionsOnActionProperty);
     }
 }

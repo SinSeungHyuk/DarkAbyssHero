@@ -27,12 +27,11 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 스킬의 우선순위 (높을수록 이 스킬을 먼저 사용)
     [SerializeField] private int skillPriority;
 
-    [SerializeField, Min(1)] private int maxLevel = 40;
-    [SerializeField, Min(1)] private int defaultLevel = 1;
-    [SerializeField] private SkillData[] skillDatas;
+    [SerializeField] private SkillData skillDatas;
 
     private SkillData currentData;
 
+    private int defaultLevel = 1;
     private int level;
 
     private int currentApplyCount;
@@ -56,7 +55,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     public IReadOnlyList<Effect> Effects { get; private set; } = new List<Effect>();
 
 
-    public int MaxLevel => maxLevel;
+    public int MaxLevel => Settings.maxLevel;
     public int Level
     {
         get => level;
@@ -72,15 +71,13 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
             level = value;
 
             // 새로운 Level과 가장 가까운 Level Data를 찾아옴
-            var newData = skillDatas.Last(x => x.level <= level);
-            //if (newData.level != currentData.level)
-                ChangeData(newData);
+            ChangeData(skillDatas);
 
             OnLevelChanged?.Invoke(this, level, prevLevel);
         }
     }
-    public int DataBonusLevel => Mathf.Max(level - currentData.level, 0);
-    public bool IsMaxLevel => level == maxLevel;
+    public int DataBonusLevel => Mathf.Max(level - (currentData.level+1), 0);
+    public bool IsMaxLevel => level == MaxLevel;
 
     private SkillAction SkillAction => currentData.action;
 
@@ -160,13 +157,13 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     public void SetUp(Player owner, int level)
     {
         Debug.Assert(owner != null, $"Skill::Setup - Owner는 Null이 될 수 없습니다.");
-        Debug.Assert(level >= 1 && level <= maxLevel, $"Skill::Setup - {level}이 1보다 작거나 {maxLevel}보다 큽니다.");
         Debug.Assert(Player == null, $"Skill::Setup - 이미 Setup하였습니다.");
 
         Player = owner;
         Level = level;
 
         SetAnimatorParameter();
+        UpdateCustomActions();
         SkillGrade = new Grade(gradeType); // gradeType으로 스킬의 등급 생성
 
         StateMachine = new InstantSkillStateMachine();
@@ -226,26 +223,25 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
         foreach (var effect in Effects)
             Destroy(effect);
 
-        currentData = newData;
+        currentData = skillDatas;
 
         Effects = currentData.effectSelectors.Select(x => x.CreateEffect(this)).ToArray();
         // Skill의 현재 Level이 data의 Level보다 크면, 둘의 Level 차를 Effect의 Bonus Level 줌.
         // 만약 Skill이 2 Level이고, data가 1 level이라면, effect들은 2-1해서 1의 Bonus Level을 받게 됨.
         if (level > currentData.level)
             UpdateCurrentEffectLevels();
-
-        UpdateCustomActions();
     }
     private void UpdateCurrentEffectLevels()
     {
-        int bonusLevel = DataBonusLevel;
         foreach (var effect in Effects)
-            effect.Level = Mathf.Min(effect.Level + bonusLevel, effect.MaxLevel);
+        {
+            effect.Level = Mathf.Min(level, effect.MaxLevel);
+        }
     }
     private void UpdateCustomActions()
     {
-        customActionsByType[SkillCustomActionType.Cast] = currentData.customActionsOnCast;
-        customActionsByType[SkillCustomActionType.Action] = currentData.customActionsOnAction;
+        customActionsByType[SkillCustomActionType.Cast] = skillDatas.customActionsOnCast;
+        customActionsByType[SkillCustomActionType.Action] = skillDatas.customActionsOnAction;
     }
 
     public void ResetProperties()

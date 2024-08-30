@@ -59,7 +59,7 @@ public class InnerContentUI : MonoBehaviour
     private void SkillLevelUp()
     {
         if (player.CurrencySystem.GetCurrency(CurrencyType.SkillUp) >= ownSkill.SkillGrade.GradeCurrency
-            && ownSkill.MaxLevel > ownSkill.Level)
+            && !ownSkill.IsMaxLevel)
         {
             player.CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, -ownSkill.SkillGrade.GradeCurrency);
             ownSkill.Level++;
