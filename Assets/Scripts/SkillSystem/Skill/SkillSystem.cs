@@ -179,7 +179,7 @@ public class SkillSystem : MonoBehaviour
     {
         // 소유한 스킬, 장착한 스킬 리스트를 각각 저장해서 반환
         var saveData = new SkillSaveDatas();
-        saveData.EquipSkillsData = equipSkills.Select(x => x.ToSaveData()).ToList();
+        saveData.EquipSkillsData = equipSkills.Where(x => x != null).Select(x => x.ToSaveData()).ToList();
         saveData.OwnSkillsData = ownSkills.Select(x => x.ToSaveData()).ToList();
 
         return saveData;

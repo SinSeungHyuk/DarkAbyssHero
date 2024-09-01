@@ -65,6 +65,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
+        Database skillDB = AddressableManager.Instance.GetResource<Database>("SkillDatabase");
+        Debug.Log(skillDB.name + " , skillDB@#!@#!@#!@$#@$!@%!@#%!@#!^##^ " + skillDB.Count);
+
         SaveManager.Instance.LoadGame();
         StageManager.Instance.OnStageChanged += OnStageChanged;
         StartCoroutine(HPRegenRoutine());

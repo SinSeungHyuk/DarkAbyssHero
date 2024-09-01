@@ -13,34 +13,53 @@ public class AddressableManager : Singleton<AddressableManager>
     public IReadOnlyDictionary<string, object> Resources => resources;
 
 
-    private void Start()
-    {
-        LoadResources<Database>("Database");
-    }
-
     // 리소스를 어드레서블 그룹의 label 단위로 로드
-    public void LoadResources<T>(string label) where T : Object
+    public async void LoadResources<T>(string label, Action OnComplete = null) where T : Object
     {
-        Addressables.LoadResourceLocationsAsync(label, typeof(T)).Completed += (group) =>
-        {
-            if (group.Status == AsyncOperationStatus.Succeeded)
-            {
-                foreach (var resource in group.Result)
-                {
-                    Addressables.LoadAssetAsync<T>(resource).Completed += (obj) =>
-                    {
-                        if (obj.Status == AsyncOperationStatus.Succeeded)
-                        {
-                            // 로드한 리소스 딕셔너리에 추가
-                            resources[resource.PrimaryKey] = obj.Result;
+        Debug.Log("LoadResources start!");
 
-                            Debug.Log("LoadResources Database!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        }
-                    };
+        try
+        {
+            var locations = await Addressables.LoadResourceLocationsAsync(label, typeof(T)).Task;
+            if (locations == null || locations.Count == 0)
+            {
+                Debug.LogError($"Failed to load resource locations for label: {label}");
+                OnComplete?.Invoke();
+                return;
+            }
+
+            int totalCount = locations.Count;
+            int loadedCount = 0;
+
+            foreach (var resource in locations)
+            {
+                var obj = await Addressables.LoadAssetAsync<T>(resource).Task;
+                if (obj != null)
+                {
+                    resources[resource.PrimaryKey] = obj;
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load asset: {resource.PrimaryKey}");
+                }
+
+                loadedCount++;
+                // OnProgress?.Invoke((float)loadedCount / totalCount);
+
+                if (loadedCount == totalCount)
+                {
+                    Debug.Log("Load Complete!" + loadedCount);
+                    OnComplete?.Invoke();
                 }
             }
-        };
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Exception during resource loading: {ex.Message}");
+            OnComplete?.Invoke();
+        }
     }
+
 
     // 어드레서블 그룹에 저장한 리소스의 key값으로 가져오기
     // key : 어드레서블에 저장한 리소스의 이름
