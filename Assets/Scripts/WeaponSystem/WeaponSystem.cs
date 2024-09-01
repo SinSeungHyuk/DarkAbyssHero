@@ -59,12 +59,52 @@ public class WeaponSystem : MonoBehaviour
         return true;
     }
 
+    public void RegisterWeapon(Weapon weapon, int level = 1)
+    {
+        Weapon registerWeapon = weapon.Clone() as Weapon;
+        registerWeapon.SetUp(Player, level);
+        ownWeapons.Add(registerWeapon);
+    }
+
 
     #region Utility
     public Weapon FindOwnWeapon(Weapon weapon)
     => ownWeapons.Find(x => x.ID == weapon.ID);
 
+    public Weapon FindOwnWeapon(int id)
+    => ownWeapons.Find(x => x.ID == id);
+
     public bool ContainsOwnWeapons(Weapon weapon)
     => FindOwnWeapon(weapon) != null;
     #endregion
+
+
+    #region Weapon Save/Load
+    public WeaponSaveDatas ToSaveData()
+    {
+        // 소유한 무기, 장착한 무기를 저장해서 반환
+        var saveData = new WeaponSaveDatas();
+        saveData.OwnWeaponsData = ownWeapons.Select(x => x.ToSaveData()).ToList();
+        saveData.CurrentWeaponData = CurrentWeapon.ToSaveData();
+
+        return saveData;
+    }
+
+    public void FromSaveData(WeaponSaveDatas weaponDatas)
+    {
+        Database weaponDB = AddressableManager.Instance.GetResource<Database>("WeaponDatabase");
+
+        weaponDatas.OwnWeaponsData.ForEach(data =>
+            RegisterWeapon(weaponDB.GetDataByID(data.id) as Weapon, data.level));
+
+        EquipWeapon(FindOwnWeapon(weaponDatas.CurrentWeaponData.id));
+    }
+    #endregion
+}
+
+[Serializable]
+public struct WeaponSaveDatas
+{
+    public List<WeaponSaveData> OwnWeaponsData;
+    public WeaponSaveData CurrentWeaponData;
 }

@@ -35,6 +35,10 @@ public class PlayerStateMachine : EntityStateMachine<Player>
 
         // Empty -> InSkillAction
         MakeTransition<EmptyState, InSkillActionState>(PlayerStateCommand.ToInSkillActionState);
+
+        // Dead 
+        MakeAnyTransition<DeadState>(state => Owner.IsDead);
+        MakeTransition<DeadState, DetectMonsterState>(state => !Owner.IsDead);
     }
 
     

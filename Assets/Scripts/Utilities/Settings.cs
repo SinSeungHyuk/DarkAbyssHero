@@ -11,7 +11,7 @@ public static class Settings
     public static float projectileDistance = 500.0f;
 
     public static int startExp = 100;
-    public static float expPerLevel = 0.04f;
+    public static float expPerLevel = 1.04f; // 레벨당 경험치 4% 증가
 
     public static int maxLevel = 10;
     #endregion
@@ -19,6 +19,8 @@ public static class Settings
 
     #region STAGE PARAMETER
     public static float spawnTimer = 8.0f;
+
+    public static float monsterReadyTimer = 1.0f;
     #endregion
 
 

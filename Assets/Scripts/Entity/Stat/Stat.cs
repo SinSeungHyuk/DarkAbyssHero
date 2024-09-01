@@ -77,8 +77,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 
     public int RequiredLevel => requiredLevel;
     public float ValuePerLevel => valuePerLevel;
-    public int GoldPerLevel => goldPerLevel;
-    public int DefaultGold => defaultGold;
+
     public int CurrentGold => defaultGold + (goldPerLevel * (level-1));
 
 

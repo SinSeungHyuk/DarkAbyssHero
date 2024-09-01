@@ -40,7 +40,8 @@ public class DealDamageAction : EffectAction
 
     public override float GetEffectCoefficient(int level)
     {
-        return (level * bonusDamagePerLevel) + defaultDamage;
+        // 계수가 1.4라면 140으로 리턴
+        return ((level * bonusDamagePerLevel) + defaultDamage) * 100;
     }
 
 

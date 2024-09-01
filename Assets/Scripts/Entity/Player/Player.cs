@@ -65,11 +65,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        //SaveManager.Instance.LoadGame();
+        SaveManager.Instance.LoadGame();
         StageManager.Instance.OnStageChanged += OnStageChanged;
         StartCoroutine(HPRegenRoutine());
-
-        damageEvent.CallTakeDamageEvent(0); // 체력 UI 초기화
     }
 
     void Update()
@@ -93,21 +91,24 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void OnStageChanged(Stage stage, int level)
     {
+        // (0,0,0)으로 이동
         this.transform.position = Vector3.zero;
     }
 
     private IEnumerator HPRegenRoutine()
     {
+        // 1초마다 체력재생 무한반복
         while (true)
         {
-            yield return _wait;
-
             Stats.HPStat.DefaultValue += Stats.GetStat(StatType.HPRegen).Value;
+
+            yield return _wait;
         }
     }
 
     public void SetTarget(Monster target)
     {
+        // 몬스터 타겟을 찾았을때
         Target = target;
         transform.LookAt(Target.transform);
         Movement.TraceTarget = target.transform;
@@ -115,7 +116,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void OnDead() // 플레이어의 사망 애니메이션 이벤트
     {
-
+        // UI 띄우기
     }
 
     #region Find Transform Socket By SocketName
@@ -162,7 +163,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         damageEvent.CallTakeDamageEvent(damage);
 
         if (Stats.HPStat.DefaultValue <= 0f)
-            StopCoroutine(HPRegenRoutine());
+            StopCoroutine(HPRegenRoutine()); // 체력재생 스탑
     }
 
     public PlayerSaveData ToSaveData()
@@ -172,6 +173,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         saveData.LevelData = LevelSystem.ToSaveData();
         saveData.StatDatas = Stats.ToSaveData();
         saveData.CurrencyData = CurrencySystem.ToSaveData();
+        saveData.SkillDatas = SkillSystem.ToSaveData();
+        saveData.WeaponDatas = WeaponSystem.ToSaveData();
 
         return saveData;
     }
@@ -181,6 +184,8 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         LevelSystem.FromSaveData(saveData.LevelData);
         Stats.FromSaveData(saveData.StatDatas);
         CurrencySystem.FromSaveData(saveData.CurrencyData);
+        SkillSystem.FromSaveData(saveData.SkillDatas);
+        WeaponSystem.FromSaveData(saveData.WeaponDatas);
     }
     #endregion
 }
@@ -191,6 +196,6 @@ public struct PlayerSaveData
     public LevelSaveData LevelData;
     public List<StatSaveData> StatDatas;
     public CurrencySaveData CurrencyData;
+    public SkillSaveDatas SkillDatas;
+    public WeaponSaveDatas WeaponDatas;
 }
-
-    //public SkillSaveData SkillData;

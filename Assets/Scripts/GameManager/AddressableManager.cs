@@ -13,11 +13,8 @@ public class AddressableManager : Singleton<AddressableManager>
     public IReadOnlyDictionary<string, object> Resources => resources;
 
 
-
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-
         LoadResources<Database>("Database");
     }
 
@@ -36,6 +33,8 @@ public class AddressableManager : Singleton<AddressableManager>
                         {
                             // 로드한 리소스 딕셔너리에 추가
                             resources[resource.PrimaryKey] = obj.Result;
+
+                            Debug.Log("LoadResources Database!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         }
                     };
                 }

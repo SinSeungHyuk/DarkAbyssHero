@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 [RequireComponent(typeof(Player))]
 public class SkillSystem : MonoBehaviour
@@ -160,10 +163,47 @@ public class SkillSystem : MonoBehaviour
     public Skill FindOwnSkills(Skill skill)
     => ownSkills.Find(x => x.ID == skill.ID);
 
+    public Skill FindOwnSkills(int id)
+    => ownSkills.Find(x => x != null && x.ID == id);
+
     public bool ContainsEquipSkills(Skill skill)
     => FindEquipSkills(skill) != null;
 
     public bool ContainsOwnSkills(Skill skill)
     => FindOwnSkills(skill) != null;
     #endregion
+
+
+    #region Skill Save/Load
+    public SkillSaveDatas ToSaveData()
+    {
+        // 소유한 스킬, 장착한 스킬 리스트를 각각 저장해서 반환
+        var saveData = new SkillSaveDatas();
+        saveData.EquipSkillsData = equipSkills.Select(x => x.ToSaveData()).ToList();
+        saveData.OwnSkillsData = ownSkills.Select(x => x.ToSaveData()).ToList();
+
+        return saveData;
+    }
+
+    public void FromSaveData(SkillSaveDatas skillDatas)
+    {
+        Database skillDB = AddressableManager.Instance.GetResource<Database>("SkillDatabase");
+
+        skillDatas.OwnSkillsData.ForEach(data =>
+            RegisterSkill(skillDB.GetDataByID(data.id) as Skill, data.level));
+
+        for (int i = 0; i < skillDatas.EquipSkillsData.Count; i++)
+        {
+            Skill equipSkill = FindOwnSkills(skillDatas.EquipSkillsData[i].id);
+            EquipSkill(equipSkill, skillDatas.EquipSkillsData[i].level);
+        }
+    }
+    #endregion
+}
+
+[Serializable]
+public struct SkillSaveDatas
+{
+    public List<SkillSaveData> EquipSkillsData;
+    public List<SkillSaveData> OwnSkillsData;
 }

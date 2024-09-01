@@ -72,7 +72,7 @@ public class ContentsController : MonoBehaviour
         txtModalViewTitle.text = "Skill";
 
         BtnSkill[] btnSkill = contentsView[(int)ContentsType.Skill].GetComponentsInChildren<BtnSkill>();
-        for (int i = 1; i < btnSkill.Length; i++)
+        for (int i = 1; i < skillDB.Count; i++)
         {
             btnSkill[i - 1].SetUp(player, skillDB.GetDataByID(i) as Skill);
         }

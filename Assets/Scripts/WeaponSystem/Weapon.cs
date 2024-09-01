@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class Weapon : IdentifiedObject, ISaveData<WeaponSaveData>
 {
@@ -67,16 +68,20 @@ public class Weapon : IdentifiedObject, ISaveData<WeaponSaveData>
 
     public void FromSaveData(WeaponSaveData saveData)
     {
-        throw new System.NotImplementedException();
+        Level = saveData.level;
     }
+
     public WeaponSaveData ToSaveData()
-    {
-        throw new System.NotImplementedException();
-    }
+            => new WeaponSaveData
+            {
+                id = ID,
+                level = level
+            };
 }
 
 [Serializable]
 public struct WeaponSaveData
 {
-
+    public int id;
+    public int level;
 }

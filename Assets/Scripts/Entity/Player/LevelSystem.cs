@@ -14,7 +14,7 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
 
     private int level;
     private float exp;
-    private float levelExp;
+    private float levelExp; // 레벨업에 필요한 경험치
 
     public int Level
     {
@@ -22,7 +22,7 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         private set // 레벨시스템 내에서만 수정 가능
         {
             exp -= levelExp;
-            levelExp *= 1 + Settings.expPerLevel;
+            levelExp *= Settings.expPerLevel; // 레벨당 1.04씩 곱해짐 (4% 증가)
 
             level = value;
 
@@ -69,13 +69,12 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
 
     public void FromSaveData(LevelSaveData saveData)
     {
-        Debug.Log("Level FromSaveData : "+saveData.exp);
         level = saveData.level;
         exp = saveData.exp;
 
         // 기본레벨 : 1 , 로드한 레벨 : 40
         // levelExp는 총 39레벨만큼 증가해야함 (= expPerLevel의 39제곱)
-        levelExp *= (float)Math.Pow(1 + Settings.expPerLevel, level - 1);
+        levelExp *= (float)Math.Pow(Settings.expPerLevel, level - 1);
 
         OnExpChanged?.Invoke(this, exp, levelExp);
         OnLevelChanged?.Invoke(this, level);
