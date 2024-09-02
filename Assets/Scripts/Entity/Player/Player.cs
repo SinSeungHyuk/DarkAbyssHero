@@ -74,6 +74,9 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, 5000);
         CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, 5000);
         SkillSystem.RegisterSkill(skill);
+
+
+        Debug.Log($"Player : {WeaponSystem.CurrentWeapon.name} , {SkillSystem.EquipSkills[0].name}");
     }
 
     void Update()
@@ -181,6 +184,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         saveData.CurrencyData = CurrencySystem.ToSaveData();
         saveData.SkillDatas = SkillSystem.ToSaveData();
         saveData.WeaponDatas = WeaponSystem.ToSaveData();
+        saveData.StageData = StageManager.Instance.CurrentStage.ID;
 
         return saveData;
     }
@@ -192,6 +196,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         CurrencySystem.FromSaveData(saveData.CurrencyData);
         SkillSystem.FromSaveData(saveData.SkillDatas);
         WeaponSystem.FromSaveData(saveData.WeaponDatas);
+        StageManager.Instance.CreateStage(saveData.StageData);
     }
     #endregion
 }
@@ -204,4 +209,5 @@ public struct PlayerSaveData
     public CurrencySaveData CurrencyData;
     public SkillSaveDatas SkillDatas;
     public WeaponSaveDatas WeaponDatas;
+    public int StageData;
 }

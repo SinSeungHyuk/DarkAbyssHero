@@ -131,7 +131,6 @@ public class InnerContentUI : MonoBehaviour
     {
         if (player.WeaponSystem.CurrentWeapon.ID != ownWeapon.ID)
         {
-            player.WeaponSystem.UnequipWeapon(player.WeaponSystem.CurrentWeapon);
             player.WeaponSystem.EquipWeapon(ownWeapon);
         }
     }

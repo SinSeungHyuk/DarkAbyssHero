@@ -18,43 +18,41 @@ MonoBehaviour:
   codeName: SwordRain
   displayName: Sword Rain
   description: 
-  applyType: 0
+  applyType: 1
   gradeType: 3
   skillPriority: 5
-  maxLevel: 10
-  defaultLevel: 1
   skillDatas:
-  - level: 1
+    level: 0
     action:
-      rid: 3630001606466994178
+      rid: 6158628566563815424
     runningFinishOption: 0
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 14
-    distance: 8
+    cooldown: 10
+    distance: 5
     isUseCast: 1
     castTime: 2
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
     castAnimatorParameter: 4
-    actionAnimatorParameter: 1
+    actionAnimatorParameter: 2
     customActionsOnCast:
-    - rid: 3630001606466994179
+    - rid: 6158628566563815425
     customActionsOnAction: []
   references:
     version: 2
     RefIds:
-    - rid: 3630001606466994178
+    - rid: 6158628566563815424
       type: {class: SpawnSkillObjectAction, ns: , asm: Assembly-CSharp}
       data:
         skillObjectPrefab: {fileID: 1199681872097717848, guid: d9ac8b2ffa752734894d0c439ab85213,
           type: 3}
         duration: 5
         applyCount: 6
-        objectScale: {x: 0.7, y: 1, z: 0.7}
-    - rid: 3630001606466994179
+        objectScale: {x: 1, y: 1, z: 1}
+    - rid: 6158628566563815425
       type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
       data:
         targetType: 0

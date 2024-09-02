@@ -39,13 +39,21 @@ public class WeaponSystem : MonoBehaviour
 
     public void EquipWeapon(Weapon weapon)
     {
-        foreach (WeaponData weaponData in weapon.CurrentDatas)
+        Weapon equipWeapon = FindOwnWeapon(weapon);
+        if (equipWeapon == null) return;
+
+        if (CurrentWeapon != null)
+            UnequipWeapon(CurrentWeapon);
+
+        foreach (WeaponData weaponData in equipWeapon.CurrentDatas)
         {
-            Player.Stats.IncreaseBonusValue(weaponData.Stat, weapon, weaponData.BonusStatValue);
-            CurrentWeapon = weapon;
-            OnWeaponEquiped?.Invoke(this, weapon);
+            Player.Stats.IncreaseBonusValue(weaponData.Stat, equipWeapon, weaponData.BonusStatValue);
+            OnWeaponEquiped?.Invoke(this, equipWeapon);
             // 무기 레벨업 이벤트 구독,해지해서 데이터 실시간으로 가져오기
         }
+        CurrentWeapon = equipWeapon;
+
+        Debug.Log($"EquipWeapon !@!!!! : {CurrentWeapon.name}");
     }
 
     public bool UnequipWeapon(Weapon weapon)
@@ -71,8 +79,8 @@ public class WeaponSystem : MonoBehaviour
     public Weapon FindOwnWeapon(Weapon weapon)
     => ownWeapons.Find(x => x.ID == weapon.ID);
 
-    public Weapon FindOwnWeapon(int id)
-    => ownWeapons.Find(x => x.ID == id);
+    //public Weapon FindOwnWeapon(int id)
+    //=> ownWeapons.Find(x => x.ID == id);
 
     public bool ContainsOwnWeapons(Weapon weapon)
     => FindOwnWeapon(weapon) != null;
@@ -99,7 +107,10 @@ public class WeaponSystem : MonoBehaviour
         weaponDatas.OwnWeaponsData.ForEach(data =>
             RegisterWeapon(weaponDB.GetDataByID(data.id) as Weapon, data.level));
 
-        EquipWeapon(FindOwnWeapon(weaponDatas.CurrentWeaponData.id));
+        Weapon equipWeapon = weaponDB.GetDataByID(weaponDatas.CurrentWeaponData.id) as Weapon;
+        Debug.Log($"Weapon SaveData From!!!! : {equipWeapon.name}");
+
+        EquipWeapon(equipWeapon);
     }
     #endregion
 }
