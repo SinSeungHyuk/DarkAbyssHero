@@ -132,13 +132,8 @@ public class FirebaseController : MonoBehaviour
 
     private void StartGame()
     {
-        Debug.Log("FirebaseController StartGame #!$%@!$!#%$@#%@#$^$@#^$@");
-        AddressableManager.Instance.LoadResources<Database>("Database"
-            , () => {
-            btnStart.gameObject.SetActive(true);
-            txtLogin.text = "Touch To Start";
-        });
-
+        btnStart.gameObject.SetActive(true);
+        txtLogin.text = "Touch To Start";
     }
 
     public void CreateDialogNickname() // Confirm 버튼에 등록
@@ -182,9 +177,7 @@ public class FirebaseController : MonoBehaviour
     
     public void LoadStartScene() // 스타트 버튼에 등록
     {
-        //List<string> levelResources = new List<string> { "Database" };
-        //LoadingSceneManager.LoadScene("MainScene", levelResources);
-
-        SceneManager.LoadScene("MainScene");
+        List<string> levelResources = new List<string> { "Database" , "Stage"};
+        LoadingSceneManager.LoadScene("MainScene", levelResources);
     }
 }

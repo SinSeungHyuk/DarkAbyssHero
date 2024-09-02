@@ -11,6 +11,9 @@ public class LoadingSceneManager : MonoBehaviour
     private static string nextSceneName;
     private static List<string> resourceLabelsToLoad;
 
+    private float resourceProgress;
+    private bool isLoadAll;
+
 
     public static void LoadScene(string sceneName, List<string> labelsToLoad)
     {
@@ -31,14 +34,15 @@ public class LoadingSceneManager : MonoBehaviour
         // 리소스 로딩
         for (int i = 0; i < resourceLabelsToLoad.Count; i++)
         {
-            //yield return StartCoroutine(AddressableManager.Instance.LoadResources<Object>(
-            //    resourceLabelsToLoad[i],
-            //    (progress) =>
-            //    {
-            //        float overallProgress = (i + progress) / resourceLabelsToLoad.Count;
-            //        UpdateLoadingProgress(overallProgress);
-            //    }
-            //));
+            yield return StartCoroutine(AddressableManager.Instance.LoadResources<Object>(
+                resourceLabelsToLoad[i],
+                (progress) =>
+                {
+                    resourceProgress = (i + progress) / resourceLabelsToLoad.Count;
+                    UpdateLoadingProgress(resourceProgress * 0.5f);  // Resources take up 50% of the loading bar
+                },
+                () => isLoadAll = true
+            ));
         }
 
         // 씬 로딩
@@ -47,14 +51,13 @@ public class LoadingSceneManager : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
-            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-            UpdateLoadingProgress(progress);
+            float sceneProgress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            UpdateLoadingProgress(0.5f + (sceneProgress * 0.5f));  // Scene loading takes up the other 50%
 
-            if (asyncLoad.progress >= 0.9f)
+            if (isLoadAll && asyncLoad.progress >= 0.9f)
             {
                 asyncLoad.allowSceneActivation = true;
             }
-
             yield return null;
         }
     }

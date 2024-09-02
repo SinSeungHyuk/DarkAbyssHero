@@ -189,6 +189,9 @@ public class SkillSystem : MonoBehaviour
     {
         Database skillDB = AddressableManager.Instance.GetResource<Database>("SkillDatabase");
 
+        ownSkills.Clear();
+        equipSkills.Clear();
+
         skillDatas.OwnSkillsData.ForEach(data =>
             RegisterSkill(skillDB.GetDataByID(data.id) as Skill, data.level));
 

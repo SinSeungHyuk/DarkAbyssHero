@@ -30,7 +30,7 @@ public class StatsUI : MonoBehaviour
         txtLevel.text = $"Level : {player.LevelSystem.Level.ToString()}";
 
         txtATK.text = stats.GetValue(StatType.Attack).ToString("0");
-        txtMaxHP.text = stats.GetValue(StatType.HP).ToString("0");
+        txtMaxHP.text = stats.GetStat(StatType.HP).MaxValue.ToString("0"); // HP´Â maxHP Ãâ·Â
         txtCritChance.text = stats.GetValue(StatType.CriticChance).ToString()+ "%";
         txtCritDMG.text = (stats.GetValue(StatType.CriticDamage)*100).ToString("0") + "%";
         txtHPRegen.text = stats.GetValue(StatType.HPRegen).ToString("0");
@@ -38,7 +38,6 @@ public class StatsUI : MonoBehaviour
         txtSpeed.text = player.Movement.Speed.ToString("0");
 
         player.LevelSystem.OnLevelChanged += OnLevelTextChanged;
-        //player.Stats
     }
 
     private void OnDisable()

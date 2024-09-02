@@ -94,6 +94,8 @@ public class WeaponSystem : MonoBehaviour
     {
         Database weaponDB = AddressableManager.Instance.GetResource<Database>("WeaponDatabase");
 
+        ownWeapons.Clear();
+
         weaponDatas.OwnWeaponsData.ForEach(data =>
             RegisterWeapon(weaponDB.GetDataByID(data.id) as Weapon, data.level));
 

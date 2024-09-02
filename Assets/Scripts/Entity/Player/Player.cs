@@ -65,12 +65,15 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        Database skillDB = AddressableManager.Instance.GetResource<Database>("SkillDatabase");
-        Debug.Log(skillDB.name + " , skillDB@#!@#!@#!@$#@$!@%!@#%!@#!^##^ " + skillDB.Count);
-
         SaveManager.Instance.LoadGame();
         StageManager.Instance.OnStageChanged += OnStageChanged;
         StartCoroutine(HPRegenRoutine());
+
+
+        // Test
+        CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, 5000);
+        CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, 5000);
+        SkillSystem.RegisterSkill(skill);
     }
 
     void Update()

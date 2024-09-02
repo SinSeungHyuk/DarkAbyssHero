@@ -19,6 +19,8 @@ public class InnerContentUI : MonoBehaviour
     [SerializeField] private Image imgIcon;
     [SerializeField] private Image imgFrame;
     [SerializeField] private Image imgCurrency;
+    [SerializeField] private Sprite imgSkillCurrency;
+    [SerializeField] private Sprite imgWeaponCurrency;
     [SerializeField] private Button btnLevelUp;
     [SerializeField] private Button btnEquip;
 
@@ -49,11 +51,11 @@ public class InnerContentUI : MonoBehaviour
         txtName.color = ownSkill.SkillGrade.GradeColor;
         imgIcon.sprite = ownSkill.Icon;
         imgFrame.color = ownSkill.SkillGrade.GradeColor;
+        imgCurrency.sprite = imgSkillCurrency;
 
         txtInfo1.text = $"Cooldown : <color=#{green}>{ownSkill.Cooldown}</color> sec";
         txtInfo2.text = skill.Description;
-        txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>" +
-            $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level+1)}</color>";
+        ShowSkillInfoText();
 
         btnLevelUp.onClick.RemoveAllListeners();
         btnEquip.onClick.RemoveAllListeners();
@@ -69,8 +71,7 @@ public class InnerContentUI : MonoBehaviour
             player.CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, -ownSkill.SkillGrade.GradeCurrency);
             ownSkill.Level++;
             txtLevel.text = $"Lv. {ownSkill.Level} / {ownSkill.MaxLevel}";
-            txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>" +
-                $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>";
+            ShowSkillInfoText();
         }
     }
 
@@ -81,6 +82,12 @@ public class InnerContentUI : MonoBehaviour
 
         btnEquipSkills.gameObject.SetActive(true);
         btnEquipSkills.SetUp(player, ownSkill);
+    }
+
+    private void ShowSkillInfoText()
+    {
+        txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>" +
+    $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>";
     }
     #endregion
 
@@ -98,6 +105,9 @@ public class InnerContentUI : MonoBehaviour
         txtName.color = ownWeapon.WeaponGrade.GradeColor;
         imgIcon.sprite = ownWeapon.Icon;
         imgFrame.color = ownWeapon.WeaponGrade.GradeColor;
+        imgCurrency.sprite = imgWeaponCurrency;
+
+        ShowWeaponInfoText(ownWeapon);
 
         btnLevelUp.onClick.RemoveAllListeners();
         btnEquip.onClick.RemoveAllListeners();
@@ -113,8 +123,7 @@ public class InnerContentUI : MonoBehaviour
             player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, -ownWeapon.WeaponGrade.GradeCurrency);
             ownWeapon.Level++;
             txtLevel.text = $"Lv. {ownWeapon.Level} / {ownWeapon.MaxLevel}";
-            //txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownWeapon.CurrentDatas.}</color>" +
-            //    $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>";
+            ShowWeaponInfoText(ownWeapon);
         }
     }
 
@@ -124,6 +133,17 @@ public class InnerContentUI : MonoBehaviour
         {
             player.WeaponSystem.UnequipWeapon(player.WeaponSystem.CurrentWeapon);
             player.WeaponSystem.EquipWeapon(ownWeapon);
+        }
+    }
+
+    private void ShowWeaponInfoText(Weapon weapon)
+    {
+        txtInfo1.text = "";
+        txtInfo2.text = "";
+        txtInfo3.text = "";
+        foreach (WeaponData data in weapon.CurrentDatas)
+        {
+            txtInfo1.text += $"{data.Stat.DisplayName} -> {data.BonusStatValue}\n";
         }
     }
     #endregion
