@@ -66,8 +66,6 @@ public class SkillSystem : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(equipSkills.Count + " Update skill Count !!!!!!!");
-
         foreach (var skill in equipSkills)
         {
             // SkillSystem Update -> Skill Update -> StateMachine Update -> State Update
@@ -86,7 +84,6 @@ public class SkillSystem : MonoBehaviour
         if (equipSkills[idx] != null)
             UnequipSkill(equipSkills[idx], idx);
         equipSkills[idx] = equipSkill;
-        Debug.Log($"EquipSkill !@!!!! : {equipSkills[idx].name} , {idx}");
 
         //// 스킬 장착이벤트 : UI 스킬셋에 등록
         OnSkillEquip?.Invoke(this, equipSkill, idx);
@@ -194,12 +191,9 @@ public class SkillSystem : MonoBehaviour
         skillDatas.OwnSkillsData.ForEach(data =>
             RegisterSkill(skillDB.GetDataByID(data.id) as Skill, data.level));
 
-        Debug.Log($"OwnSkill Load!! : {ownSkills[0].name}");
-
         for (int i = 0; i < skillDatas.EquipSkillsData.Count; i++)
         {
             Skill equipSkill = skillDB.GetDataByID(skillDatas.EquipSkillsData[i].id) as Skill;
-            Debug.Log($"EquipSkillsData : {equipSkill.name} , index : {i}");
             EquipSkill(equipSkill, i);
         }
     }

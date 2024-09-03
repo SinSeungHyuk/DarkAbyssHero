@@ -32,7 +32,7 @@ public class BtnWeapon : MonoBehaviour
         this.weapon = weapon;
 
         imgWeaponIcon.sprite = weapon.Icon;
-        ShowSkillGradeColor();
+        ShowWeaponGradeColor();
 
         if (player.WeaponSystem.ContainsOwnWeapons(weapon) == false)
             imgBlind.gameObject.SetActive(true);
@@ -74,7 +74,7 @@ public class BtnWeapon : MonoBehaviour
         txtWeaponLevel.text = $"Lv. {player.WeaponSystem.FindOwnWeapon(weapon).Level}";
     }
 
-    private void ShowSkillGradeColor()
+    private void ShowWeaponGradeColor()
     {
         Color32 color = UtilitieHelper.GetGradeColor(weapon.GradeType);
 

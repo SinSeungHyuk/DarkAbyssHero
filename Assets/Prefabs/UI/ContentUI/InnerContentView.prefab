@@ -1971,6 +1971,10 @@ MonoBehaviour:
   imgIcon: {fileID: 2556468081198628519}
   imgFrame: {fileID: 3687116951960031686}
   imgCurrency: {fileID: 404994011063433620}
+  imgSkillCurrency: {fileID: -1365204760, guid: 0299570027e29504fb2aad705a2a18f8,
+    type: 3}
+  imgWeaponCurrency: {fileID: -1413558776, guid: 0299570027e29504fb2aad705a2a18f8,
+    type: 3}
   btnLevelUp: {fileID: 9221480844855755720}
   btnEquip: {fileID: 1947882978870292415}
 --- !u!1 &2828777270782865076
@@ -2644,7 +2648,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Launches Fire Ball to enemies, dealing damage nearby enemies.aaaaaaaaaaaa
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4861,7 +4865,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Launches Fire Ball to enemies, dealing damage nearby enemies.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6185,7 +6189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cooldown : 5 sec'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

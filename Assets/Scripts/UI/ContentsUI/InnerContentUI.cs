@@ -47,13 +47,17 @@ public class InnerContentUI : MonoBehaviour
         txtLevel.text = $"Lv. {ownSkill.Level} / {ownSkill.MaxLevel}";
         txtUpCurrency.text = $"{ownSkill.SkillGrade.GradeCurrency}";
 
+        txtInfo1.text = "";
+        txtInfo2.text = "";
+        txtInfo3.text = "";
+
         txtName.text = ownSkill.DisplayName;
         txtName.color = ownSkill.SkillGrade.GradeColor;
         imgIcon.sprite = ownSkill.Icon;
         imgFrame.color = ownSkill.SkillGrade.GradeColor;
         imgCurrency.sprite = imgSkillCurrency;
 
-        txtInfo1.text = $"Cooldown : <color=#{green}>{ownSkill.Cooldown}</color> sec";
+        txtInfo1.text = $"Cooldown : <color=#{green}>{ownSkill.Cooldown}</color>";
         txtInfo2.text = skill.Description;
         ShowSkillInfoText();
 
@@ -86,8 +90,8 @@ public class InnerContentUI : MonoBehaviour
 
     private void ShowSkillInfoText()
     {
-        txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>" +
-    $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>";
+        txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>%" +
+    $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>%";
     }
     #endregion
 

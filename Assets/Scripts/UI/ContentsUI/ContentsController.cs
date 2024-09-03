@@ -91,6 +91,11 @@ public class ContentsController : MonoBehaviour
         }
     }
 
+    public void BtnShop()
+    {
+        contentsView[(int)ContentsType.Shop].gameObject.SetActive(true);
+    }
+
 
     private void BtnContents(int idx)
     {

@@ -24,8 +24,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        Stage stage = stageDB.GetDataByID(0) as Stage;
-        StageManager.Instance.CreateStage(stage);
+        //Stage stage = stageDB.GetDataByID(0) as Stage;
+        //StageManager.Instance.CreateStage(stage);
     }
 
 

@@ -65,18 +65,16 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
-        SaveManager.Instance.LoadGame();
+        StageManager.Instance.CreateStage(0);
         StageManager.Instance.OnStageChanged += OnStageChanged;
-        StartCoroutine(HPRegenRoutine());
 
+        SaveManager.Instance.LoadGame();
+        StartCoroutine(HPRegenRoutine());
 
         // Test
         CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, 5000);
         CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, 5000);
         SkillSystem.RegisterSkill(skill);
-
-
-        Debug.Log($"Player : {WeaponSystem.CurrentWeapon.name} , {SkillSystem.EquipSkills[0].name}");
     }
 
     void Update()

@@ -45,26 +45,34 @@ public class WeaponSystem : MonoBehaviour
         if (CurrentWeapon != null)
             UnequipWeapon(CurrentWeapon);
 
-        foreach (WeaponData weaponData in equipWeapon.CurrentDatas)
-        {
-            Player.Stats.IncreaseBonusValue(weaponData.Stat, equipWeapon, weaponData.BonusStatValue);
-            OnWeaponEquiped?.Invoke(this, equipWeapon);
-            // 무기 레벨업 이벤트 구독,해지해서 데이터 실시간으로 가져오기
-        }
+        ApplyWeaponDatas(equipWeapon);
+        OnWeaponEquiped?.Invoke(this, equipWeapon);
+        
+        // 무기 레벨업 이벤트 구독,해지해서 데이터 실시간으로 가져오기
         CurrentWeapon = equipWeapon;
 
-        Debug.Log($"EquipWeapon !@!!!! : {CurrentWeapon.name}");
+        CurrentWeapon.OnLevelChanged += CurrentWeapon_OnLevelChanged;
     }
 
     public bool UnequipWeapon(Weapon weapon)
     {
+        CurrentWeapon.OnLevelChanged -= CurrentWeapon_OnLevelChanged;
+
         foreach (WeaponData weaponData in weapon.CurrentDatas)
         {
             Player.Stats.RemoveBonusValue(weaponData.Stat, weapon);
-            OnWeaponUnequiped?.Invoke(this, weapon);
         }
+        OnWeaponUnequiped?.Invoke(this, weapon);
 
         return true;
+    }    
+
+    private void ApplyWeaponDatas(Weapon weapon)
+    {
+        foreach (WeaponData weaponData in weapon.CurrentDatas)
+        {
+            Player.Stats.IncreaseBonusValue(weaponData.Stat, weapon, weaponData.BonusStatValue);
+        }
     }
 
     public void RegisterWeapon(Weapon weapon, int level = 1)
@@ -74,13 +82,13 @@ public class WeaponSystem : MonoBehaviour
         ownWeapons.Add(registerWeapon);
     }
 
+    private void CurrentWeapon_OnLevelChanged(Weapon weapon, int currentLevel, int prevLevel)
+        => ApplyWeaponDatas(weapon);
+
 
     #region Utility
     public Weapon FindOwnWeapon(Weapon weapon)
     => ownWeapons.Find(x => x.ID == weapon.ID);
-
-    //public Weapon FindOwnWeapon(int id)
-    //=> ownWeapons.Find(x => x.ID == id);
 
     public bool ContainsOwnWeapons(Weapon weapon)
     => FindOwnWeapon(weapon) != null;
@@ -108,7 +116,6 @@ public class WeaponSystem : MonoBehaviour
             RegisterWeapon(weaponDB.GetDataByID(data.id) as Weapon, data.level));
 
         Weapon equipWeapon = weaponDB.GetDataByID(weaponDatas.CurrentWeaponData.id) as Weapon;
-        Debug.Log($"Weapon SaveData From!!!! : {equipWeapon.name}");
 
         EquipWeapon(equipWeapon);
     }

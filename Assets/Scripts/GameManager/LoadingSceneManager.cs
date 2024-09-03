@@ -39,7 +39,7 @@ public class LoadingSceneManager : MonoBehaviour
                 (progress) =>
                 {
                     resourceProgress = (i + progress) / resourceLabelsToLoad.Count;
-                    UpdateLoadingProgress(resourceProgress * 0.5f);  // Resources take up 50% of the loading bar
+                    UpdateLoadingProgress(resourceProgress * 0.5f); // 로딩바 절반까지만 채우기
                 },
                 () => isLoadAll = true
             ));
@@ -52,7 +52,7 @@ public class LoadingSceneManager : MonoBehaviour
         while (!asyncLoad.isDone)
         {
             float sceneProgress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-            UpdateLoadingProgress(0.5f + (sceneProgress * 0.5f));  // Scene loading takes up the other 50%
+            UpdateLoadingProgress(0.5f + (sceneProgress * 0.5f)); // 로딩바 나머지 절반 채우기
 
             if (isLoadAll && asyncLoad.progress >= 0.9f)
             {
