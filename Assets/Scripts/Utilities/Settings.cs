@@ -17,6 +17,14 @@ public static class Settings
     #endregion
 
 
+    #region DRAW PARAMETER
+    public static float normalChance = 0.6f;
+    public static float rareChance = 0.3f;
+    public static float epicChance = 0.07f;
+    public static float legendChance = 0.03f;
+    #endregion
+
+
     #region STAGE PARAMETER
     public static float spawnTimer = 8.0f;
 

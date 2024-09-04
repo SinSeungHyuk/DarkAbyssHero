@@ -69,37 +69,37 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/UI/SharpUI/Textures
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bea4237264346ae43b6322af6175be2c
     m_Address: Assets/ExternalAssets/Sprites/Wand/Transparent
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be75af025b2df544b914a18112138874
     m_Address: Assets/ExternalAssets/Sprites/Skill
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 31ad4d8e60f1046459a5f29bf3f64682
     m_Address: Assets/Prefabs/monster/Monster_Creep.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 759c1c1ef58faca419dd7c486abe6250
     m_Address: Assets/Prefabs/monster/Monster_Titan.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4784ff95a2cd58e489064541eeb9e77d
     m_Address: Assets/ExternalAssets/Sprites/Sprite sheets
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c811501f47ba5eb44b83eece54bd6db8, type: 2}

@@ -68,12 +68,14 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         StageManager.Instance.CreateStage(0);
         StageManager.Instance.OnStageChanged += OnStageChanged;
 
-        SaveManager.Instance.LoadGame();
+        //SaveManager.Instance.LoadGame();
         StartCoroutine(HPRegenRoutine());
 
         // Test
         CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, 5000);
         CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, 5000);
+        CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentTicket, 300);
+        CurrencySystem.IncreaseCurrency(CurrencyType.SkillTicket, 300);
         SkillSystem.RegisterSkill(skill);
     }
 

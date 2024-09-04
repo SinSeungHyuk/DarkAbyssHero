@@ -93,6 +93,7 @@ public class ContentsController : MonoBehaviour
 
     public void BtnShop()
     {
+        contentsView[(int)ContentsType.Shop].GetComponent<ShopUI>().SetUp(player,skillDB,weaponDB);
         contentsView[(int)ContentsType.Shop].gameObject.SetActive(true);
     }
 
