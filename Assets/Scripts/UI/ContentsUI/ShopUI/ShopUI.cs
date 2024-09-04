@@ -38,16 +38,37 @@ public class ShopUI : MonoBehaviour
 
     public void BtnWeaponDraw10()
     {
-        if (player.CurrencySystem.GetCurrency(CurrencyType.EquipmentTicket) < 10)
+        DrawWeapon(10);
+    }
+
+    public void BtnWeaponDraw30()
+    {
+        DrawWeapon(30);
+    }
+
+    public void BtnSkillDraw10()
+    {
+        DrawSkill(10);
+    }
+
+    public void BtnSkillDraw30()
+    {
+        DrawSkill(30);
+    }
+
+    private void DrawWeapon(int count)
+    {
+        if (player.CurrencySystem.GetCurrency(CurrencyType.EquipmentTicket) < count)
             return;
 
-        player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentTicket, -10);
+        player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentTicket, -count);
 
-        List<Weapon> drawWeapons = new();
+        List<Weapon> drawWeapons = new(count);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < count; i++)
         {
             Weapon weapon = drawSystem.DrawWeapon();
+            player.WeaponSystem.RegisterWeapon(weapon);
             drawWeapons.Add(weapon);
         }
 
@@ -55,22 +76,23 @@ public class ShopUI : MonoBehaviour
         drawViewUI.SetUp(drawWeapons);
     }
 
-    public void BtnWeaponDraw30()
+    private void DrawSkill(int count)
     {
-        if (player.CurrencySystem.GetCurrency(CurrencyType.EquipmentTicket) < 30)
+        if (player.CurrencySystem.GetCurrency(CurrencyType.SkillTicket) < count)
             return;
 
-        player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentTicket, -30);
+        player.CurrencySystem.IncreaseCurrency(CurrencyType.SkillTicket, -count);
 
-        List<Weapon> drawWeapons = new(30);
+        List<Skill> drawSkills = new(count);
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < count; i++)
         {
-            Weapon weapon = drawSystem.DrawWeapon();
-            drawWeapons.Add(weapon);
+            Skill skill = drawSystem.DrawSkill();
+            player.SkillSystem.RegisterSkill(skill);
+            drawSkills.Add(skill);
         }
 
         drawViewUI.gameObject.SetActive(true);
-        drawViewUI.SetUp(drawWeapons);
+        drawViewUI.SetUp(drawSkills);
     }
 }

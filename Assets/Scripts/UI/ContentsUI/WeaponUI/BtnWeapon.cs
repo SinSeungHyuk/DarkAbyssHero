@@ -37,7 +37,10 @@ public class BtnWeapon : MonoBehaviour
         if (player.WeaponSystem.ContainsOwnWeapons(weapon) == false)
             imgBlind.gameObject.SetActive(true);
         else
+        {
+            imgBlind.gameObject.SetActive(false);
             ShowWeaponLevel();
+        }
         if (player.WeaponSystem.CurrentWeapon.ID == weapon.ID)
             txtEquipped.gameObject.SetActive(true);
 

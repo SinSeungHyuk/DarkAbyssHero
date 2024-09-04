@@ -63,6 +63,32 @@ public static class UtilitieHelper
         return color;
     }
 
+    // 등급별 업글재료 리턴 ================================================================
+    public static int GetGradeCurrency(GradeType type)
+    {
+        int currency = 0;
+
+        switch (type)
+        {
+            case GradeType.Normal:
+                currency = 25;
+                break;
+            case GradeType.Rare:
+                currency = 50;
+                break;
+            case GradeType.Epic:
+                currency = 125;
+                break;
+            case GradeType.Legend:
+                currency = 250;
+                break;
+            default:
+                break;
+        };
+
+        return currency;
+    }
+
     // 선형 볼륨 스케일을 데시벨로 변환 ====================================================================
     public static float LinearToDecibels(int linear)
     {

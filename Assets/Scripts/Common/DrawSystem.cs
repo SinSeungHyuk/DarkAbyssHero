@@ -59,4 +59,24 @@ public class DrawSystem : MonoBehaviour
 
         return weaponsByGrade[GradeType.Normal][0];
     }
+
+    public Skill DrawSkill()
+    {
+        float randomValue = UnityEngine.Random.value;
+        float currentChance = 0.0f;
+
+        for (int i = 0; i < drawChanceByGrade.Count; i++)
+        {
+            currentChance += drawChanceByGrade[i];
+            if (randomValue <= currentChance)
+            {
+                GradeType grade = (GradeType)i;
+
+                int randomIndex = UnityEngine.Random.Range(0, skillsByGrade[grade].Count);
+                return skillsByGrade[grade][randomIndex];
+            }
+        }
+
+        return skillsByGrade[GradeType.Normal][0];
+    }
 }

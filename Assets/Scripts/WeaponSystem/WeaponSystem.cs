@@ -77,6 +77,13 @@ public class WeaponSystem : MonoBehaviour
 
     public void RegisterWeapon(Weapon weapon, int level = 1)
     {
+        if (ContainsOwnWeapons(weapon))
+        {
+            int currency = UtilitieHelper.GetGradeCurrency(weapon.GradeType);
+            Player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, currency);
+            return;
+        }
+
         Weapon registerWeapon = weapon.Clone() as Weapon;
         registerWeapon.SetUp(Player, level);
         ownWeapons.Add(registerWeapon);

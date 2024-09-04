@@ -105,7 +105,12 @@ public class SkillSystem : MonoBehaviour
 
     public void RegisterSkill(Skill skill, int level = 1)
     {
-        if (ownSkills.Contains(skill)) return;
+        if (ContainsOwnSkills(skill))
+        {
+            int currency = UtilitieHelper.GetGradeCurrency(skill.GradeType);
+            Player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, currency);
+            return;
+        }
 
         // 보유중인 스킬도 각자 레벨을 관리하므로 복제해야함
         var clone = skill.Clone() as Skill;

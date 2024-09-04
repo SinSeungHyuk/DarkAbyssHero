@@ -36,7 +36,10 @@ public class BtnSkill : MonoBehaviour
         if (!player.SkillSystem.ContainsOwnSkills(skill))
             imgBlind.gameObject.SetActive(true);
         else
+        {
+            imgBlind.gameObject.SetActive(false);
             ShowSkillLevel();
+        }
         if (player.SkillSystem.ContainsEquipSkills(skill))
             txtEquipped.gameObject.SetActive(true);
 
