@@ -6,6 +6,8 @@ using Firebase.Auth;
 using Firebase.Extensions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Runtime.Remoting.Messaging;
+using System;
 
 
 public class SaveManager : Singleton<SaveManager>
@@ -25,10 +27,16 @@ public class SaveManager : Singleton<SaveManager>
     {
         // 플레이어의 PlayerSaveData 구조체를 Json 형태로 변환
         // PlayerSaveData 구조체 내부는 json으로 변환 가능한 int,List 등 기본자료형
-        string saveData = JsonUtility.ToJson(player.ToSaveData());
+        PlayerSaveData playerSaveData = player.ToSaveData();
+        string saveData = JsonUtility.ToJson(playerSaveData);
+
+
+        Dictionary<string, object> timeStampDic = new Dictionary<string, object>();
+        timeStampDic.Add("TimeStamp", ServerValue.Timestamp);
 
         // SaveData 노드 아래에 user.UserId 자식을 생성해서 SetRawJsonValueAsync으로 데이터 저장
         databaseReference.Child("SaveData").Child(user.UserId).SetRawJsonValueAsync(saveData);
+        databaseReference.Child("SaveData").Child(user.UserId).UpdateChildrenAsync(timeStampDic);
     }
 
     public void LoadGame()
@@ -60,10 +68,41 @@ public class SaveManager : Singleton<SaveManager>
                         var saveData = JsonConvert.DeserializeObject<PlayerSaveData>(userDataJson);
 
                         player.FromSaveData(saveData);
+                        GetReward(saveDB);
                     }
                     else Debug.Log("User ID no found");
                 }
                 else Debug.Log("no save data");
+            }
+        });
+    }
+
+    private void GetReward(DatabaseReference saveDB)
+    {
+        Debug.Log("GetRewardGetRewardGetRewardGetRewardGetRewardGetReward");
+        saveDB.Child(user.UserId).Child("TimeStamp").GetValueAsync().ContinueWithOnMainThread(task => {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Firebase 데이터 읽기 오류: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    long timeStamp = Convert.ToInt64(snapshot.Value);
+                    Debug.Log("TimeStamp: " + timeStamp);
+
+                    long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    long timeDifferenceMs = currentTimestamp - timeStamp;
+
+                    Debug.Log(" sec "+ timeDifferenceMs);
+
+                    TimeSpan timeDifference = TimeSpan.FromMilliseconds(timeDifferenceMs);
+
+                    // 시간 차이에 따른 보상 계산 및 지급
+                    GameManager.Instance.GiveReward(timeDifference.TotalHours);
+                }
             }
         });
     }

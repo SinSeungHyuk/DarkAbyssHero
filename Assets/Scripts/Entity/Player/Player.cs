@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 using static UnityEngine.UI.GridLayoutGroup;
+using Firebase.Database;
 
 
 public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
@@ -68,7 +69,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         StageManager.Instance.CreateStage(0);
         StageManager.Instance.OnStageChanged += OnStageChanged;
 
-        //SaveManager.Instance.LoadGame();
+        SaveManager.Instance.LoadGame();
         StartCoroutine(HPRegenRoutine());
 
         // Test

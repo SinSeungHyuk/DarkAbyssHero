@@ -7,9 +7,11 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Cinemachine;
+using Firebase.Database;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private TextMeshProUGUI txtTest;
     [SerializeField] private Player player;
 
     private Database stageDB;
@@ -26,8 +28,15 @@ public class GameManager : Singleton<GameManager>
     {
         //Stage stage = stageDB.GetDataByID(0) as Stage;
         //StageManager.Instance.CreateStage(stage);
+
+        
     }
 
+    public void GiveReward(double timeStamp)
+    {
+        txtTest.text = timeStamp.ToString();
+        Debug.Log(timeStamp + " GiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveReward");
+    }
 
 
 

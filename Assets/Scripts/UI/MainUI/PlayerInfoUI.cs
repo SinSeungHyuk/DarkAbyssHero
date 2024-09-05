@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 
-public class PlayerInfo : MonoBehaviour
+public class PlayerInfoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI txtNickname;
     [SerializeField] private TextMeshProUGUI txtLevel;
