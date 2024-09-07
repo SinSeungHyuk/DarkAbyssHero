@@ -8,6 +8,7 @@ public class StageEditor : IdentifiedObjectEditor
 {
     private SerializedProperty stagePrefabProperty;
     private SerializedProperty stageLevelProperty;
+    private SerializedProperty stageMusicProperty;
     private SerializedProperty monsterParametersProperty;
 
 
@@ -16,6 +17,7 @@ public class StageEditor : IdentifiedObjectEditor
         base.OnEnable();
 
         stagePrefabProperty = serializedObject.FindProperty("stagePrefab");
+        stageMusicProperty = serializedObject.FindProperty("stageMusic");
         stageLevelProperty = serializedObject.FindProperty("stageLevel");
         monsterParametersProperty = serializedObject.FindProperty("monsterParameters");
     }
@@ -28,6 +30,7 @@ public class StageEditor : IdentifiedObjectEditor
 
 
         EditorGUILayout.PropertyField(stagePrefabProperty);
+        EditorGUILayout.PropertyField(stageMusicProperty);
         EditorGUILayout.PropertyField(stageLevelProperty);
         EditorGUILayout.PropertyField(monsterParametersProperty);
 

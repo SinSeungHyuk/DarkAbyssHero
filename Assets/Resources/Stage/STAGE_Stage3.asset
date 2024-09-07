@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b462b6d07ecdd8c41b12bc6532306320, type: 3}
+  m_Name: STAGE_Stage3
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 2
+  codeName: Stage3
+  displayName: 1-3. Shadow's Refuge
+  description: 
+  stagePrefab: {fileID: 2272219957523880681, guid: 390fdc2698abfef4b83f842781c8c1b3,
+    type: 3}
+  stageLevel: 30
+  monsterParameters:
+  - Name: Monster_Titan
+    Hp: 3000
+    Attack: 30
+    Gold: 2000
+    Exp: 40
+    Ratio: 1
+  - Name: Monster_Creep
+    Hp: 2750
+    Attack: 15
+    Gold: 1800
+    Exp: 40
+    Ratio: 1

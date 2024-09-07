@@ -11,31 +11,21 @@ using Firebase.Database;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private TextMeshProUGUI txtTest;
+    [SerializeField] private UIController uiController;
     [SerializeField] private Player player;
 
-    private Database stageDB;
-
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        stageDB = AddressableManager.Instance.GetResource<Database>("StageDatabase");
-    }
-
-    private void Start()
-    {
-        //Stage stage = stageDB.GetDataByID(0) as Stage;
-        //StageManager.Instance.CreateStage(stage);
-
-        
-    }
 
     public void GiveReward(double timeStamp)
     {
-        txtTest.text = timeStamp.ToString();
-        Debug.Log(timeStamp + " GiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveRewardGiveReward");
+        if (timeStamp < 1) return; // 1시간 미만은 보상지급 X
+        if (timeStamp > 12) timeStamp = 12; // 12시간 까지만 보상지급
+
+        (int,int)goldExpRewards = StageManager.Instance.CurrentStage.GetAvgRewards((int)timeStamp);
+
+        player.CurrencySystem.IncreaseCurrency(CurrencyType.Gold, goldExpRewards.Item1);
+        player.LevelSystem.GetExpReward(goldExpRewards.Item2);
+
+        uiController.SetUpRewardUI(goldExpRewards.Item1, goldExpRewards.Item2, (int)timeStamp);
     }
 
 

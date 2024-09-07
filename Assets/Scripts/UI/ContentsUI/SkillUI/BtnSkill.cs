@@ -37,17 +37,24 @@ public class BtnSkill : MonoBehaviour
             imgBlind.gameObject.SetActive(true);
         else
         {
+            Skill findSkill = player.SkillSystem.FindOwnSkills(skill);
+            findSkill.OnLevelChanged -= FindSkill_OnLevelChanged; // 중복구독 방지
+            findSkill.OnLevelChanged += FindSkill_OnLevelChanged;
             imgBlind.gameObject.SetActive(false);
             ShowSkillLevel();
         }
         if (player.SkillSystem.ContainsEquipSkills(skill))
             txtEquipped.gameObject.SetActive(true);
+        else txtEquipped.gameObject.SetActive(false);
 
         player.SkillSystem.OnSkillEquip -= OnEquip;
         player.SkillSystem.OnSkillUnequip -= OnUnequip;
         player.SkillSystem.OnSkillEquip += OnEquip;
         player.SkillSystem.OnSkillUnequip += OnUnequip;
     }
+
+    private void FindSkill_OnLevelChanged(Skill arg1, int arg2, int arg3)
+        => ShowSkillLevel();
 
     private void OnUnequip(SkillSystem system, Skill skill, int arg3)
     {

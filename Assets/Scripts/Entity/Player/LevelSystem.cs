@@ -58,6 +58,25 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         levelExp = Settings.startExp;
     }
 
+    public void GetExpReward(int exp)
+    {
+        int levelUpCount = 0;
+        float finalExp = this.exp + exp;
+
+        while (finalExp > levelExp)
+        {
+            finalExp -= levelExp;
+            levelExp *= Settings.expPerLevel;
+            levelUpCount++;
+        }
+
+        level += levelUpCount;
+        this.exp = finalExp;
+
+        OnExpChanged?.Invoke(this, exp, levelExp);
+        OnLevelChanged?.Invoke(this, level);
+    }
+
 
 
     public LevelSaveData ToSaveData()

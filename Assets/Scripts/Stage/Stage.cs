@@ -10,11 +10,30 @@ public class Stage : IdentifiedObject
     [SerializeField] private GameObject stagePrefab;
     [SerializeField] private int stageLevel;
     [SerializeField] private List<MonsterSpawnParameter> monsterParameters = new();
+    [SerializeField] private MusicTrackSO stageMusic;
 
     public GameObject StagePrefab => stagePrefab;
+    public MusicTrackSO StageMusic => stageMusic;
     public int StageRequiredLevel => stageLevel;
     public IReadOnlyList<MonsterSpawnParameter> MonsterParameters => monsterParameters;
     public int StageLevel => ID + 1;
+
+    public (int,int) GetAvgRewards(int hours)
+    {
+        int avgGold = 0;
+        int avgExp = 0;
+
+        foreach (var monster in MonsterParameters)
+        {
+            avgGold += monster.Gold;
+            avgExp += monster.Exp;
+        }
+
+        avgGold /= monsterParameters.Count;
+        avgExp /= monsterParameters.Count;
+
+        return (avgGold * 180 * hours, avgExp * 180 * hours);
+    }
 }
 
 [Serializable] // 각 스테이지마다 몬스터의 정보 직접입력

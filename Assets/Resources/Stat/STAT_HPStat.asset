@@ -20,8 +20,8 @@ MonoBehaviour:
   description: Player / Monster 's HP
   requiredLevel: 0
   isUseMaxValue: 1
-  maxValue: 175
+  maxValue: 200
   defaultValue: 0
-  valuePerLevel: 50
-  goldPerLevel: 50
+  valuePerLevel: 20
+  goldPerLevel: 20
   defaultGold: 100

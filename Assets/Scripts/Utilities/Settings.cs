@@ -26,7 +26,8 @@ public static class Settings
 
 
     #region STAGE PARAMETER
-    public static float spawnTimer = 8.0f;
+    public static float spawnTimerMax = 10.0f;
+    public static float spawnTimerMin = 7.0f;
 
     public static float monsterReadyTimer = 1.0f;
     #endregion
@@ -45,6 +46,12 @@ public static class Settings
 
     public static int isAttack = Animator.StringToHash("isAttack");
     public static int AttackState = Animator.StringToHash("Attack");
+    #endregion
+
+
+    #region GAME SETTING
+    public const float musicFadeOutTime = 0.5f;
+    public const float musicFadeInTime = 0.5f;
     #endregion
 
 

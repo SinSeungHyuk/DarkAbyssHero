@@ -79,24 +79,16 @@ public class SaveManager : Singleton<SaveManager>
 
     private void GetReward(DatabaseReference saveDB)
     {
-        Debug.Log("GetRewardGetRewardGetRewardGetRewardGetRewardGetReward");
         saveDB.Child(user.UserId).Child("TimeStamp").GetValueAsync().ContinueWithOnMainThread(task => {
-            if (task.IsFaulted)
-            {
-                Debug.LogError("Firebase 데이터 읽기 오류: " + task.Exception);
-            }
-            else if (task.IsCompleted)
+            if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists)
                 {
                     long timeStamp = Convert.ToInt64(snapshot.Value);
-                    Debug.Log("TimeStamp: " + timeStamp);
 
                     long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     long timeDifferenceMs = currentTimestamp - timeStamp;
-
-                    Debug.Log(" sec "+ timeDifferenceMs);
 
                     TimeSpan timeDifference = TimeSpan.FromMilliseconds(timeDifferenceMs);
 

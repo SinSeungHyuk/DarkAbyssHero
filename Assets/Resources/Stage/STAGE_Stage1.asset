@@ -10,27 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b462b6d07ecdd8c41b12bc6532306320, type: 3}
-  m_Name: STAGE_TestStage
+  m_Name: STAGE_Stage1
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
   id: 0
-  codeName: TestStage
-  displayName: '1-1. Entrance '
+  codeName: Stage1
+  displayName: 1-1. Twilight Citadel
   description: 
   stagePrefab: {fileID: 2272219957523880681, guid: 7a4970d1d157bd54899858eaff98358c,
     type: 3}
   stageLevel: 1
   monsterParameters:
-  - Name: Monster_Titan
-    Hp: 120
-    Attack: 15
-    Gold: 7560
-    Exp: 50
-    Ratio: 1
   - Name: Monster_Creep
-    Hp: 80
-    Attack: 10
-    Gold: 124000
-    Exp: 50
+    Hp: 300
+    Attack: 3
+    Gold: 250
+    Exp: 8
     Ratio: 1
+  stageMusic: {fileID: 11400000, guid: da63d5c6f47cf1c479732ac06e4c16c8, type: 2}

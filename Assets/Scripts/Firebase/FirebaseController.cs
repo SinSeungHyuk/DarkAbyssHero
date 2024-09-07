@@ -22,6 +22,8 @@ public class FirebaseController : MonoBehaviour
     [SerializeField] private GameObject dlgNickname;
     [SerializeField] private Button btnStart;
 
+    [SerializeField] private MusicTrackSO loginBGM;
+
     private FirebaseAuth auth; // 인증에 관한 정보 저장할 객체
     private FirebaseUser user; // 파이어베이스 유저의 정보를 담을 객체
 
@@ -32,6 +34,9 @@ public class FirebaseController : MonoBehaviour
 
     void Start()
     {
+        // 로그인씬 BGM 재생
+        MusicManager.Instance.PlayMusic(loginBGM, 0f, 2f);
+
         mainCamera = Camera.main;
         StartCoroutine(MoveCameraRoutine());
 

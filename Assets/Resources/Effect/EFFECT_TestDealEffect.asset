@@ -36,5 +36,5 @@ MonoBehaviour:
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
-        defaultDamage: 0.5
-        bonusDamagePerLevel: 1
+        defaultDamage: 1
+        bonusDamagePerLevel: 0.1

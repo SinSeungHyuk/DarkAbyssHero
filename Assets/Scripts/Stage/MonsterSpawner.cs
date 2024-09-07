@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ public class MonsterSpawner : MonoBehaviour
     private Stage currentStage;
     private IReadOnlyList<MonsterSpawnParameter> monsterParameters;
     private List<MonsterSpawnParameter> randomEnemy = new(100);
+    private WaitForSeconds _wait;
 
 
     private void OnEnable()
@@ -24,6 +25,10 @@ public class MonsterSpawner : MonoBehaviour
     private void CurrentStage_OnStageChanged(Stage stage, int level)
     {
         monsterParameters = stage.MonsterParameters;
+
+        // 랜덤으로 스폰간격 설정
+        float spawnTimer = Random.Range(Settings.spawnTimerMin, Settings.spawnTimerMax);
+        _wait = new WaitForSeconds(spawnTimer);
 
         // 미리 스폰할 몬스터의 종류를 정해놓고 코루틴 시작
         SetRandomSpawnMonster();
@@ -42,7 +47,7 @@ public class MonsterSpawner : MonoBehaviour
             monster.Init(parameter);
 
             i++;
-            yield return new WaitForSeconds(Settings.spawnTimer);
+            yield return _wait;
         }
     }
 

@@ -30,6 +30,8 @@ public class StageManager : Singleton<StageManager>
         currentStage = stage;
         currentStagePrefab = Instantiate(stage.StagePrefab, transform);
 
+        MusicManager.Instance.PlayMusic(stage.StageMusic, 0.2f, 0.5f);
+
         // 현재 스테이지와 레벨을 넘겨서 이벤트 호출
         OnStageChanged?.Invoke(currentStage, currentStage.StageLevel);
     }

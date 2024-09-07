@@ -38,17 +38,24 @@ public class BtnWeapon : MonoBehaviour
             imgBlind.gameObject.SetActive(true);
         else
         {
+            Weapon findWeapon = player.WeaponSystem.FindOwnWeapon(weapon);
+            findWeapon.OnLevelChanged -= FindWeapon_OnLevelChanged; // 중복구독 방지
+            findWeapon.OnLevelChanged += FindWeapon_OnLevelChanged;
             imgBlind.gameObject.SetActive(false);
             ShowWeaponLevel();
         }
         if (player.WeaponSystem.CurrentWeapon.ID == weapon.ID)
             txtEquipped.gameObject.SetActive(true);
+        else txtEquipped.gameObject.SetActive(false);
 
         player.WeaponSystem.OnWeaponEquiped -= OnEquip;
         player.WeaponSystem.OnWeaponEquiped += OnEquip;
         player.WeaponSystem.OnWeaponUnequiped -= OnUnequip;
         player.WeaponSystem.OnWeaponUnequiped += OnUnequip;
     }
+
+    private void FindWeapon_OnLevelChanged(Weapon arg1, int arg2, int arg3)
+        => ShowWeaponLevel();
 
     private void OnUnequip(WeaponSystem system, Weapon weapon)
     {

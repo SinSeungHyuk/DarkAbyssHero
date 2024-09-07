@@ -10,21 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b462b6d07ecdd8c41b12bc6532306320, type: 3}
-  m_Name: STAGE_TestStage2
+  m_Name: STAGE_Stage2
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
   id: 1
-  codeName: TestStage2
-  displayName: 1-2. SecondStage
+  codeName: Stage2
+  displayName: 1-2. Forsaken Keep
   description: 
-  stagePrefab: {fileID: 2272219957523880681, guid: 7a4970d1d157bd54899858eaff98358c,
+  stagePrefab: {fileID: 2272219957523880681, guid: eb45f482edf50ad4da3a958af5e9650a,
     type: 3}
-  stageLevel: 2
+  stageLevel: 1
   monsterParameters:
   - Name: Monster_Titan
-    Hp: 2
-    Attack: 2
-    Gold: 2
-    Exp: 2
+    Hp: 1000
+    Attack: 10
+    Gold: 500
+    Exp: 15
+    Ratio: 1
+  - Name: Monster_Creep
+    Hp: 800
+    Attack: 6
+    Gold: 400
+    Exp: 15
     Ratio: 2
+  stageMusic: {fileID: 11400000, guid: 2646f820eebc521418459e32203df040, type: 2}
