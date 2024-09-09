@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4803008fb497f264c9d6e2c274ba54fb, type: 3}
+  m_Name: WEAPON_AtkWeapon_l
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 21300000, guid: 312e8b19ec9189548bfa97d85317c683, type: 3}
+  id: 3
+  codeName: AtkWeapon_l
+  displayName: Mythic Starfall Wand
+  description: 
+  gradeType: 3
+  weaponDatas:
+  - level: 0
+    stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
+    defaultValue: 300
+    bonusStatPerLevel: 50

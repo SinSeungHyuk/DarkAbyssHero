@@ -182,7 +182,7 @@ public class FirebaseController : MonoBehaviour
     
     public void LoadStartScene() // 스타트 버튼에 등록
     {
-        List<string> levelResources = new List<string> { "Database" , "Stage"};
+        List<string> levelResources = new List<string> { "Database" , "Sprites" , "Prefabs"};
         LoadingSceneManager.LoadScene("MainScene", levelResources);
     }
 }

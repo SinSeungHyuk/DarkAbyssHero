@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private RewardUI rewardUI;
     [SerializeField] private OptionUI optionUI;
-    //[SerializeField] private HelpUI helpUI;
+    [SerializeField] private HelpUI helpUI;
     [SerializeField] private Image imgFade;
 
 
@@ -36,7 +36,7 @@ public class UIController : MonoBehaviour
 
     public void BtnHelp()
     {
-        //helpUI.gameObject.SetActvie(true);
+        helpUI.gameObject.SetActive(true);
     }
 
     public void BtnOption()

@@ -17,26 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 94a574552e976e04aa16c9995b9618bc
   m_SerializeEntries:
-  - m_GUID: 7a4970d1d157bd54899858eaff98358c
-    m_Address: Stage1
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Stage
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 500674f3592cead45b9ebd410d7e2017
-    m_Address: StatDatabase
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Database
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 03d5411162faf8c439b121d9a054fd4f
-    m_Address: EffectDatabase
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Database
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55a0cde69e30e4242bb87b38fd60b7f4
-    m_Address: SkillDatabase
+  - m_GUID: 0c2dc3f326174e046828d3df3cdc19d8
+    m_Address: WeaponDatabase
     m_ReadOnly: 0
     m_SerializedLabels:
     - Database
@@ -47,64 +29,47 @@ MonoBehaviour:
     m_SerializedLabels:
     - Database
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55a0cde69e30e4242bb87b38fd60b7f4
+    m_Address: SkillDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 38795ea04fc37c54d9578b800ffcdda2
     m_Address: CategoryDatabase
     m_ReadOnly: 0
     m_SerializedLabels:
     - Database
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c2dc3f326174e046828d3df3cdc19d8
-    m_Address: WeaponDatabase
+  - m_GUID: 03d5411162faf8c439b121d9a054fd4f
+    m_Address: EffectDatabase
     m_ReadOnly: 0
     m_SerializedLabels:
     - Database
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 99080f0e7d0affa459dc65be79172638
-    m_Address: Player
+  - m_GUID: 14c781f0f040a024d86bebf7067e935c
+    m_Address: Prefabs
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Stage
+    - Prefabs
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a2f3589a88823664fa2d1690cc67a094
-    m_Address: Assets/Prefabs/UI/SharpUI/Textures
+  - m_GUID: 500674f3592cead45b9ebd410d7e2017
+    m_Address: StatDatabase
     m_ReadOnly: 0
     m_SerializedLabels:
-    - default
+    - Database
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bea4237264346ae43b6322af6175be2c
-    m_Address: Assets/ExternalAssets/Sprites/Wand/Transparent
+  - m_GUID: c48f25308dbb84c4e9227e8a3717b121
+    m_Address: Assets/ExternalAssets/Sprites
     m_ReadOnly: 0
     m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: be75af025b2df544b914a18112138874
-    m_Address: Assets/ExternalAssets/Sprites/Skill
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 31ad4d8e60f1046459a5f29bf3f64682
-    m_Address: Assets/Prefabs/monster/Monster_Creep.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 759c1c1ef58faca419dd7c486abe6250
-    m_Address: Assets/Prefabs/monster/Monster_Titan.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4784ff95a2cd58e489064541eeb9e77d
-    m_Address: Assets/ExternalAssets/Sprites/Sprite sheets
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
+    - Sprites
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec69af4529c8b3b438ed69b1f4e67a36
-    m_Address: Assets/@Resources/Sounds
+    m_Address: Sounds
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Database
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c811501f47ba5eb44b83eece54bd6db8, type: 2}

@@ -21,7 +21,7 @@ MonoBehaviour:
   requiredLevel: 10
   isUseMaxValue: 0
   maxValue: 0
-  defaultValue: 50
+  defaultValue: 5
   valuePerLevel: 0.5
   goldPerLevel: 200
   defaultGold: 200

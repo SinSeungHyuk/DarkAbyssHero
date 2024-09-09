@@ -89,6 +89,8 @@ MonoBehaviour:
     - default
     - Stage
     - Database
+    - Prefabs
+    - Sprites
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: ae9150a204c823c4fa485780da3786fc, type: 2}

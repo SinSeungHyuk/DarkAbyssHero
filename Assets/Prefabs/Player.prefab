@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: 0d78853a2f560d8479bfac82d4ad1b8e, type: 2}
-  testWeapon: {fileID: 11400000, guid: 048f71b8376155b49a2a3f5ff2c85731, type: 2}
+  testWeapon: {fileID: 11400000, guid: b941f469759713549811b3015f792680, type: 2}
 --- !u!1 &4093364367945835440
 GameObject:
   m_ObjectHideFlags: 0

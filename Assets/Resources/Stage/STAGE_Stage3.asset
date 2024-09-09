@@ -34,3 +34,4 @@ MonoBehaviour:
     Gold: 1800
     Exp: 40
     Ratio: 1
+  stageMusic: {fileID: 11400000, guid: 927e178aefbc9eb46b31b63328181c07, type: 2}

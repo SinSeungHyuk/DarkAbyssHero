@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
@@ -24,6 +25,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void CurrentStage_OnStageChanged(Stage stage, int level)
     {
+        currentStage = stage;
         monsterParameters = stage.MonsterParameters;
 
         // 랜덤으로 스폰간격 설정
@@ -45,10 +47,20 @@ public class MonsterSpawner : MonoBehaviour
 
             Monster monster = ObjectPoolManager.Instance.Get(parameter.Name, transform).GetComponent<Monster>();
             monster.Init(parameter);
+            monster.DamageEvent.OnDead += DamageEvent_OnDead;
 
             i++;
             yield return _wait;
         }
+    }
+
+    private void DamageEvent_OnDead(DamageEvent damageEvent)
+    {
+        // 오브젝트 풀에 반환하기 위해 구독한 이벤트 해지
+        damageEvent.OnDead -= DamageEvent_OnDead;
+
+        // 이 스테이지에서 몇마리를 처치했는지 카운팅
+        currentStage.RewardForMonsterKills();
     }
 
     private void SetRandomSpawnMonster()

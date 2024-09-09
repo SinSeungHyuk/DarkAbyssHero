@@ -7,6 +7,7 @@ public static class Settings
     #region PLAYER PARAMETER
     public static float detectionRadius = 10.0f;
     public static LayerMask monsterLayer = LayerMask.GetMask("Monster");
+    public static LayerMask stackingLayer = LayerMask.GetMask("Stacking");
 
     public static float projectileDistance = 500.0f;
 
@@ -30,6 +31,8 @@ public static class Settings
     public static float spawnTimerMin = 7.0f;
 
     public static float monsterReadyTimer = 1.0f;
+
+    public static int killsToReward = 10;
     #endregion
 
 
@@ -46,12 +49,16 @@ public static class Settings
 
     public static int isAttack = Animator.StringToHash("isAttack");
     public static int AttackState = Animator.StringToHash("Attack");
+
+    public static int isChestOpen = Animator.StringToHash("isChestOpen");
     #endregion
 
 
     #region GAME SETTING
     public const float musicFadeOutTime = 0.5f;
     public const float musicFadeInTime = 0.5f;
+
+    public static string URL = "https://blog.naver.com/tmdgur0147/223532833451";
     #endregion
 
 

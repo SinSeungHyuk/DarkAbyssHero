@@ -12,11 +12,14 @@ public class Stage : IdentifiedObject
     [SerializeField] private List<MonsterSpawnParameter> monsterParameters = new();
     [SerializeField] private MusicTrackSO stageMusic;
 
+    private int monsterKills = 0;
+
     public GameObject StagePrefab => stagePrefab;
     public MusicTrackSO StageMusic => stageMusic;
     public int StageRequiredLevel => stageLevel;
     public IReadOnlyList<MonsterSpawnParameter> MonsterParameters => monsterParameters;
     public int StageLevel => ID + 1;
+
 
     public (int,int) GetAvgRewards(int hours)
     {
@@ -33,6 +36,20 @@ public class Stage : IdentifiedObject
         avgExp /= monsterParameters.Count;
 
         return (avgGold * 180 * hours, avgExp * 180 * hours);
+    }
+
+    public void RewardForMonsterKills()
+    {
+        // 현재 상자가 활성화중이면 리턴
+        if (GameManager.Instance.IsChestActive) return;
+
+        monsterKills++;
+
+        if (monsterKills >= Settings.killsToReward)
+        {
+            monsterKills = 0;
+            GameManager.Instance.SetRewardChest();
+        }
     }
 }
 

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class ContentsController : MonoBehaviour
 {
     [SerializeField] private GameObject modalView; // 공통적으로 보여줄 UI메뉴 틀
@@ -13,6 +14,7 @@ public class ContentsController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txtModalViewTitle; // UI메뉴의 제목
     [SerializeField] private Button btnClose; // 닫기버튼
     [SerializeField] private List<GameObject> contentsView = new(); // 컨텐츠UI들이 들어있는 리스트
+    [SerializeField] private ScrollRect scrollView; // 컨텐츠를 보여줄 스크롤뷰
 
     private Player player;
     private Database stageDB;
@@ -103,6 +105,9 @@ public class ContentsController : MonoBehaviour
         if (contentsView[idx].activeSelf) return;
 
         foreach (var content in contentsView) content.gameObject.SetActive(false);
+
+        scrollView.content = contentsView[idx].gameObject.GetComponent<RectTransform>();
+
         innerContentView.SetActive(false);
         modalView.SetActive(true);
         contentsView[idx].SetActive(true);
