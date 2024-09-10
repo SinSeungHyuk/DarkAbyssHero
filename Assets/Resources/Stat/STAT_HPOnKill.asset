@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: HPOnKill
   displayName: HP Recovery/kill
   description: 
-  requiredLevel: 5
+  requiredLevel: 20
   isUseMaxValue: 0
   maxValue: 0
   defaultValue: 3

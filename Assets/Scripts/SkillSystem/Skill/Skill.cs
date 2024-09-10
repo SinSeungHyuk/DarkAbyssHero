@@ -29,6 +29,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
 
     [SerializeField] private SkillData skillDatas;
 
+    [SerializeField] private SoundEffectSO skillSound;
+
     private SkillData currentData;
 
     private int defaultLevel = 1;
@@ -53,6 +55,8 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     public int SkillPriority => skillPriority;
 
     public IReadOnlyList<Effect> Effects { get; private set; } = new List<Effect>();
+
+    public SoundEffectSO SkillSound => skillSound;
 
 
     public int MaxLevel => Settings.maxLevel;

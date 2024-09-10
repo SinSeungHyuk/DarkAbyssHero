@@ -10,6 +10,7 @@ public class SkillEditor : IdentifiedObjectEditor
     private SerializedProperty applyTypeProperty;
     private SerializedProperty gradeTypeProperty;
     private SerializedProperty skillPriorityProperty;
+    private SerializedProperty skillSoundProperty;
 
     private SerializedProperty skillDataProperty;
 
@@ -21,6 +22,7 @@ public class SkillEditor : IdentifiedObjectEditor
         applyTypeProperty = serializedObject.FindProperty("applyType");
         gradeTypeProperty = serializedObject.FindProperty("gradeType");
         skillPriorityProperty = serializedObject.FindProperty("skillPriority");
+        skillSoundProperty = serializedObject.FindProperty("skillSound");
 
         skillDataProperty = serializedObject.FindProperty("skillDatas");
     }
@@ -47,6 +49,7 @@ public class SkillEditor : IdentifiedObjectEditor
         CustomEditorUtility.DrawEnumToolbar(applyTypeProperty);
         CustomEditorUtility.DrawEnumToolbar(gradeTypeProperty);
         EditorGUILayout.PropertyField(skillPriorityProperty);
+        EditorGUILayout.PropertyField(skillSoundProperty);
 
         EditorGUILayout.Space();
         CustomEditorUtility.DrawUnderline();

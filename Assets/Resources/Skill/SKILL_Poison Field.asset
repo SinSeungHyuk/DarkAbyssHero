@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15be8eea95e64a4fab54a14e5a62838, type: 3}
+  m_Name: SKILL_Poison Field
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 21300000, guid: 7a6248419aea1384680a6b42f5d1df16, type: 3}
+  id: 3
+  codeName: Poison Field
+  displayName: Poison Field
+  description: 
+  applyType: 1
+  gradeType: 0
+  skillPriority: 30
+  skillDatas:
+    level: 0
+    action:
+      rid: 6158628736580976644
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 1
+    applyCycle: 0
+    cooldown: 14
+    distance: 4
+    isUseCast: 1
+    castTime: 2
+    effectSelectors:
+    - level: 1
+      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+    castAnimatorParameter: 4
+    actionAnimatorParameter: 0
+    customActionsOnCast:
+    - rid: 6158628736580976645
+    customActionsOnAction:
+    - rid: 6158628736580976643
+  skillSound: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6158628736580976643
+      type: {class: PlaySkillSoundAction, ns: , asm: Assembly-CSharp}
+      data:
+        soundEffect: {fileID: 11400000, guid: f2ea7ac71177485428d9af3398adea26, type: 2}
+    - rid: 6158628736580976644
+      type: {class: SpawnSkillObjectAction, ns: , asm: Assembly-CSharp}
+      data:
+        skillObjectPrefab: {fileID: 4113714773543269868, guid: 1317ad477808e6d42a3819f73cfd6cbd,
+          type: 3}
+        duration: 5
+        applyCount: 16
+        objectScale: {x: 1, y: 1, z: 1}
+    - rid: 6158628736580976645
+      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
+      data:
+        targetType: 0
+        methodType: 0
+        prefab: {fileID: 5114642830875328933, guid: 1a099cba8510e61469294bf8b48fe6f0,
+          type: 3}
+        offset: {x: 0, y: 0.01, z: 0}
+        scaleFactor: {x: 1, y: 1, z: 1}
+        isAttachToTarget: 1
+        isDestroyOnRelease: 1

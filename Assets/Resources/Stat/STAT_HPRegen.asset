@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: HPRegen
   displayName: HP Recovery/sec
   description: 
-  requiredLevel: 3
+  requiredLevel: 10
   isUseMaxValue: 0
   maxValue: 0
   defaultValue: 3

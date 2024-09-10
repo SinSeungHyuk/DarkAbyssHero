@@ -7,8 +7,6 @@ public class SpawnProjectileAction : SkillAction
 {
     // 투사체 프리팹
     [SerializeField] private GameObject projectilePrefab;
-    // 투사체를 발사할 소켓의 이름 (직접입력)
-    [SerializeField] private string spawnPointSocketName;
     // 투사체 속도
     [SerializeField] private float speed;
     // 투사체 통과 여부
@@ -16,7 +14,7 @@ public class SpawnProjectileAction : SkillAction
 
     public override void Apply(Skill skill)
     {
-        var socket = skill.Player.GetTransformSocket(spawnPointSocketName);
+        var socket = skill.Player.GetTransformSocket(Settings.shootPoint);
         var projectile = GameObject.Instantiate(projectilePrefab);
         projectile.transform.position = socket.position;
         projectile.GetComponent<Projectile>().SetUp(speed,isPiercing, socket.forward, skill);
@@ -28,7 +26,6 @@ public class SpawnProjectileAction : SkillAction
         return new SpawnProjectileAction()
         {
             projectilePrefab = projectilePrefab,
-            spawnPointSocketName = spawnPointSocketName,
             speed = speed,
             isPiercing = isPiercing
         };

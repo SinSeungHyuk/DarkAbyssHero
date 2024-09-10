@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 21300000, guid: fde6dab4eb454af459073bef678bc207, type: 3}
-  id: 3
+  id: 1
   codeName: Meteor
   displayName: Meteor
   description: Drops a Meteor on the nearest enemy, dealing massive Damage.
   applyType: 1
-  gradeType: 1
-  skillPriority: 1
+  gradeType: 0
+  skillPriority: 10
   skillDatas:
     level: 0
     action:
@@ -29,7 +29,7 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 8
+    cooldown: 9
     distance: 6
     isUseCast: 0
     castTime: 0
@@ -39,7 +39,9 @@ MonoBehaviour:
     castAnimatorParameter: 0
     actionAnimatorParameter: 0
     customActionsOnCast: []
-    customActionsOnAction: []
+    customActionsOnAction:
+    - rid: 6158628736580976641
+  skillSound: {fileID: 11400000, guid: 175711e60ae86f54c8e55909f5647d63, type: 2}
   references:
     version: 2
     RefIds:
@@ -48,6 +50,10 @@ MonoBehaviour:
       data:
         skillObjectPrefab: {fileID: 1566239723596968, guid: b9a866892e8767641a3f6e707a7dbdfc,
           type: 3}
-        duration: 2
+        duration: 1
         applyCount: 1
         objectScale: {x: 1, y: 1, z: 1}
+    - rid: 6158628736580976641
+      type: {class: PlaySkillSoundAction, ns: , asm: Assembly-CSharp}
+      data:
+        soundEffect: {fileID: 11400000, guid: bfc8c71d0cb1b9842a8d166103f5dc05, type: 2}

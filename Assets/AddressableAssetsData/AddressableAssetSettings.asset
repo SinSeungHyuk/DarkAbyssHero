@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 94a574552e976e04aa16c9995b9618bc
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 1cf82dc75b970efee88193db04eb4fbd
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -87,7 +87,6 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - Stage
     - Database
     - Prefabs
     - Sprites

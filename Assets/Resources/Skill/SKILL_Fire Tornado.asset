@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15be8eea95e64a4fab54a14e5a62838, type: 3}
+  m_Name: SKILL_Fire Tornado
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 21300000, guid: c4a1eff5848eb1947bf1d20c1462e018, type: 3}
+  id: 9
+  codeName: Fire Tornado
+  displayName: Fire Tornado
+  description: 
+  applyType: 1
+  gradeType: 2
+  skillPriority: 80
+  skillDatas:
+    level: 0
+    action:
+      rid: 6158628736580976651
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 1
+    applyCycle: 0
+    cooldown: 18
+    distance: 5
+    isUseCast: 0
+    castTime: 0
+    effectSelectors:
+    - level: 1
+      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+    castAnimatorParameter: 0
+    actionAnimatorParameter: 2
+    customActionsOnCast: []
+    customActionsOnAction: []
+  skillSound: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6158628736580976651
+      type: {class: SpawnSkillObjectAction, ns: , asm: Assembly-CSharp}
+      data:
+        skillObjectPrefab: {fileID: 8996412969359216801, guid: edca6fc03ad2b854e82bb71f3e6e957b,
+          type: 3}
+        duration: 6
+        applyCount: 19
+        objectScale: {x: 1, y: 1, z: 1}

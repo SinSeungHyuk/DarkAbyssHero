@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: CriticChance
   displayName: Crit Chance
   description: 
-  requiredLevel: 10
+  requiredLevel: 50
   isUseMaxValue: 0
   maxValue: 0
   defaultValue: 5

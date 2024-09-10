@@ -18,7 +18,7 @@ MonoBehaviour:
   codeName: CriticDamage
   displayName: Crit DMG
   description: 
-  requiredLevel: 15
+  requiredLevel: 60
   isUseMaxValue: 0
   maxValue: 0
   defaultValue: 1.5

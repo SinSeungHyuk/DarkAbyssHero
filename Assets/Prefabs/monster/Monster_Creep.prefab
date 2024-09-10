@@ -618,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3084456706122406082}
   - component: {fileID: 7990646675737543294}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Floating Text Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2205,6 +2205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525694751107422564, guid: a2c3f5f28899b544b94eba2d73f129b0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5304598198461579836, guid: a2c3f5f28899b544b94eba2d73f129b0,
         type: 3}

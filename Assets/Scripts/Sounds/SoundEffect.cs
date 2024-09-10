@@ -11,13 +11,7 @@ public class SoundEffect : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-    private void OnEnable()
-    {
-        if (audioSource.clip != null)
-        {
-            audioSource.Play();
-        }
-    }
+
     private void OnDisable()
     {
         audioSource.Stop();
@@ -30,5 +24,7 @@ public class SoundEffect : MonoBehaviour
 
         audioSource.volume = soundEffect.soundEffectVolume;
         audioSource.clip = soundEffect.soundEffectClip;
+
+        audioSource.Play();
     }
 }

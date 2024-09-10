@@ -10,6 +10,7 @@ public static class Settings
     public static LayerMask stackingLayer = LayerMask.GetMask("Stacking");
 
     public static float projectileDistance = 500.0f;
+    public static string shootPoint = "ShootPoint";
 
     public static int startExp = 100;
     public static float expPerLevel = 1.04f; // 레벨당 경험치 4% 증가

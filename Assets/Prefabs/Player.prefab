@@ -1680,9 +1680,7 @@ MonoBehaviour:
   equipSkills: []
   defaultSkill: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
   testSkill:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c46f964e31dafff49af5d4242912448f, type: 2}
 --- !u!114 &8045742492356099057
 MonoBehaviour:
   m_ObjectHideFlags: 0

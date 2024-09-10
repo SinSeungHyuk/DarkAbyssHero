@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f0d97d71498a64a9440f57c75e217e, type: 3}
+  m_Name: SoundEffect_Water
+  m_EditorClassIdentifier: 
+  soundEffectName: SoundEffect_Test
+  soundPrefab: {fileID: 8109647344987698416, guid: cb61c986abc10544b8c8ac82863d0e5b,
+    type: 3}
+  soundEffectClip: {fileID: 8300000, guid: b6695eaec610935488db17f2afd8bd4e, type: 3}
+  pitchVariationMin: 0.8
+  pitchVariationMax: 1.2
+  soundEffectVolume: 0.3

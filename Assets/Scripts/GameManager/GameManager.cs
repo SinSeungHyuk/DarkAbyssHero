@@ -51,7 +51,6 @@ public class GameManager : Singleton<GameManager>
                     cameraData.cameraStack.Remove(stackingCamera);
                     isChestActive = false;
                 });
-
             }
         }
     }

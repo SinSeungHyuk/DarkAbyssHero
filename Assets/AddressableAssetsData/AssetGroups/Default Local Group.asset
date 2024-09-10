@@ -66,7 +66,7 @@ MonoBehaviour:
     - Sprites
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec69af4529c8b3b438ed69b1f4e67a36
-    m_Address: Sounds
+    m_Address: Assets/@Resources/Sounds
     m_ReadOnly: 0
     m_SerializedLabels:
     - Database

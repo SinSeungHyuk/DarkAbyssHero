@@ -8,12 +8,10 @@ using static UnityEngine.UI.GridLayoutGroup;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    // 충돌시 이펙트
-    [SerializeField] private GameObject hitEffect;
-
     private Rigidbody rigidBody;
     private float speed;
     private Skill skill;
+    private SoundEffectSO soundEffect;
     private bool isPiercing;
 
     private float distance;
@@ -23,6 +21,7 @@ public class Projectile : MonoBehaviour
 
     public void SetUp(float speed, bool isPiercing, Vector3 forward, Skill skill)
     {
+        soundEffect = skill.SkillSound;
         this.speed = speed;
         this.isPiercing = isPiercing;
         transform.forward = forward; // 투사체의 전방 설정
@@ -49,13 +48,10 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var impact = Instantiate(hitEffect);
-        impact.transform.forward = -transform.forward;
-        impact.transform.position = transform.position;
-
         var entity = other.GetComponent<Monster>();
         if (entity)
         {
+            SoundEffectManager.Instance.PlaySoundEffect(soundEffect);
             skill.Target = entity;
             entity.EffectSystem.Apply(skill);
         }

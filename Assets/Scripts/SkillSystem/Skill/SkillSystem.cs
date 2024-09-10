@@ -165,9 +165,6 @@ public class SkillSystem : MonoBehaviour
     public Skill FindOwnSkills(Skill skill)
     => ownSkills.Find(x => x.ID == skill.ID);
 
-    //public Skill FindOwnSkills(int id)
-    //=> ownSkills.Find(x => x.ID == id);
-
     public bool ContainsEquipSkills(Skill skill)
     => FindEquipSkills(skill) != null;
 

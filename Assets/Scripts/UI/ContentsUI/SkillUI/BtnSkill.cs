@@ -71,6 +71,7 @@ public class BtnSkill : MonoBehaviour
 
     private void OnBtnSkillClick()
     {
+        Debug.Log(player.SkillSystem.ContainsOwnSkills(skill) + " OnBtnSkillClickOnBtnSkillClickOnBtnSkillClickOnBtnSkillClickOnBtnSkillClick");
         if (!player.SkillSystem.ContainsOwnSkills(skill))
             return;
 

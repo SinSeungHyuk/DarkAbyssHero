@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class SkillObject : MonoBehaviour
@@ -24,7 +25,8 @@ public class SkillObject : MonoBehaviour
     private float currentApplyCycle;
     private int currentApplyCount;
 
-    private Skill skill; 
+    private Skill skill;
+    private SoundEffectSO soundEffect;
 
     private bool isApplicable => (currentApplyCount < applyCount)
         && (currentApplyCycle >= applyCycle);
@@ -33,6 +35,7 @@ public class SkillObject : MonoBehaviour
     public void SetUp(Skill skill, float duration, float applyCount, Vector3 objectScale)
     {
         this.skill = skill;
+        this.soundEffect = skill.SkillSound;
         this.applyCount = applyCount;
         this.applyCycle = CalcApplyCycle(duration, applyCount);
         // 오브젝트 파괴를 딜레이시키는 옵션이라면 사이클만큼 뒤로 미룸
@@ -45,7 +48,7 @@ public class SkillObject : MonoBehaviour
     {
         // 1번 적용이라면 사이클이 필요없음
         // 하지만 0으로 하면 OnTriggerEnter보다 빨리 호출될 수 있으므로 0.1초
-        if (applyCount == 1) return 0.1f;
+        if (applyCount == 1) return 0.01f;
         // 첫 어플라이를 건너뛰는지 아닌지에 따라 사이클 조정
         else
             return isDelayFirstApplyByCycle ? (duration / applyCount) 
@@ -60,14 +63,18 @@ public class SkillObject : MonoBehaviour
         if (isApplicable)
             Apply();
 
-        if (currentDuration >= duration)
+        if (currentDuration > duration)
             Destroy(gameObject);    
     }
 
-    private void Apply()
+    public void Apply()
     {
+        SoundEffectManager.Instance.PlaySoundEffect(soundEffect);
+
         foreach (var monster in collidingObjects)
         {
+            Debug.Log(monster.name);
+
             // 이미 몬스터가 죽은 상태라면 Apply 대신 큐에 넣기
             if (monster.IsDead) deadMonster.Enqueue(monster);
             else
@@ -95,6 +102,7 @@ public class SkillObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Trigger!!!");
         Monster monster = other.GetComponent<Monster>();
         if (monster != null)
             collidingObjects.Add(monster);

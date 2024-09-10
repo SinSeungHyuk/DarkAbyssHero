@@ -26,9 +26,11 @@ public class SoundEffectManager : Singleton<SoundEffectManager>
 
     public void PlaySoundEffect(SoundEffectSO soundEffect)
     {
+        if (soundEffect == null) return;
+
         // 오브젝트 풀에 등록된 사운드 게임오브젝트 활성화하여 소리 재생
         SoundEffect sound = ObjectPoolManager.Instance.
-            Get("soundEffect", Vector3.zero, Quaternion.identity).GetComponent<SoundEffect>();
+            Get("SoundEffect", Vector3.zero, Quaternion.identity).GetComponent<SoundEffect>();
 
         sound.SetSound(soundEffect); // 오디오 클립,볼륨 설정
         StartCoroutine(DisableSound(sound, soundEffect.soundEffectClip.length));
@@ -54,7 +56,7 @@ public class SoundEffectManager : Singleton<SoundEffectManager>
     private IEnumerator DisableSound(SoundEffect sound, float soundDuration)
     {   // 사운드 길이만큼 시간이 지나면 사운드 오브젝트 비활성화
         yield return new WaitForSeconds(soundDuration);
-        ObjectPoolManager.Instance.Release(sound.gameObject, "soundEffect");
+        ObjectPoolManager.Instance.Release(sound.gameObject, "SoundEffect");
     }
 
     private void SetSoundsVolume(int soundsVolume)
