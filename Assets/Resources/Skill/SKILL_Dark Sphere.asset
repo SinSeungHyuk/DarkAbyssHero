@@ -50,4 +50,4 @@ MonoBehaviour:
         projectilePrefab: {fileID: 7050215890136018186, guid: f87ef8fa779181a4a88a2b8ddfcabf83,
           type: 3}
         speed: 7
-        isPiercing: 0
+        isPiercing: 1

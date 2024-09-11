@@ -29,7 +29,7 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 11
+    cooldown: 14
     distance: 5
     isUseCast: 1
     castTime: 2

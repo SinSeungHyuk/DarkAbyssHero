@@ -21,8 +21,6 @@ public class SpawnSkillObjectAction : SkillAction
         // 땅에 파묻히지 않도록 살짝 y축으로 띄워놓기
         skillObject.transform.position = skill.TargetPosition + (Vector3.up * 0.01f);
         skillObject.SetUp(skill, duration, applyCount, objectScale);
-
-        skillObject.Apply();
     }
 
     public override object Clone()

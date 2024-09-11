@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class SkillObject : MonoBehaviour
 {
@@ -42,6 +44,13 @@ public class SkillObject : MonoBehaviour
         this.duration = duration + (isDelayDestroyByCycle ? applyCycle : 0f);
         var localScale = this.transform.localScale;
         this.transform.localScale = Vector3.Scale(localScale, objectScale);
+
+        if (!isDelayFirstApplyByCycle)
+        {
+            // 스킬오브젝트가 처음 생성되자마자 스킬이 발동되어야함
+            // 충돌체가 부딪혀서 해시셋에 들어갈 시간이 필요하므로 0.02초 딜레이
+            DOVirtual.DelayedCall(0.02f, Apply);
+        }
     }
 
     private float CalcApplyCycle(float duration, float applyCount)
@@ -73,8 +82,6 @@ public class SkillObject : MonoBehaviour
 
         foreach (var monster in collidingObjects)
         {
-            Debug.Log(monster.name);
-
             // 이미 몬스터가 죽은 상태라면 Apply 대신 큐에 넣기
             if (monster.IsDead) deadMonster.Enqueue(monster);
             else
@@ -102,15 +109,14 @@ public class SkillObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger!!!");
-        Monster monster = other.GetComponent<Monster>();
-        if (monster != null)
+        // GetComponent 보다 효율적으로 작동 (null을 반환하지 않으며 필요할때만 out 매개변수에 넣어줌)
+        if (other.TryGetComponent(out Monster monster))
             collidingObjects.Add(monster);
     }
+
     private void OnTriggerExit(Collider other)
     {
-        Monster monster = other.GetComponent<Monster>();
-        if (monster != null)
+        if (other.TryGetComponent(out Monster monster))
             collidingObjects.Remove(monster);
     }
 }

@@ -3571,35 +3571,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
-        type: 3}
-      propertyPath: testSkill
-      value: 
-      objectReference: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2,
-        type: 2}
-    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
-        type: 3}
-      propertyPath: testSkill.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
-        type: 3}
-      propertyPath: testSkill.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: fb090cf0d7efb5f4baa4f2a59b5abe1b,
-        type: 2}
-    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
-        type: 3}
-      propertyPath: testSkill.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: b96f536aa288dc847acfeb24b5268199,
-        type: 2}
-    - target: {fileID: 7946768504210243025, guid: 99080f0e7d0affa459dc65be79172638,
-        type: 3}
-      propertyPath: testSkill.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: deacc381edcc90540b8cb41e2e225617,
-        type: 2}
     - target: {fileID: 8629544595803445308, guid: 99080f0e7d0affa459dc65be79172638,
         type: 3}
       propertyPath: g
