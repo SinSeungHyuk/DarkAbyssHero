@@ -17,7 +17,8 @@ MonoBehaviour:
   id: 8
   codeName: Thunder Ring
   displayName: Thunder Ring
-  description: 
+  description: Generates a circular lightning barrier around the caster, continuously
+    zapping enemies.
   applyType: 0
   gradeType: 2
   skillPriority: 75
@@ -35,7 +36,7 @@ MonoBehaviour:
     castTime: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: 33129bbe5866b9040a182f59b0b86752, type: 2}
     castAnimatorParameter: 0
     actionAnimatorParameter: 1
     customActionsOnCast: []

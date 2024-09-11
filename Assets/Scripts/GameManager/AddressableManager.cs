@@ -14,23 +14,26 @@ public class AddressableManager : Singleton<AddressableManager>
 
 
     // 리소스를 어드레서블 그룹의 label 단위로 로드
-    public IEnumerator LoadResources<T>(string label, Action<float> progressCallback, Action completionCallback) where T : UnityEngine.Object
+    public IEnumerator LoadResources<T>(string label, Action<float> progressCallback, Action completionCallback) where T : Object
     {
+        // 1. LoadResourceLocationsAsync : 매개변수로 받은 Label 단위로 해당 경로의 리소스 로드
         var loadLocationsHandle = Addressables.LoadResourceLocationsAsync(label, typeof(T));
-        yield return loadLocationsHandle;
+        yield return loadLocationsHandle; // 모두 로드될때까지 리턴 (비동기 메소드지만 마치 동기메소드처럼 동작)
 
         if (loadLocationsHandle.Status == AsyncOperationStatus.Succeeded)
         {
             int totalCount = loadLocationsHandle.Result.Count;
             int loadedCount = 0;
 
+            // 위에서 로드한 해당 Label 경로에 들어있는 모든 리소스들 하나하나 순회하며 로드
             foreach (var resource in loadLocationsHandle.Result)
             {
-                var loadAssetHandle = Addressables.LoadAssetAsync<T>(resource);
+                var loadAssetHandle = Addressables.LoadAssetAsync<T>(resource); // LoadAssetAsync<T> : 리소스 로드하는 기본함수
                 yield return loadAssetHandle;
 
                 if (loadAssetHandle.Status == AsyncOperationStatus.Succeeded)
                 {
+                    // 리소스를 하나 로드할때마다 진행도 높여서 콜백함수 호출
                     resources[resource.PrimaryKey] = loadAssetHandle.Result;
                     loadedCount++;
                     progressCallback?.Invoke((float)loadedCount / totalCount);
@@ -46,8 +49,8 @@ public class AddressableManager : Singleton<AddressableManager>
             Debug.LogError($"Failed to load resource locations for label: {label}");
         }
 
-        Addressables.Release(loadLocationsHandle);
-        completionCallback?.Invoke();
+        Addressables.Release(loadLocationsHandle); // 각 리소스 모두 로드되었으므로 필요없는 리소스는 해지
+        completionCallback?.Invoke(); // 로드 완료
     }
 
 

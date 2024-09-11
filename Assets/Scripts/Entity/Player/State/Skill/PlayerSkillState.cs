@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerSkillState : State<Player>
 {
-    // 현재 Entity가 실행중인 Skill
+    // 현재 Entity가 실행중인 Skill (애니메이션으로 스킬적용을 위해 필요)
     public Skill RunningSkill { get;  set; }
     // Entity가 실행해야할 Animation의 Hash
     protected int AnimatorParameterHash { get;  set; }
@@ -33,8 +33,6 @@ public class PlayerSkillState : State<Player>
 
         Debug.Assert(RunningSkill != null,
             $"CastingSkillState({message})::OnReceiveMessage - 잘못된 data가 전달되었습니다.");
-
-        Debug.Log("OnReceiveMessage : "+AnimatorParameterHash);
 
         TOwner.Animator?.SetTrigger(AnimatorParameterHash);
 

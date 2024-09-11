@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class InSkillActionState : PlayerSkillState
 {
-    public bool IsStateEnded { get; private set; }
-    public bool IsSkillFinished { get; private set; }
     private AnimatorStateInfo lastStateInfo;
     private int LocomotionState;
+
+    public bool IsStateEnded { get; private set; }
+    public bool IsSkillFinished { get; private set; }
 
 
     protected override void Awake()
@@ -24,7 +25,7 @@ public class InSkillActionState : PlayerSkillState
         // 지금 실행중인 애니메이션 Hash == Locomotion -> 현재 Idle,Run 애니메이션 재생중
         if (lastStateInfo.shortNameHash == LocomotionState && IsStateEnded == false)
         {
-            IsStateEnded = true;
+            IsStateEnded = true; 
         }
     }
 
@@ -52,9 +53,7 @@ public class InSkillActionState : PlayerSkillState
         RunningSkill = tupleData.Item1;
         AnimatorParameterHash = tupleData.Item2;
 
-        Debug.Assert(RunningSkill != null,
-            $"CastingSkillState({message})::OnReceiveMessage - 잘못된 data가 전달되었습니다.");
-
+        // 받아온 파라미터는 스킬애니메이션 -> 트리거 파라미터
         TOwner.Animator?.SetTrigger(AnimatorParameterHash);
 
         return true;

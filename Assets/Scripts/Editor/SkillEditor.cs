@@ -37,7 +37,7 @@ public class SkillEditor : IdentifiedObjectEditor
         EditorGUIUtility.labelWidth = 220f;
 
         DrawSettings();
-        DrawSkillDatas();
+        DrawSkillData();
 
         EditorGUIUtility.labelWidth = prevLabelWidth;
 
@@ -46,6 +46,7 @@ public class SkillEditor : IdentifiedObjectEditor
 
     private void DrawSettings()
     {
+        // 스킬의 타입, 등급 enum을 툴바로 그려주는 함수 호출
         CustomEditorUtility.DrawEnumToolbar(applyTypeProperty);
         CustomEditorUtility.DrawEnumToolbar(gradeTypeProperty);
         EditorGUILayout.PropertyField(skillPriorityProperty);
@@ -56,17 +57,19 @@ public class SkillEditor : IdentifiedObjectEditor
         EditorGUILayout.Space();
     }
 
-    private void DrawSkillDatas()
+    private void DrawSkillData()
     {
+        // 스킬의 데이터를 그리는 함수
+
         var actionProperty = skillDataProperty.FindPropertyRelative("action");
         EditorGUILayout.PropertyField(actionProperty);
-
-        var runningFinishOptionProperty = skillDataProperty.FindPropertyRelative("runningFinishOption");
-        CustomEditorUtility.DrawEnumToolbar(runningFinishOptionProperty);
 
         EditorGUILayout.Space();
         CustomEditorUtility.DrawUnderline();
         EditorGUILayout.Space();
+
+        var runningFinishOptionProperty = skillDataProperty.FindPropertyRelative("runningFinishOption");
+        CustomEditorUtility.DrawEnumToolbar(runningFinishOptionProperty);
 
         // Settings
         var durationProperty = skillDataProperty.FindPropertyRelative("duration");
@@ -100,7 +103,7 @@ public class SkillEditor : IdentifiedObjectEditor
             // EffectSelector 프로퍼티의 effect 프로퍼티 가져오기
             var effect = effectSelectorProperty.FindPropertyRelative("effect").objectReferenceValue as Effect;
             var maxLevel = effect != null ? effect.MaxLevel : 0;
-            var minLevel = maxLevel == 0 ? 0 : 1;
+            var minLevel = 1;
             // levelProperty의 int값을 자동으로 가져온 EffectSelector 프로퍼티의 레벨로 맞춰주기
             levelProperty.intValue = Mathf.Clamp(levelProperty.intValue, minLevel, maxLevel);
         }

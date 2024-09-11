@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class IdentifiedObject : ScriptableObject, ICloneable
 {
-    // 이 데이터의 카테고리 (몬스터,스킬,무기 등)
+    // 이 데이터의 카테고리 (스킬,무기 등)
     [SerializeField] private Category[] categories;
 
     [SerializeField] private Sprite icon;

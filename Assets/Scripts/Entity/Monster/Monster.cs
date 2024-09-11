@@ -120,7 +120,7 @@ public class Monster : Entity, IDamageable
         if (Stats.HPStat.DefaultValue <= 0f)
         {
             movement.Stop();
-            damageEvent.CallDeadEvent();
+            damageEvent.CallDeadEvent(); // DamageEvent_OnDead È£Ãâ
         }
     }
     #endregion

@@ -98,6 +98,9 @@ public static class CustomEditorUtility
     // 깊은 복사를 위한 함수 => 스킬,이펙트를 레벨별로 추가하기 위해선 이전 데이터를 깊은복사해야함
     public static void DeepCopySerializeReference(SerializedProperty property)
     {
+        /// 게임의 설계상 이 함수를 사용할 일은 없어졌으나
+        /// 데이터를 새로 추가해서 이전 레벨의 데이터를 가져와야 할때 깊은복사를 해야한다는 것은 중요
+
         // managedReferenceValue는 SerializeReference Attribute를 적용한 변수
         if (property.managedReferenceValue == null)
             return;

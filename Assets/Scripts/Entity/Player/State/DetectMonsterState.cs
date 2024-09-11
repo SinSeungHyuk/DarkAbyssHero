@@ -8,7 +8,6 @@ using System;
 
 public class DetectMonsterState : State<Player>
 {
-    public bool IsFindSkill { get; private set; }
     private float detectionRadius;
     private LayerMask monsterLayer;
     private Collider closestTarget;
@@ -16,6 +15,10 @@ public class DetectMonsterState : State<Player>
     // 모노비헤이비어가 없어서 코루틴을 못씀 -> UniTask로 대체
     // 사용한 태스크를 다시 메모리 해제하기 위한 토큰
     private CancellationTokenSource cts;
+
+    // 사용가능한 스킬을 찾았는지 (다음 스테이트로 넘어가기 위한 조건)
+    public bool IsFindSkill { get; private set; }
+
 
     protected override void Awake()
     {
@@ -27,7 +30,9 @@ public class DetectMonsterState : State<Player>
     public override void Enter()
     {
         cts = new CancellationTokenSource();
-        // 생성한 토큰의 유니태스크를 실행 (Forget : 경고메세지 무시)
+        // 생성한 토큰의 유니태스크를 실행
+        // 1초 기다렸다가 DetectMonster 함수호출, cts의 Token이 취소될때까지 (1초 딜레이 : 자연스러운 움직임 위해)
+        // Forget : 경고메세지 무시
         UniTask.Delay(TimeSpan.FromMilliseconds(1000), cancellationToken: cts.Token)
             .ContinueWith(() => DetectMonster(cts.Token))
             .Forget();
@@ -71,6 +76,7 @@ public class DetectMonsterState : State<Player>
                 Monster monster = closestTarget.GetComponent<Monster>();
                 TOwner.SetTarget(monster);
 
+                // 스킬시스템에서 사용가능한 스킬 찾아오기
                 IsFindSkill = TOwner.SkillSystem.FindUsableSkill();
             }
 

@@ -9,7 +9,8 @@ public class CurrencySystem : MonoBehaviour, ISaveData<CurrencySaveData>
 {   //                                   화폐종류
     public event Action<CurrencySystem, CurrencyType> OnCurrencyChanged;
 
-    private int[] currencyList = new int[5];
+    // 화폐 종류는 5개로 고정, 배열은 사이즈넣고 초기화하면 인덱싱 바로 가능
+    private int[] currencyList = new int[5]; 
 
 
     public Player Player { get; private set; }
@@ -33,6 +34,7 @@ public class CurrencySystem : MonoBehaviour, ISaveData<CurrencySaveData>
         => currencyList[Convert.ToInt32(type)];
 
 
+    // 저장된 리스트를 받아와 배열로 변환하고 그대로 대입해주어서 로드
     public CurrencySaveData ToSaveData()
         => new CurrencySaveData() { currencyList = currencyList.ToList() };
     public void FromSaveData(CurrencySaveData saveData)

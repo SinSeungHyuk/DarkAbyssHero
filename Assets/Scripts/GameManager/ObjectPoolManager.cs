@@ -41,7 +41,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         for (int i = 0; i < size; ++i)
         {
             GameObject obj = CreateNewObject(prefab, poolContainer.transform);
-            // 처음 생성된 오브젝트들은 큐에 들어가서 대기
+            // 처음 생성된 오브젝트들은 대기큐에 들어가서 대기
             objectPool.inactiveObjects.Enqueue(obj);
         }
         poolDic.Add(name, objectPool);

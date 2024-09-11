@@ -38,6 +38,7 @@ public class DealDamageAction : EffectAction
         return true;
     }
 
+    // level에서의 데미지 계수 %로 반환하기
     public override float GetEffectCoefficient(int level)
     {
         // 계수가 1.4라면 140으로 리턴

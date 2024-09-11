@@ -35,7 +35,7 @@ MonoBehaviour:
     castTime: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: a68548251af20794e8c3a1169a51e522, type: 2}
     castAnimatorParameter: 0
     actionAnimatorParameter: 0
     customActionsOnCast: []

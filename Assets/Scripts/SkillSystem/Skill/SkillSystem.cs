@@ -16,15 +16,16 @@ public class SkillSystem : MonoBehaviour
     public event Action<SkillSystem, Skill> OnSkillRegister;
 
 
-    // 임시로 테스트를 위해 직렬화필드로 선언
-    [SerializeField] private List<Skill> equipSkills = new(6);
     // 사용가능한 스킬이 없을때 사용할 기본스킬
     [SerializeField] private Skill defaultSkill;
-    [SerializeField] private List<Skill> testSkill = new List<Skill>();
+    // 처음 접속시 기본적으로 주어지는 스킬
+    [SerializeField] private Skill firstSkill;
 
     // 소유 중인 스킬리스트 (실제 스킬셋에 장착과는 별개)
     private List<Skill> ownSkills = new();
-    
+    // 실제로 스킬슬롯에 장착한 스킬리스트
+    private List<Skill> equipSkills = new(6);
+
     public IReadOnlyList<Skill> EquipSkills => equipSkills;
     public IReadOnlyList<Skill> OwnSkills => ownSkills;
     public Skill DefaultSkill { get; private set; } // 기본스킬
@@ -47,18 +48,17 @@ public class SkillSystem : MonoBehaviour
     {
         for (int i = 0; i < 6; i++)
         {
+            // 장착스킬 리스트에 인덱싱하기 위해 null 삽입
             equipSkills.Add(null);
         }
 
         Player = player;
 
-        // 임시코드        
-        foreach (var skill in testSkill)
-        {
-            RegisterSkill(skill);          
-            EquipSkill(skill,0);
-        }
+        // SetUp에서는 우선 기본스킬을 장착 (세이브가 있으면 저장된 스킬장착)
+        RegisterSkill(firstSkill);          
+        EquipSkill(firstSkill, 0);
 
+        // 기본스킬은 따로 리스트에 넣지않고 따로 관리
         var defaultClone = defaultSkill.Clone() as Skill;
         defaultClone.SetUp(Player,1);
         DefaultSkill = defaultClone;

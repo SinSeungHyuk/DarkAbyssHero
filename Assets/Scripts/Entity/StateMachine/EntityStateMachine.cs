@@ -18,7 +18,7 @@ public abstract class EntityStateMachine<EntityType> : MonoBehaviour
     private void Update()
     {
         // StateMachine 클래스는 MonoBehaviour가 없어서 업데이트가 호출이 안됨
-        // EntityStateMachine를 상속받아 만들어질 진짜 스테이트머신의 업데이트에서 업뎃
+        // EntityStateMachine를 상속받아 만들어질 진짜 스테이트머신의 업데이트에서 업데이트
         if (Owner != null)
             stateMachine.Update();
     }
@@ -125,6 +125,8 @@ public abstract class EntityStateMachine<EntityType> : MonoBehaviour
     public Type GetCurrentStateType(int layer = 0) => stateMachine.GetCurrentStateType(layer);
     #endregion
 
+
+    // 이 스테이트머신을 상속받아 사용하게 될 '진짜 스테이트머신'에서 구현
     protected abstract void AddStates();
     protected abstract void MakeTransitions();
 }

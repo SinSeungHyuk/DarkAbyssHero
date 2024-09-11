@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1867b9986f07ad44f8f3f326b519c5a9, type: 3}
-  m_Name: EFFECT_TestDealEffect
+  m_Name: 'EFFECT_Meteor '
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 0
-  codeName: TestDealEffect
+  id: 6
+  codeName: 'Meteor '
   displayName: 
   description: 
   effectType: 0
-  maxLevel: 10
   effectDatas:
   - level: 1
     action:
-      rid: 3630001480275591170
+      rid: 6158628763420327940
     runningFinishOption: 0
     duration: 0
     applyCount: 1
@@ -32,9 +31,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3630001480275591170
+    - rid: 6158628763420327940
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
-        defaultDamage: 0.1
-        bonusDamagePerLevel: 0.1
+        defaultDamage: 1.2
+        bonusDamagePerLevel: 0.03

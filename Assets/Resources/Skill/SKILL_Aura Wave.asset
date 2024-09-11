@@ -17,8 +17,9 @@ MonoBehaviour:
   id: 4
   codeName: Aura Wave
   displayName: Aura Wave
-  description: 
-  applyType: 0
+  description: Sends out a wave of energy that reduces enemy attack power by 30%
+    and inflicts multiple hits with ethereal blades.
+  applyType: 1
   gradeType: 0
   skillPriority: 20
   skillDatas:
@@ -29,13 +30,15 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 10
+    cooldown: 6
     distance: 4
     isUseCast: 0
     castTime: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: 6866a765322f8a646b5e0bec09e3227d, type: 2}
+    - level: 1
+      effect: {fileID: 11400000, guid: f185ab5df44f4834da03a032e59c17c5, type: 2}
     castAnimatorParameter: 0
     actionAnimatorParameter: 1
     customActionsOnCast: []

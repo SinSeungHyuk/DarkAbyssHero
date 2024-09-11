@@ -17,7 +17,8 @@ MonoBehaviour:
   id: 2
   codeName: Spirit Swarm
   displayName: Spirit Swarm
-  description: 
+  description: Unleashes a flurry of tiny spirits that swarm the enemy, dealing damage
+    over time.
   applyType: 0
   gradeType: 0
   skillPriority: 25
@@ -29,13 +30,13 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 6
+    cooldown: 11
     distance: 10
     isUseCast: 0
     castTime: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: 6121a512c69847f4c9a0213d88c5f133, type: 2}
     castAnimatorParameter: 0
     actionAnimatorParameter: 3
     customActionsOnCast: []

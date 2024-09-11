@@ -6,6 +6,7 @@ public class CastingSkillState : PlayerSkillState
 {
     public override void Exit()
     {
+        // 캐스팅 빠져나오면서 파라미터 false로 변경
         TOwner.Animator?.SetBool(AnimatorParameterHash, false);
     }
 

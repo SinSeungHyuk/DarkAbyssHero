@@ -17,7 +17,8 @@ MonoBehaviour:
   id: 3
   codeName: Poison Field
   displayName: Poison Field
-  description: 
+  description: Creates a toxic area on the ground that continuously damages enemies
+    who stand within it.
   applyType: 1
   gradeType: 0
   skillPriority: 30
@@ -29,13 +30,13 @@ MonoBehaviour:
     duration: 0
     applyCount: 1
     applyCycle: 0
-    cooldown: 14
+    cooldown: 15
     distance: 4
     isUseCast: 1
     castTime: 2
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: 655459b06186acb499169bb510cf3385, type: 2}
     castAnimatorParameter: 4
     actionAnimatorParameter: 0
     customActionsOnCast:

@@ -23,14 +23,14 @@ MonoBehaviour:
   stageLevel: 30
   monsterParameters:
   - Name: Monster_Titan
-    Hp: 3000
-    Attack: 30
+    Hp: 10000
+    Attack: 40
     Gold: 2000
     Exp: 40
     Ratio: 1
   - Name: Monster_Creep
-    Hp: 2750
-    Attack: 15
+    Hp: 9000
+    Attack: 20
     Gold: 1800
     Exp: 40
     Ratio: 1

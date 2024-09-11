@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using System.Linq;
-using Unity.VisualScripting;
-using static UnityEngine.UI.GridLayoutGroup;
-using Firebase.Database;
+
 
 
 public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
@@ -29,11 +26,6 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     // 플레이어가 공격할 몬스터 대상
     public Monster Target { get; private set; }
-
-
-    // Test
-    public Skill skill;
-
 
 
     private void Awake()
@@ -66,41 +58,17 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
     private void Start()
     {
+        // 게임이 시작되면 첫번째 스테이지부터 우선 생성 
         StageManager.Instance.CreateStage(0);
         StageManager.Instance.OnStageChanged += OnStageChanged;
 
-        SaveManager.Instance.LoadGame();
+        SaveManager.Instance.LoadGame(); // 데이터 로드
         StartCoroutine(HPRegenRoutine());
-
-        // Test
-        SkillSystem.RegisterSkill(skill);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, 5000);
-            CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, 5000);
-            CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentTicket, 300);
-            CurrencySystem.IncreaseCurrency(CurrencyType.SkillTicket, 300);
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SkillSystem.RegisterSkill(skill);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-           Debug.Log(Stats.GetStat(StatType.Attack));
-        }
     }
 
     private void OnStageChanged(Stage stage, int level)
     {
-        // (0,0,0)으로 이동
+        // 스테이지 변경시 항상 (0,0,0)으로 이동
         this.transform.position = Vector3.zero;
     }
 
@@ -126,6 +94,16 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
     private void OnDead() // 플레이어의 사망 애니메이션 이벤트
     {
         // UI 띄우기
+        GameManager.Instance.PlayerDead();
+    }
+
+    public void OnRevive() // 게임매니저에서 호출할 부활함수
+    {
+        // 체력 풀피로 부활
+        Stats.HPStat.DefaultValue = Stats.HPStat.MaxValue;
+
+        // 체력재생 다시시작 (죽을때 꺼놨기 때문)
+        StartCoroutine(HPRegenRoutine());
     }
 
     #region Find Transform Socket By SocketName
@@ -146,7 +124,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
 
         return null;
     }
-    // 저장되있는 Socket을 가져오거나 순회를 통해 찾아옴
+    // 저장되어있는 Socket을 가져오거나 순회를 통해 찾아옴
     public Transform GetTransformSocket(string socketName)
     {
         // dictionary에서 socketName을 검색하여 있다면 return
@@ -184,7 +162,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         saveData.CurrencyData = CurrencySystem.ToSaveData();
         saveData.SkillDatas = SkillSystem.ToSaveData();
         saveData.WeaponDatas = WeaponSystem.ToSaveData();
-        saveData.StageData = StageManager.Instance.CurrentStage.ID;
+        saveData.StageData = StageManager.Instance.CurrentStage.ID; // 스테이지 ID 저장
 
         return saveData;
     }
@@ -196,7 +174,7 @@ public class Player : Entity, IDamageable, ISaveData<PlayerSaveData>
         CurrencySystem.FromSaveData(saveData.CurrencyData);
         SkillSystem.FromSaveData(saveData.SkillDatas);
         WeaponSystem.FromSaveData(saveData.WeaponDatas);
-        StageManager.Instance.CreateStage(saveData.StageData);
+        StageManager.Instance.CreateStage(saveData.StageData); // 저장된 스테이지ID 생성
     }
     #endregion
 }

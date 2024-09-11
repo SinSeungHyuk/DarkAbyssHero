@@ -32,6 +32,8 @@ public class Stats : MonoBehaviour
 
     private void OnDisable()
     {
+        // 몬스터의 경우 Disable로 비활성화되기 때문에 스탯을 여기서 파괴시켜줌
+
         foreach (Stat stat in stats)
             Destroy(stat);
         stats.Clear();
@@ -39,6 +41,7 @@ public class Stats : MonoBehaviour
 
     public float GetHPStatRatio()
     {
+        // 0~1 사이의 현재 체력비율 반환
         return HPStat.DefaultValue / HPStat.MaxValue;
     }
 
@@ -82,6 +85,9 @@ public class Stats : MonoBehaviour
         => GetStat(stat).SetValueByPercent(key, value);
 
 
+
+    // 각 Stat 종류마다 레벨,수치가 저장되기 때문에 이를 하나의 리스트로 묶어야함
+    // 각 Stat의 정보가 저장된 리스트를 순회하며 id에 맞추어 데이터 넣어주기
 
     public List<StatSaveData> ToSaveData()
         => stats.Select(x => x.ToSaveData()).ToList();

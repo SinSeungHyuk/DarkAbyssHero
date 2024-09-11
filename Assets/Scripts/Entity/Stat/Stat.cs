@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 {
@@ -35,7 +34,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
                 float prevValue = Value;
 
                 maxValue = value;
-                defaultValue += value;
+                defaultValue += value; // 최대수치만큼 기본수치도 상승시켜주기
 
                 OnValueChanged?.Invoke(this, Value, prevValue);
             }
@@ -50,6 +49,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
             {
                 float prevValue = Value;
                 
+                // 최대수치가 있으면 최대수치를 못넘겨야함
                 if (isUseMaxValue && value >= maxValue)               
                     value = maxValue;
                 
@@ -96,6 +96,7 @@ public class Stat : IdentifiedObject, ISaveData<StatSaveData>
 
     public bool RemoveBonusValue(object key)
     {
+        // key한테 받은 보너스밸류 딕셔너리에서 찾아서 지우기
         if (bonusValuesByKey.TryGetValue(key, out float bonusValue))
         {
             float prevValue = Value;

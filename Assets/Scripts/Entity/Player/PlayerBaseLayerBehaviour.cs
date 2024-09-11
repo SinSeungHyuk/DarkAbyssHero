@@ -26,17 +26,10 @@ public class PlayerBaseLayerBehaviour : StateMachineBehaviour
     {
         // agent.velocity.sqrMagnitude : 실제 agent의 현재속도가 들어감
         // 이 값이 1보다 커도 자동으로 speed 파라미터에는 1로 고정되어서 뛰는모션 재생
+        // agent.speed를 넣으면 실제로 멈춰도 speed는 여전히 남아있으므로 뛰는모션이 재생됨
         if (agent)
             animator.SetFloat(Settings.speed, agent.velocity.sqrMagnitude);
 
         animator.SetBool(Settings.isDead, entity.IsDead);
     }
-
-
-
-    //public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-
-    //}
-
 }

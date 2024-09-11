@@ -15,6 +15,9 @@ using UnityEngine.SceneManagement;
 
 public class FirebaseController : MonoBehaviour
 {
+    // 맨처음 로그인씬에 배치되는 로그인 관리 클래스. 파이어베이스+구글플레이와 연동
+    // 로그인과 UI는 같이 연결되어있는 부분이기에 클래스를 나누지 않고 여기에서 모두 관리
+
     [SerializeField] private TextMeshProUGUI txtLogin;
     [SerializeField] private TextMeshProUGUI txtNickname;
     [SerializeField] private TMP_InputField inpNickname;
@@ -27,7 +30,7 @@ public class FirebaseController : MonoBehaviour
     private FirebaseAuth auth; // 인증에 관한 정보 저장할 객체
     private FirebaseUser user; // 파이어베이스 유저의 정보를 담을 객체
 
-    private string authCode;
+    private string authCode; // 로그인을 위한 유저코드
 
     private Camera mainCamera;
 
@@ -40,15 +43,18 @@ public class FirebaseController : MonoBehaviour
         mainCamera = Camera.main;
         StartCoroutine(MoveCameraRoutine());
 
+        // 구글플레이 로그인
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.Instance.Authenticate(success =>
         {
             if (success == SignInStatus.Success)
             {
+                // RequestServerSideAccess : ServerAuthCode(= code) 를 반환해주는 함수 
                 PlayGamesPlatform.Instance.RequestServerSideAccess(true, code =>
                 {
                     authCode = code;
 
+                    // 위에서 받은 코드를 바탕으로 로그인 인증서를 발급받기 (GetCredential)
                     auth = FirebaseAuth.DefaultInstance;
                     Credential credential = PlayGamesAuthProvider.GetCredential(authCode);
 
@@ -57,7 +63,7 @@ public class FirebaseController : MonoBehaviour
                         {
                             if (task.IsCompleted)
                             {
-                                HasNicknameByID();
+                                HasNicknameByID(); // 로그인에 성공하면 계정 있는지 검사
                             }
 
                             Firebase.Auth.AuthResult result = task.Result;
@@ -99,6 +105,8 @@ public class FirebaseController : MonoBehaviour
 
     private void HasNicknameByID()
     {
+        // 현재 로그인한 파이어베이스 계정의 UserId를 가져와서 Nickname 데이터가 있는지 검사
+
         user = auth.CurrentUser;
         DatabaseReference nameDB = FirebaseDatabase.DefaultInstance.GetReference("Nickname");
 
@@ -111,9 +119,8 @@ public class FirebaseController : MonoBehaviour
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
+                if (snapshot.Exists) // 데이터가 존재하는 경우 (Exists = 존재하다)
                 {
-                    // 데이터가 존재하는 경우
                     foreach (var childSnapshot in snapshot.Children)
                     {
                         // 닉네임 로컬에 저장 (다른 씬에서도 빠르게 사용)
@@ -154,12 +161,12 @@ public class FirebaseController : MonoBehaviour
     {
         DatabaseReference nameDB = FirebaseDatabase.DefaultInstance.GetReference("Nickname");
 
-        // <메세지 번호, 메세지 딕셔너리(유저이름,메세지내용)>
+        // <유저아이디, 유저닉네임> 딕셔너리 : 유저의 ID마다 고유한 닉네임 밸류값으로 저장
         Dictionary<string, object> nicknameDic = new Dictionary<string, object>();
 
         nicknameDic.Add(user.UserId, inpNickname.text);
 
-        // nameDB에 updateMsg를 추가해서 데이터 업데이트
+        // nameDB에 nicknameDic를 추가해서 데이터 업데이트
         nameDB.UpdateChildrenAsync(nicknameDic).ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted || task.IsCanceled) dlgNickname.SetActive(false); 
@@ -182,6 +189,7 @@ public class FirebaseController : MonoBehaviour
     
     public void LoadStartScene() // 스타트 버튼에 등록
     {
+        // 최초 실행에 필요한 리소스 로드 (어드레서블 활용)
         List<string> levelResources = new List<string> { "Database" , "Sprites" , "Prefabs"};
         LoadingSceneManager.LoadScene("MainScene", levelResources);
     }

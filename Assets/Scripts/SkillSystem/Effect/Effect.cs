@@ -14,7 +14,6 @@ public class Effect : IdentifiedObject
     public event Action<Effect> OnEffectReleased;
 
     [SerializeField] private EffectType effectType;
-    [SerializeField] private int maxLevel;
     [SerializeField] private EffectData[] effectDatas;
 
     private EffectData currentData;
@@ -24,11 +23,9 @@ public class Effect : IdentifiedObject
     private int currentApplyCount; // 현재 적용횟수
     private float currentApplyCycle; // 현재 지난 적용주기
 
-    // 이펙트 타입이 Buff -> 스탯증가 이펙트 액션의 대상이 플레이어가 됨
     // Debuff -> 스탯증가(감소) 이펙트 액션의 대상이 Target Monster가 됨
     public EffectType EffectType => effectType;
-    public IReadOnlyList<EffectData> EffectDatas => effectDatas;
-    public int MaxLevel => maxLevel;
+    public int MaxLevel => Settings.maxLevel;
     public int Level
     {
         get => level;
@@ -47,7 +44,7 @@ public class Effect : IdentifiedObject
                 currentData = newData;
         }
     }
-    public bool IsMaxLevel => level == maxLevel;
+    public bool IsMaxLevel => level == MaxLevel;
 
     // 실제 Effect의 레벨과 EffectData의 레벨의 차이
     // 이 차이만큼 bonusValuePerLevel 곱해주기
@@ -185,8 +182,6 @@ public class Effect : IdentifiedObject
 
         OnEffectReleased?.Invoke(this);
     }
-
-    public EffectData GetData(int level) => effectDatas[level - 1];
 
 
     public override object Clone()

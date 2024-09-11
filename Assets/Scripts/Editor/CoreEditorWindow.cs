@@ -18,7 +18,7 @@ public class CoreEditorWindow : EditorWindow
     // 현재 보여주고 있는 데이터의 스크롤 포지션
     private static Vector2 drawingEditorScrollPosition;
 
-    // 현재 선택한 데이터
+    // 데이터베이스 내에서 현재 선택한 데이터
     private static Dictionary<Type, IdentifiedObject> selectedObjectsByType = new();
 
     // 타입별 데이터베이스 (카테고리, 스킬 등)
@@ -52,6 +52,8 @@ public class CoreEditorWindow : EditorWindow
     private void OnEnable()
     {
         SetupStyle();
+
+        // 해당 Type들이 에디터윈도우에서 그릴 대상
         SetupDatabases(new[] { typeof(Stage), typeof(Stat), typeof(Effect), typeof(Skill), typeof(Weapon) });
     }
 
@@ -84,7 +86,7 @@ public class CoreEditorWindow : EditorWindow
     {
         if (databasesByType.Count == 0)
         {
-            // Resources Folder에 Database Folder가 있는지 확인
+            // @Resources Folder에 Database Folder가 있는지 확인
             if (!AssetDatabase.IsValidFolder("Assets/@Resources/Database"))
             {
                 // 없다면 Database Folder를 만들어줌
@@ -93,6 +95,7 @@ public class CoreEditorWindow : EditorWindow
 
             foreach (var type in dataTypes)
             {
+                // Assets/@Resources/Database 에 있는 Database들을 LoadAssetAtPath 함수로 가져오기
                 var database = AssetDatabase.LoadAssetAtPath<Database>($"Assets/@Resources/Database/{type.Name}Database.asset");
                 if (database == null)
                 {
@@ -121,6 +124,7 @@ public class CoreEditorWindow : EditorWindow
     {
         // 에디터 최상단에 툴바로 databaseTypeNames의 데이터베이스 타입 이름들 그리기
         toolbarIndex = GUILayout.Toolbar(toolbarIndex, databaseTypeNames);
+
         EditorGUILayout.Space(4f);
         CustomEditorUtility.DrawUnderline();
         EditorGUILayout.Space(4f);

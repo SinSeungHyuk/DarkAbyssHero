@@ -38,7 +38,7 @@ public class StageManager : Singleton<StageManager>
 
     public void CreateStage(int stageID)
     {
-        Stage stage = stageDB.GetDataByID(0) as Stage;
+        Stage stage = stageDB.GetDataByID(stageID) as Stage;
         CreateStage(stage);
     }
 }

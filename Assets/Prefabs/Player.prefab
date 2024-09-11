@@ -1607,7 +1607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825dcc90796b750478673a0aadcc05f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skill: {fileID: 11400000, guid: 37378b6f2f376014ab8d31d0a5483a85, type: 2}
 --- !u!114 &8629544595803445308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1677,10 +1676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a727c31eca5fcd44ada92a861bda0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipSkills: []
   defaultSkill: {fileID: 11400000, guid: d2784598caf9b2d4fbce5a027185b1a2, type: 2}
-  testSkill:
-  - {fileID: 11400000, guid: b941eb2f48c8f894c8503bd4959dbf68, type: 2}
+  firstSkill: {fileID: 11400000, guid: c46f964e31dafff49af5d4242912448f, type: 2}
 --- !u!114 &8045742492356099057
 MonoBehaviour:
   m_ObjectHideFlags: 0

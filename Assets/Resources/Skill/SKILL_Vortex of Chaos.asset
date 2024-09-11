@@ -17,7 +17,8 @@ MonoBehaviour:
   id: 11
   codeName: Vortex of Chaos
   displayName: Vortex of Chaos
-  description: 
+  description: Tears open a massive, swirling rift of pure chaos, inflicting tremendous
+    damage on all enemies caught within its grasp.
   applyType: 1
   gradeType: 3
   skillPriority: 100
@@ -35,7 +36,7 @@ MonoBehaviour:
     castTime: 3
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: 949d6e7a33d157246be0a7db82ca4d1c, type: 2}
     castAnimatorParameter: 4
     actionAnimatorParameter: 2
     customActionsOnCast:

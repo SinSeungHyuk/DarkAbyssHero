@@ -24,7 +24,7 @@ public class StateMachine<TOwnerType>
         // 이 스테이트와 연결된 트랜지션들
         public List<StateTransition<TOwnerType>> Transitions { get; private set; } = new(); 
 
-
+        // StateData 생성자
         public StateData(int layer, int priority, State<TOwnerType> state)
         {
             Layer = layer;
@@ -45,7 +45,7 @@ public class StateMachine<TOwnerType>
     // StatMachine에 존재하는 Layer들, Layer는 중복되지 않아야하고, 자동 정렬을 위해서 SortedSet을 사용함
     private readonly SortedSet<int> layers = new();
 
-    // StateMachine의 소유주 (Player, Monster, Skill ..)
+    // StateMachine의 소유주 (Player, Skill)
     public TOwnerType TOwner { get; private set; }
 
 

@@ -22,6 +22,7 @@ public class EntityMovement : MonoBehaviour
     }
     public float StopDistance
     {
+        // 플레이어가 스킬의 사거리만큼 이동하기 위해 필요한 거리
         get => agent.stoppingDistance;
         set => agent.stoppingDistance = value;
     }

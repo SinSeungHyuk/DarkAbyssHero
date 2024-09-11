@@ -164,6 +164,9 @@ public class IdentifiedObjectEditor : Editor  // 커스텀 에디터를 위한 클래스
     protected bool DrawRemovableLevelFoldout(SerializedProperty datasProperty, SerializedProperty targetProperty,
         int targetIndex, bool isDrawRemoveButton)
     {
+        /// 게임 설계상 X버튼을 사용할 일은 없어졌으나 
+        /// DeleteArrayElementAtIndex 유니티 내장함수를 통해 배열 프로퍼티의 원소를 제거가능하다는 것은 중요
+
         // Data를 삭제했는지에 대한 결과
         bool isRemoveButtonClicked = false;
 
@@ -196,6 +199,9 @@ public class IdentifiedObjectEditor : Editor  // 커스텀 에디터를 위한 클래스
     protected void DrawAutoSortLevelProperty(SerializedProperty datasProperty, SerializedProperty levelProperty,
         int index, bool isEditable)
     {
+        /// 게임 설계상 레벨정렬은 필요가 없어졌으나
+        /// MoveArrayElement 함수로 배열의 인덱스 위치를 옮길 수 있는것은 중요
+
         if (!isEditable)
         {
             GUI.enabled = false;

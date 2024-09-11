@@ -15,8 +15,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private UIController uiController;
     [SerializeField] private Player player;
 
+    // 스테이지 보상을 위한 URP의 카메라 스태킹 활용
     [SerializeField] private Camera stackingCamera;
-    [SerializeField] private RewardChest chest;
+    [SerializeField] private RewardChest chest; 
 
     private UniversalAdditionalCameraData cameraData;
     private bool isShowCameraStack = false;
@@ -37,7 +38,7 @@ public class GameManager : Singleton<GameManager>
         // isShowCameraStack : 불필요한 Ray 계산을 생략하기 위함
         if (Input.GetMouseButtonUp(0) && isShowCameraStack)
         {
-            Ray ray = stackingCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = stackingCamera.ScreenPointToRay(Input.mousePosition); // 터치한 위치
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Settings.stackingLayer))
@@ -47,6 +48,7 @@ public class GameManager : Singleton<GameManager>
 
                 chest.SetUp(player);
 
+                //  DOVirtual.DelayedCall : 3.5초 뒤에 람다식 호출
                 DOVirtual.DelayedCall(3.5f, () => {
                     cameraData.cameraStack.Remove(stackingCamera);
                     isChestActive = false;
@@ -61,6 +63,7 @@ public class GameManager : Singleton<GameManager>
         isShowCameraStack = true;
         cameraData.cameraStack.Add(stackingCamera);
 
+        // 보상상자가 등장할때마다 다시 첫 애니메이션으로 돌아가서 재생
         chest.Animator.Play("Chest_Start", -1, 0f);
     }
 
@@ -77,6 +80,19 @@ public class GameManager : Singleton<GameManager>
         uiController.SetUpRewardUI(goldExpRewards.Item1, goldExpRewards.Item2, (int)timeStamp);
     }
 
+    public void PlayerDead()
+    {
+        uiController.SetUpDeadUI();
+    }
+
+    public void PlayerRevive()
+    {
+        // 마지막으로 죽은 스테이지를 다시 새롭게 생성
+        Stage stage = StageManager.Instance.CurrentStage;
+        StageManager.Instance.CreateStage(stage);
+
+        player.OnRevive();
+    }
 
 
     public Player GetPlayer() => player;

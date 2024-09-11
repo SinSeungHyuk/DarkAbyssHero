@@ -17,7 +17,8 @@ MonoBehaviour:
   id: 9
   codeName: Fire Tornado
   displayName: Fire Tornado
-  description: 
+  description: Conjures a swirling vortex of flames that pulls in nearby enemies,
+    dealing repeated fire damage.
   applyType: 1
   gradeType: 2
   skillPriority: 80
@@ -35,7 +36,7 @@ MonoBehaviour:
     castTime: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: e9c993dd0f457f84797cc223e62a8491, type: 2}
+      effect: {fileID: 11400000, guid: 240d72c6dd1099342889dd45f71e32c9, type: 2}
     castAnimatorParameter: 0
     actionAnimatorParameter: 2
     customActionsOnCast: []

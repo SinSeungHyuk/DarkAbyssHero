@@ -10,32 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1867b9986f07ad44f8f3f326b519c5a9, type: 3}
-  m_Name: EFFECT_DebuffTest
+  m_Name: EFFECT_AuraWave_Debuff
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 3
-  codeName: DebuffTest
+  id: 1
+  codeName: AuraWave_Debuff
   displayName: 
   description: 
   effectType: 2
-  maxLevel: 40
   effectDatas:
   - level: 1
     action:
-      rid: 3630001656175001600
-    runningFinishOption: 1
-    duration: 10
+      rid: 6158628763420327939
+    runningFinishOption: 0
+    duration: 0
     applyCount: 1
     applyCycle: 0
     customActions: []
   references:
     version: 2
     RefIds:
-    - rid: 3630001656175001600
+    - rid: 6158628763420327939
       type: {class: IncreaseStatAction, ns: , asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
-        bonusValuePercent: 0.3
+        bonusValuePercent: -0.3
         bonusValuePerLevel: 0
-        isUndoOnRelease: 0
+        isUndoOnRelease: 1

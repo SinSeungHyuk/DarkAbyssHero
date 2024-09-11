@@ -16,6 +16,7 @@ public class MonsterFloatingTextConnector : MonoBehaviour
         txtSpawnPoint = GetComponent<Transform>();
         monster.DamageEvent.OnTakeDamage += OnTakeDamage;
 
+        // 미리 몬스터의 y포지션 받아놓기
         yPos = txtSpawnPoint.position.y;
     }
 

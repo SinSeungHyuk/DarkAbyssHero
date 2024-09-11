@@ -45,6 +45,7 @@ public class WeaponEditor : IdentifiedObjectEditor
         // FindPropertyRelative("Array.size") : 유니티에서 자동으로 배열의 크기를 찾아줌
         EditorGUILayout.PropertyField(weaponDatasProperty.FindPropertyRelative("Array.size"));
 
+        // 위에서 그린 프로퍼티에 의해 배열의 사이즈가 결정되고 그 사이즈만큼 무기의 속성 그리기
         for (int i = 0; i < weaponDatasProperty.arraySize; i++)
         {
             SerializedProperty element = weaponDatasProperty.GetArrayElementAtIndex(i);

@@ -16,6 +16,7 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
     private float exp;
     private float levelExp; // 레벨업에 필요한 경험치
 
+
     public int Level
     {
         get => level;
@@ -58,12 +59,14 @@ public class LevelSystem : MonoBehaviour , ISaveData<LevelSaveData>
         levelExp = Settings.startExp;
     }
 
+    // 한번에 대량의 경험치를 획득했을때 호출 (미접속 보상)
     public void GetExpReward(int exp)
     {
         int levelUpCount = 0;
-        float finalExp = this.exp + exp;
+        float finalExp = this.exp + exp; // 기존 보유경험치 + 얻은 경험치
 
-        while (finalExp > levelExp)
+        // 현재 가진 경험치가 레벨업에 필요한 경험치보다 작을때까지
+        while (finalExp >= levelExp)
         {
             finalExp -= levelExp;
             levelExp *= Settings.expPerLevel;

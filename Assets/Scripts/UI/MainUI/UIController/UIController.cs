@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private RewardUI rewardUI;
     [SerializeField] private OptionUI optionUI;
     [SerializeField] private HelpUI helpUI;
+    [SerializeField] private DeadUI deadUI;
     [SerializeField] private Image imgFade;
 
 
@@ -42,6 +43,11 @@ public class UIController : MonoBehaviour
     public void BtnOption()
     {
         optionUI.gameObject.SetActive(true);
+    }
+
+    public void SetUpDeadUI()
+    {
+        deadUI.gameObject.SetActive(true);
     }
 
     public void GameExit()

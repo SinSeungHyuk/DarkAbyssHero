@@ -10,44 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1867b9986f07ad44f8f3f326b519c5a9, type: 3}
-  m_Name: EFFECT_IncreaseStatTest
+  m_Name: EFFECT_AuraWave
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 2
-  codeName: IncreaseStatTest
+  id: 0
+  codeName: AuraWave
   displayName: 
   description: 
-  effectType: 1
-  maxLevel: 40
+  effectType: 0
   effectDatas:
   - level: 1
     action:
-      rid: 3630001631855378432
-    runningFinishOption: 1
-    duration: 4
-    applyCount: 1
-    applyCycle: 0
+      rid: 6158628763420327937
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 5
+    applyCycle: 0.25
     customActions:
-    - rid: 3630001631855378433
+    - rid: 6158628763420327938
   references:
     version: 2
     RefIds:
-    - rid: 3630001631855378432
-      type: {class: IncreaseStatAction, ns: , asm: Assembly-CSharp}
+    - rid: 6158628763420327937
+      type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         stat: {fileID: 11400000, guid: a7ccc784793e38d46af4d877ac34771b, type: 2}
-        bonusValuePercent: 0.15
-        bonusValuePerLevel: 0.05
-        isUndoOnRelease: 1
-    - rid: 3630001631855378433
+        defaultDamage: 0.4
+        bonusDamagePerLevel: 0.03
+    - rid: 6158628763420327938
       type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
       data:
-        targetType: 0
+        targetType: 1
         methodType: 0
-        prefab: {fileID: 5845424203269617360, guid: 4ec4b6c482e9ca34fa648cdd8e3b3e75,
+        prefab: {fileID: 5825673655902685699, guid: 3c197d192a005db4db4c559a6ad015e6,
           type: 3}
-        offset: {x: 0, y: 0.01, z: 0}
+        offset: {x: 0, y: 0.5, z: 0}
         scaleFactor: {x: 1, y: 1, z: 1}
         isAttachToTarget: 1
         isDestroyOnRelease: 1
