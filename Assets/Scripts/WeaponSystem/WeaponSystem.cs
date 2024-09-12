@@ -11,9 +11,8 @@ public class WeaponSystem : MonoBehaviour
     public event Action<WeaponSystem, Weapon> OnWeaponUnequiped;
 
     [SerializeField] private Weapon defaultWeapon; // 기본무기
-    [SerializeField] private Weapon testWeapon; // 테스트 무기
 
-    // 소유 중인 스킬리스트 (실제 스킬셋에 장착과는 별개)
+    // 소유 중인 무기리스트
     private List<Weapon> ownWeapons = new();
 
     public IReadOnlyList<Weapon> OwnWeapons => ownWeapons;
@@ -29,10 +28,7 @@ public class WeaponSystem : MonoBehaviour
         var defaultClone = defaultWeapon.Clone() as Weapon;
         defaultClone.SetUp(Player, 10);
 
-        var testWeapons = testWeapon.Clone() as Weapon;
-        testWeapons.SetUp(Player, 1);
         ownWeapons.Add(defaultClone);
-        ownWeapons.Add(testWeapons);
 
         EquipWeapon(defaultClone);
     }
@@ -58,6 +54,7 @@ public class WeaponSystem : MonoBehaviour
     {
         CurrentWeapon.OnLevelChanged -= CurrentWeapon_OnLevelChanged;
 
+        // 무기의 보너스 스탯 모두 되돌리기
         foreach (WeaponData weaponData in weapon.CurrentDatas)
         {
             Player.Stats.RemoveBonusValue(weaponData.Stat, weapon);
@@ -69,6 +66,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void ApplyWeaponDatas(Weapon weapon)
     {
+        // 무기가 가진 스탯보너스 모두 적용하기
         foreach (WeaponData weaponData in weapon.CurrentDatas)
         {
             Player.Stats.IncreaseBonusValue(weaponData.Stat, weapon, weaponData.BonusStatValue);
@@ -77,6 +75,7 @@ public class WeaponSystem : MonoBehaviour
 
     public void RegisterWeapon(Weapon weapon, int level = 1)
     {
+        // 이미 같은 무기를 소유하고 있으면 무기업그레이드 재료 획득
         if (ContainsOwnWeapons(weapon))
         {
             int currency = UtilitieHelper.GetGradeCurrency(weapon.GradeType);

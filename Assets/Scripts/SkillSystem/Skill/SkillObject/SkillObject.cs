@@ -30,6 +30,7 @@ public class SkillObject : MonoBehaviour
     private Skill skill;
     private SoundEffectSO soundEffect;
 
+    // 스킬오브젝트의 적용조건
     private bool isApplicable => (currentApplyCount < applyCount)
         && (currentApplyCycle >= applyCycle);
 
@@ -56,8 +57,8 @@ public class SkillObject : MonoBehaviour
     private float CalcApplyCycle(float duration, float applyCount)
     {
         // 1번 적용이라면 사이클이 필요없음
-        // 하지만 0으로 하면 OnTriggerEnter보다 빨리 호출될 수 있으므로 0.1초
-        if (applyCount == 1) return 0.01f;
+        // 하지만 0으로 하면 OnTriggerEnter보다 빨리 호출될 수 있으므로 0.02초
+        if (applyCount == 1) return 0.02f;
         // 첫 어플라이를 건너뛰는지 아닌지에 따라 사이클 조정
         else
             return isDelayFirstApplyByCycle ? (duration / applyCount) 
@@ -86,6 +87,7 @@ public class SkillObject : MonoBehaviour
             if (monster.IsDead) deadMonster.Enqueue(monster);
             else
             {
+                // 몬스터의 이펙트시스템에 스킬적용
                 skill.Target = monster;
                 monster.EffectSystem.Apply(skill);
             }

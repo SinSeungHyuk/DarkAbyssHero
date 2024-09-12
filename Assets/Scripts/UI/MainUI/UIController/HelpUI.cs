@@ -7,6 +7,7 @@ public class HelpUI : MonoBehaviour
 
     public void BtnURL()
     {
+        // URL : 개발블로그 
         Application.OpenURL(Settings.URL);
     }
 

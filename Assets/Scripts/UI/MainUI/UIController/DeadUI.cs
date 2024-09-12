@@ -12,14 +12,15 @@ public class DeadUI : MonoBehaviour
 
     private IEnumerator AutoRevive()
     {
-        yield return new WaitForSeconds(3.0f);
+        // 5초 뒤에 자동으로 부활 (방치형 게임이므로)
+        yield return new WaitForSeconds(5.0f);
 
         PlayerRevive();
     }
 
     public void BtnOK()
     {
-        StopCoroutine(AutoRevive());
+        StopCoroutine(AutoRevive()); // 자동부활 코루틴 중지
 
         PlayerRevive();
     }

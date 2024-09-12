@@ -9,6 +9,7 @@ public class CastingState : SkillState
         TOwner.Activate();
         TOwner.StartCustomActions(SkillCustomActionType.Cast);
 
+        // 플레이어의 스테이트머신에게 캐스팅 상태로 전이 명령보내기
         TrySendCommandToPlayer(TOwner, PlayerStateCommand.ToCastingSkillState, TOwner.CastAnimationParameter);
     }
 

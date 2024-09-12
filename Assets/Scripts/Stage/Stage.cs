@@ -21,6 +21,7 @@ public class Stage : IdentifiedObject
     public int StageLevel => ID + 1;
 
 
+    // 시간당 플레이어가 획득할 수 있는 골드,경험치 보상
     public (int,int) GetAvgRewards(int hours)
     {
         int avgGold = 0;
@@ -35,6 +36,7 @@ public class Stage : IdentifiedObject
         avgGold /= monsterParameters.Count;
         avgExp /= monsterParameters.Count;
 
+        // 180 -> 1시간당 30분어치의 보상 지급
         return (avgGold * 180 * hours, avgExp * 180 * hours);
     }
 

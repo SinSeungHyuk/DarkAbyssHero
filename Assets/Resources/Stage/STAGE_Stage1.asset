@@ -24,7 +24,7 @@ MonoBehaviour:
   monsterParameters:
   - Name: Monster_Creep
     Hp: 300
-    Attack: 50
+    Attack: 1
     Gold: 200
     Exp: 8
     Ratio: 1

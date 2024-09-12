@@ -139,7 +139,7 @@ public class Skill : IdentifiedObject, ISaveData<SkillSaveData>
     // 발동 횟수가 남았고, ApplyCycle만큼 시간이 지났으면 true를 return
     public bool IsApplicable => (CurrentApplyCount < ApplyCount) && (CurrentApplyCycle >= ApplyCycle);
 
-    // 스킬의 타겟 (플레이어 자신도 포함)
+    // 스킬의 타겟
     public Monster Target { get; set; }
     public Vector3 TargetPosition => Player.Target.transform.position;
 

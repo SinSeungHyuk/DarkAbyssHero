@@ -16,6 +16,7 @@ public class CurrencyController : UIController
         public TextMeshProUGUI txtCurrency;
     }
 
+    // UI 여기저기 흩어져있는 화폐텍스트를 등록해서 각각 화폐의 종류까지 설정
     [SerializeField] private List<CurrencyUIElement> currencyUIElements = new List<CurrencyUIElement>();
 
     private Player player;

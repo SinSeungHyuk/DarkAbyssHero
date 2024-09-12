@@ -8,6 +8,7 @@ public class InActionState : SkillState
 
     protected override void Awake()
     {
+        // 즉시적용인지, 애니메이션 적용인지 여부
         isInstantApplyType = TOwner.ApplyType == SkillApplyType.Instant;
     }
 

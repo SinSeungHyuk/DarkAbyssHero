@@ -58,6 +58,7 @@ public class Weapon : IdentifiedObject, ISaveData<WeaponSaveData>
 
     private void ChangeData()
     {
+        // 현재 무기의 레벨에 맞추어 데이터 레벨 세팅
         for (int i=0;i< weaponDatas.Length; i++)
         {
             weaponDatas[i].level = Math.Min(level, MaxLevel);

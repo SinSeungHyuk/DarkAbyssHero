@@ -78,6 +78,8 @@ public class SkillSystem : MonoBehaviour
 
     public void EquipSkill(Skill skill, int idx)
     {
+        // 장착스킬 리스트의 특정 인덱스를 받아서 해당 인덱스에 장착
+
         Skill equipSkill = FindOwnSkills(skill);
         if (equipSkill == null) return;
 
@@ -105,6 +107,7 @@ public class SkillSystem : MonoBehaviour
 
     public void RegisterSkill(Skill skill, int level = 1)
     {
+        // 이미 보유한 스킬이면 등급에 따라 스킬 업그레이드 재료 획득
         if (ContainsOwnSkills(skill))
         {
             int currency = UtilitieHelper.GetGradeCurrency(skill.GradeType);
@@ -146,6 +149,7 @@ public class SkillSystem : MonoBehaviour
         return true;
     }
 
+    // 스킬의 애니메이션 이벤트 (애니메이션 특정 타이밍에 스킬발동)
     private void ApplyCurrentRunningSkill()
     {
         if (Player.StateMachine.GetCurrentState() is InSkillActionState ownerState)
@@ -177,6 +181,7 @@ public class SkillSystem : MonoBehaviour
     public SkillSaveDatas ToSaveData()
     {
         // 소유한 스킬, 장착한 스킬 리스트를 각각 저장해서 반환
+        // 장착스킬 리스트는 null도 존재할 수 있으므로 Where절을 추가
         var saveData = new SkillSaveDatas();
         saveData.EquipSkillsData = equipSkills.Where(x => x != null).Select(x => x.ToSaveData()).ToList();
         saveData.OwnSkillsData = ownSkills.Select(x => x.ToSaveData()).ToList();

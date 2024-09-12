@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class ContentsController : MonoBehaviour
 {
     [SerializeField] private GameObject modalView; // 공통적으로 보여줄 UI메뉴 틀
-    [SerializeField] private GameObject innerContentView; // 공통적으로 보여줄 UI메뉴 틀
+    [SerializeField] private GameObject innerContentView; // 세부 디테일을 보여줄 UI (스킬,무기)
     [SerializeField] private TextMeshProUGUI txtModalViewTitle; // UI메뉴의 제목
     [SerializeField] private Button btnClose; // 닫기버튼
     [SerializeField] private List<GameObject> contentsView = new(); // 컨텐츠UI들이 들어있는 리스트
@@ -37,6 +37,7 @@ public class ContentsController : MonoBehaviour
 
         txtModalViewTitle.text = "Stage";
 
+        // 컨텐츠UI 안의 스테이지 버튼들 가져와서 스테이지DB 데이터 넘겨주기
         BtnStage[] btnStages = contentsView[(int)ContentsType.Stage].GetComponentsInChildren<BtnStage>();
         for (int i = 0; i < btnStages.Length; i++) 
         {
@@ -102,10 +103,11 @@ public class ContentsController : MonoBehaviour
 
     private void BtnContents(int idx)
     {
-        if (contentsView[idx].activeSelf) return;
+        if (contentsView[idx].activeSelf) return; // 이미 활성화 중이라면 리턴
 
-        foreach (var content in contentsView) content.gameObject.SetActive(false);
+        foreach (var content in contentsView) content.gameObject.SetActive(false); // 다른 컨텐츠UI 모두 닫기
 
+        // 스크롤뷰의 content를 현재 보고있는 컨텐츠UI의 RectTransform으로 설정해야 스크롤뷰 드래그가 가능
         scrollView.content = contentsView[idx].gameObject.GetComponent<RectTransform>();
 
         innerContentView.SetActive(false);

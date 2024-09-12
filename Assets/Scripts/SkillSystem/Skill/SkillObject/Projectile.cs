@@ -48,12 +48,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var entity = other.GetComponent<Monster>();
-        if (entity)
+        if (other.TryGetComponent(out Monster monster))
         {
             SoundEffectManager.Instance.PlaySoundEffect(soundEffect);
-            skill.Target = entity;
-            entity.EffectSystem.Apply(skill);
+            skill.Target = monster;
+            monster.EffectSystem.Apply(skill);
         }
 
         if (!isPiercing) Destroy(gameObject);

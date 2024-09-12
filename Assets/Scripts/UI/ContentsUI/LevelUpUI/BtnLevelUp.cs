@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class BtnLevelUp : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    private float repeatInterval = 0.2f; // 반복 호출 간격 (초)
+    private WaitForSeconds repeatInterval = new WaitForSeconds(0.2f); // 반복 호출 간격 (초)
     private bool isPressed = false; // 버튼이 눌려 있는지 여부
 
     private Button btnLevelUp;
@@ -47,7 +47,7 @@ public class BtnLevelUp : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 stat.Level++;
             }
 
-            yield return new WaitForSeconds(repeatInterval);
+            yield return repeatInterval;
         }
     }
 }

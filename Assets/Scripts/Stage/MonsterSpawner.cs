@@ -72,7 +72,7 @@ public class MonsterSpawner : MonoBehaviour
         for (int i = 0; i < 100; i++)
         {
             // 난수, 현재 몬스터의 스폰확률 누적값
-            int randomNumber = UnityEngine.Random.Range(0, totalRatio);
+            int randomNumber = Random.Range(0, totalRatio);
             int ratioSum = 0;
 
             foreach (var monster in monsterParameters)

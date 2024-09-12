@@ -18,10 +18,6 @@ public class OptionUI : MonoBehaviour
     {
         StartCoroutine(InitializeUI());
     }
-    private void OnDisable()
-    {
-        Time.timeScale = 1f;
-    }
 
     private IEnumerator InitializeUI()
     {

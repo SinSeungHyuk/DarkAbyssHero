@@ -34,7 +34,7 @@ public class BtnWeapon : MonoBehaviour
         imgWeaponIcon.sprite = weapon.Icon;
         ShowWeaponGradeColor();
 
-        if (player.WeaponSystem.ContainsOwnWeapons(weapon) == false)
+        if (player.WeaponSystem.ContainsOwnWeapons(weapon) == false) // 무기 보유하고있지않으면 블라인드 처리
             imgBlind.gameObject.SetActive(true);
         else
         {
@@ -44,7 +44,7 @@ public class BtnWeapon : MonoBehaviour
             imgBlind.gameObject.SetActive(false);
             ShowWeaponLevel();
         }
-        if (player.WeaponSystem.CurrentWeapon.ID == weapon.ID)
+        if (player.WeaponSystem.CurrentWeapon.ID == weapon.ID) // 무기 장착표시
             txtEquipped.gameObject.SetActive(true);
         else txtEquipped.gameObject.SetActive(false);
 
@@ -55,7 +55,7 @@ public class BtnWeapon : MonoBehaviour
     }
 
     private void FindWeapon_OnLevelChanged(Weapon arg1, int arg2, int arg3)
-        => ShowWeaponLevel();
+        => ShowWeaponLevel(); // 무기의 레벨이 변할때마다 레벨텍스트 업데이트
 
     private void OnUnequip(WeaponSystem system, Weapon weapon)
     {

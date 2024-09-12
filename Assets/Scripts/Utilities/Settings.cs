@@ -20,10 +20,10 @@ public static class Settings
 
 
     #region DRAW PARAMETER
-    public static float normalChance = 0.6f;
-    public static float rareChance = 0.3f;
-    public static float epicChance = 0.07f;
-    public static float legendChance = 0.03f;
+    public static float normalChance = 0.6f; // 노말 60%
+    public static float rareChance = 0.3f; // 레어 30%
+    public static float epicChance = 0.07f; // 에픽 7%
+    public static float legendChance = 0.03f; // 전설 3%
     #endregion
 
 

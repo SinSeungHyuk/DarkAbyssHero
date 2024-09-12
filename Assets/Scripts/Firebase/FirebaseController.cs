@@ -173,6 +173,9 @@ public class FirebaseController : MonoBehaviour
 
             else if (task.IsCompleted)
             {
+                PlayerPrefs.SetString("Nickname", inpNickname.text);
+                PlayerPrefs.Save();
+
                 dlgNickname.SetActive(false);
                 createNickname.SetActive(false);
                 txtLogin.gameObject.SetActive(true);

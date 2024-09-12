@@ -18,8 +18,4 @@ public class CooldownState : SkillState
     {
         TOwner.CurrentCooldown -= Time.deltaTime;
     }
-
-    public override void Exit()
-    {
-    }
 }

@@ -21,8 +21,6 @@ public class InstantSkillStateMachine : StateMachine<Skill>
         MakeTransition<ReadyState, CastingState>(SkillExecuteCommand.Use, state => TOwner.IsUseCast);
         // 위 조건을 넘어갔다는 뜻은 캐스팅이 아니라는 의미
         MakeTransition<ReadyState, InActionState>(SkillExecuteCommand.Use);
-        // 쿨다운이 남아있다면 
-        //MakeTransition<ReadyState, CooldownState>(state => !TOwner.IsCooldownCompleted);
 
 
         // Casting State -> ToState

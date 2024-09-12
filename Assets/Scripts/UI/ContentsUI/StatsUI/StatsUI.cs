@@ -26,6 +26,7 @@ public class StatsUI : MonoBehaviour
         this.player = player;
         this.stats = player.Stats;
 
+        // 로그인할때 로컬에 저장해놓은 닉네임 가져오기
         txtNickname.text = PlayerPrefs.GetString("Nickname");
         txtLevel.text = $"Level : {player.LevelSystem.Level.ToString()}";
 

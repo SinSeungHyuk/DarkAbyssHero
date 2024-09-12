@@ -34,6 +34,7 @@ public class InnerContentUI : MonoBehaviour
 
     private void Awake()
     {
+        // 미리 정의해놓은 색상값 string 타입으로 변환
         green = ColorUtility.ToHtmlStringRGB(Settings.green);
         red = ColorUtility.ToHtmlStringRGB(Settings.red);
     }
@@ -90,6 +91,8 @@ public class InnerContentUI : MonoBehaviour
 
     private void ShowSkillInfoText()
     {
+        // 현재 스킬의 계수를 가져오는 함수를 호출하여 "지금 레벨의 계수 -> 다음 레벨의 계수" 출력
+
         txtInfo3.text = $"ATK Scailing : <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level)}</color>%" +
     $" -> <color=#{red}>{ownSkill.Effects[0].EffectAction.GetEffectCoefficient(ownSkill.Level + 1)}</color>%";
     }

@@ -6,9 +6,7 @@ using TMPro;
 using Firebase.Extensions;
 using Firebase.Auth;
 using Firebase.Database;
-using System.Threading.Tasks;
-using System;
-using static UnityEngine.Rendering.DebugUI;
+
 
 
 public class ChatUI : MonoBehaviour
@@ -25,9 +23,10 @@ public class ChatUI : MonoBehaviour
 
     void Start()
     {
-        nickname = PlayerPrefs.GetString("Nickname");
+        nickname = PlayerPrefs.GetString("Nickname"); // 로컬에 저장된 닉네임 가져오기
 
         DatabaseReference chatDB = FirebaseDatabase.DefaultInstance.GetReference("ChatMessage");
+        // 타임스탬프를 사용하여 정렬한 이후 하나의 값을 가져오기
         chatDB.OrderByChild("timestamp").LimitToLast(1).ValueChanged += ReceiveMessage;
     }
 
@@ -35,7 +34,7 @@ public class ChatUI : MonoBehaviour
     {
         DataSnapshot snapshot = e.Snapshot;
 
-        foreach (var data in snapshot.Children) // ChatMessage 안의 메세지들
+        foreach (var data in snapshot.Children) // ChatMessage 노드 안의 메세지들
         {
             // 이미 입력된 채팅이 중복되어서 처리되는 상황을 방지하기 위한 안전장치
             if (receiveKeyList.Contains(data.Key)) continue;

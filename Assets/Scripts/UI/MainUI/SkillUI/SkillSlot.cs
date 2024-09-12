@@ -21,7 +21,7 @@ public class SkillSlot : MonoBehaviour
         get => skill;
         set
         {
-            if (skill)
+            if (skill) // 이미 스킬이 등록된 슬롯이면 기존 구독 해제
                 skill.OnStateChanged -= OnSkillStateChanged;
 
             skill = value;
@@ -51,6 +51,7 @@ public class SkillSlot : MonoBehaviour
     {
         var stateType = nowState.GetType();
 
+        // 스킬슬롯의 상태가 쿨다운 상태라면 코루틴 시작
         if (stateType == typeof(CooldownState))
             StartCoroutine(ShowCooldown());
     }

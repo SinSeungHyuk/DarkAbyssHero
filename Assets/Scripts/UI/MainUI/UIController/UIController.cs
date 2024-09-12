@@ -22,10 +22,12 @@ public class UIController : MonoBehaviour
     {
         imgFade.gameObject.SetActive(true);
 
+        // 페이드 이미지의 투명도를 1로 설정해두기 (투명해졌다가 다시 불투명하게 만들기)
         Color color = imgFade.color;
         color.a = 1;
         imgFade.color = color;
 
+        // DOFade : 이미지의 밝기를 2초에 걸쳐서 0으로 (페이드 아웃)
         imgFade.DOFade(0f, 2f).OnComplete(() => { imgFade.gameObject.SetActive(false); });
     }
 

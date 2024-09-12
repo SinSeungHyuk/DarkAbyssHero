@@ -21,12 +21,12 @@ public class RewardChest : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        targetPos = new Vector2(0, 3);
+        targetPos = new Vector2(0, 3); // 상자는 y축으로 3만큼 이동하게됨
     }
 
     public void SetUp(Player player)
     {
-        int num = Random.Range(0, 2);
+        int num = Random.Range(0, 2); // 0 혹은 1
         if (num == 0)
         {
             imgCurrency.sprite = imgWeaponTicket;
@@ -47,8 +47,10 @@ public class RewardChest : MonoBehaviour
     {
         imgCurrency.gameObject.SetActive(true);
 
+        // 일반적인 transform의 position -> DOMove
+        // UI 컴포넌트의 rectTransform -> DOAnchorPos
         imgCurrency.rectTransform.DOAnchorPos(targetPos,2f)
-            .SetEase(Ease.OutQuint)
+            .SetEase(Ease.OutQuint) // 굉장히 빨리 올라가는 커브
             .OnComplete(ChestClose);
     }
 

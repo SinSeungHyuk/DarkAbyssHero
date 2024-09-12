@@ -29,6 +29,7 @@ public class BtnEquipSkills : MonoBehaviour
         this.player = player;
         this.ownSkill = ownSkill;
 
+        // 현재 장착한 스킬들을 받아와서 스킬슬롯 세팅
         for (int i = 0; i < slots.Count; i++)
         {
             Skill skill = player.SkillSystem.EquipSkills[i];

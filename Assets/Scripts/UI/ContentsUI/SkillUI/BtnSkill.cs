@@ -33,7 +33,7 @@ public class BtnSkill : MonoBehaviour
         imgSkillIcon.sprite = skill.Icon;
         ShowSkillGradeColor();
 
-        if (!player.SkillSystem.ContainsOwnSkills(skill))
+        if (!player.SkillSystem.ContainsOwnSkills(skill)) // 스킬을 보유하고있지않으면 블라인드 처리
             imgBlind.gameObject.SetActive(true);
         else
         {
@@ -43,7 +43,7 @@ public class BtnSkill : MonoBehaviour
             imgBlind.gameObject.SetActive(false);
             ShowSkillLevel();
         }
-        if (player.SkillSystem.ContainsEquipSkills(skill))
+        if (player.SkillSystem.ContainsEquipSkills(skill)) // 스킬 장착표시
             txtEquipped.gameObject.SetActive(true);
         else txtEquipped.gameObject.SetActive(false);
 
@@ -54,7 +54,7 @@ public class BtnSkill : MonoBehaviour
     }
 
     private void FindSkill_OnLevelChanged(Skill arg1, int arg2, int arg3)
-        => ShowSkillLevel();
+        => ShowSkillLevel(); // 스킬의 레벨이 변할때마다 레벨텍스트 업데이트
 
     private void OnUnequip(SkillSystem system, Skill skill, int arg3)
     {
@@ -71,10 +71,10 @@ public class BtnSkill : MonoBehaviour
 
     private void OnBtnSkillClick()
     {
-        Debug.Log(player.SkillSystem.ContainsOwnSkills(skill) + " OnBtnSkillClickOnBtnSkillClickOnBtnSkillClickOnBtnSkillClickOnBtnSkillClick");
         if (!player.SkillSystem.ContainsOwnSkills(skill))
             return;
 
+        // 스킬의 자세한 디테일 살펴보기
         innerContentView.gameObject.SetActive(true);
         innerContentView.SetUp(player,skill);
     }

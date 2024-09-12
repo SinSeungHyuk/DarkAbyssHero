@@ -39,11 +39,13 @@ public class ItemLevelUp : MonoBehaviour
 
     private void OnLevelChanged(Stat stat, float level)
     {
-        ShowStatInfo();
+        // 각 스탯의 레벨이 변할때마다 텍스트 업데이트
+        ShowStatInfo(); 
     }
 
     private void OnPlayerLevelChanged(LevelSystem system, int level)
     {
+        // 스탯을 레벨업하기 위한 플레이어 레벨 검사
         IsStatRequiredLevel();
     }
 

@@ -8,6 +8,7 @@ public class DrawViewUI : MonoBehaviour
     [SerializeField] private Transform drawResultTransform;
     [SerializeField] private ItemDrawResult itemDrawResult;
 
+    // 뽑기결과 차례대로 보여주기
     private WaitForSeconds _wait = new WaitForSeconds(0.15f);
 
 
@@ -23,6 +24,7 @@ public class DrawViewUI : MonoBehaviour
 
     private IEnumerator InstantiateDrawRoutine(List<Skill> drawSkills)
     {
+        // 미리 랜덤으로 뽑은 결과가 담긴 리스트를 순회하며 UI로 보여주기
         foreach (var skill in drawSkills)
         {
             itemDrawResult.SetUp(skill);
@@ -45,6 +47,7 @@ public class DrawViewUI : MonoBehaviour
 
     public void BtnConfirm()
     {
+        // Transform을 순회하면 직계자식들을 가져올 수 있음
         foreach (Transform item in drawResultTransform)
         {
             Destroy(item.gameObject);
