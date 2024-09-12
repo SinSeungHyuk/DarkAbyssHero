@@ -16,7 +16,8 @@ public class DrawSystem : MonoBehaviour
         Database weaponDB = AddressableManager.Instance.GetResource<Database>("WeaponDatabase");
         Database skillDB = AddressableManager.Instance.GetResource<Database>("SkillDatabase");
 
-        for (int i = 0; i < weaponDB.Count; i++)
+        // 0번 인덱스는 기본무기, 기본스킬이므로 제외
+        for (int i = 1; i < weaponDB.Count; i++)
         {
             Weapon weapon = weaponDB.GetDataByID(i) as Weapon;
 
@@ -27,7 +28,7 @@ public class DrawSystem : MonoBehaviour
             weaponsByGrade[weapon.GradeType].Add(weapon);
         }
 
-        for (int i = 0; i < skillDB.Count; i++)
+        for (int i = 1; i < skillDB.Count; i++)
         {
             Skill skill = skillDB.GetDataByID(i) as Skill;
 

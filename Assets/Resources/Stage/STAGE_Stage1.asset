@@ -22,9 +22,9 @@ MonoBehaviour:
     type: 3}
   stageLevel: 1
   monsterParameters:
-  - Name: Monster_Creep
+  - Name: Monster_Titan
     Hp: 300
-    Attack: 1
+    Attack: 2
     Gold: 200
     Exp: 8
     Ratio: 1

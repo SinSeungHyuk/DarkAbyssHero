@@ -4903,7 +4903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDelayFirstApplyByCycle: 0
-  isDelayDestroyByCycle: 0
+  isDelayDestroyByCycle: 1
 --- !u!198 &6241845938448717359
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9741,8 +9741,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
-  m_Height: 7.93
+  m_Radius: 2
+  m_Height: 10
   m_Direction: 0
   m_Center: {x: -0, y: -4.29, z: 0}
 --- !u!136 &675802014636944683
@@ -9764,8 +9764,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
-  m_Height: 7.93
+  m_Radius: 2
+  m_Height: 10
   m_Direction: 0
   m_Center: {x: -0, y: 4.34, z: 0}
 --- !u!136 &775416723261211794
@@ -9787,8 +9787,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
-  m_Height: 6.88
+  m_Radius: 2
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 4.32, y: -0.01, z: 0}
 --- !u!136 &4861096111673507285
@@ -9810,7 +9810,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
-  m_Height: 6.88
+  m_Radius: 2
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: -4.3, y: -0.01, z: 0}

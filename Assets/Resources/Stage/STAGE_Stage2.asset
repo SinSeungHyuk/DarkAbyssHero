@@ -20,17 +20,17 @@ MonoBehaviour:
   description: 
   stagePrefab: {fileID: 2272219957523880681, guid: eb45f482edf50ad4da3a958af5e9650a,
     type: 3}
-  stageLevel: 1
+  stageLevel: 10
   monsterParameters:
   - Name: Monster_Titan
-    Hp: 1000
+    Hp: 3000
     Attack: 10
     Gold: 500
     Exp: 15
     Ratio: 1
   - Name: Monster_Creep
-    Hp: 800
-    Attack: 6
+    Hp: 2500
+    Attack: 4
     Gold: 400
     Exp: 15
     Ratio: 2

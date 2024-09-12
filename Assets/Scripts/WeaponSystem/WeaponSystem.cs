@@ -26,7 +26,7 @@ public class WeaponSystem : MonoBehaviour
         Player = player;
 
         var defaultClone = defaultWeapon.Clone() as Weapon;
-        defaultClone.SetUp(Player, 10);
+        defaultClone.SetUp(Player, 1);
 
         ownWeapons.Add(defaultClone);
 

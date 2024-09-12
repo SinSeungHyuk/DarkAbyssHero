@@ -24,7 +24,7 @@ MonoBehaviour:
   monsterParameters:
   - Name: Monster_Titan
     Hp: 10000
-    Attack: 40
+    Attack: 50
     Gold: 2000
     Exp: 40
     Ratio: 1

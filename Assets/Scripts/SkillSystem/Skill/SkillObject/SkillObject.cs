@@ -50,7 +50,7 @@ public class SkillObject : MonoBehaviour
         {
             // 스킬오브젝트가 처음 생성되자마자 스킬이 발동되어야함
             // 충돌체가 부딪혀서 해시셋에 들어갈 시간이 필요하므로 0.02초 딜레이
-            DOVirtual.DelayedCall(0.02f, Apply);
+            DOVirtual.DelayedCall(0.1f, Apply);
         }
     }
 
@@ -58,7 +58,7 @@ public class SkillObject : MonoBehaviour
     {
         // 1번 적용이라면 사이클이 필요없음
         // 하지만 0으로 하면 OnTriggerEnter보다 빨리 호출될 수 있으므로 0.02초
-        if (applyCount == 1) return 0.02f;
+        if (applyCount == 1) return 0.1f;
         // 첫 어플라이를 건너뛰는지 아닌지에 따라 사이클 조정
         else
             return isDelayFirstApplyByCycle ? (duration / applyCount) 
