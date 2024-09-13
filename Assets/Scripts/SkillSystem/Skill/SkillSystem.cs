@@ -111,7 +111,7 @@ public class SkillSystem : MonoBehaviour
         if (ContainsOwnSkills(skill))
         {
             int currency = UtilitieHelper.GetGradeCurrency(skill.GradeType);
-            Player.CurrencySystem.IncreaseCurrency(CurrencyType.EquipmentUp, currency);
+            Player.CurrencySystem.IncreaseCurrency(CurrencyType.SkillUp, currency);
             return;
         }
 
