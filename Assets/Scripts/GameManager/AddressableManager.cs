@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 using Object = UnityEngine.Object;
 public class AddressableManager : Singleton<AddressableManager>
@@ -14,11 +16,11 @@ public class AddressableManager : Singleton<AddressableManager>
 
 
     // 리소스를 어드레서블 그룹의 label 단위로 로드
-    public IEnumerator LoadResources<T>(string label, Action<float> progressCallback, Action completionCallback) where T : Object
+    public async UniTask LoadResources(string label, Action<float> progressCallback, Action completionCallback) 
     {
         // 1. LoadResourceLocationsAsync : 매개변수로 받은 Label 단위로 해당 경로의 리소스 로드
-        var loadLocationsHandle = Addressables.LoadResourceLocationsAsync(label, typeof(T));
-        yield return loadLocationsHandle; // 모두 로드될때까지 리턴 (비동기 메소드지만 마치 동기메소드처럼 동작)
+        var loadLocationsHandle = Addressables.LoadResourceLocationsAsync(label);
+        await loadLocationsHandle; // 모두 로드될때까지 리턴 (비동기 메소드지만 마치 동기메소드처럼 동작)
 
         if (loadLocationsHandle.Status == AsyncOperationStatus.Succeeded)
         {
@@ -28,8 +30,8 @@ public class AddressableManager : Singleton<AddressableManager>
             // 위에서 로드한 해당 Label 경로에 들어있는 모든 리소스들 하나하나 순회하며 로드
             foreach (var resource in loadLocationsHandle.Result)
             {
-                var loadAssetHandle = Addressables.LoadAssetAsync<T>(resource); // LoadAssetAsync<T> : 리소스 로드하는 기본함수
-                yield return loadAssetHandle;
+                var loadAssetHandle = Addressables.LoadAssetAsync<Object>(resource); // LoadAssetAsync<T> : 리소스 로드하는 기본함수
+                await loadAssetHandle;
 
                 if (loadAssetHandle.Status == AsyncOperationStatus.Succeeded)
                 {
