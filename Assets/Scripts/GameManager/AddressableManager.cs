@@ -20,7 +20,7 @@ public class AddressableManager : Singleton<AddressableManager>
     {
         // 1. LoadResourceLocationsAsync : 매개변수로 받은 Label 단위로 해당 경로의 리소스 로드
         var loadLocationsHandle = Addressables.LoadResourceLocationsAsync(label);
-        await loadLocationsHandle; // 모두 로드될때까지 리턴 (비동기 메소드지만 마치 동기메소드처럼 동작)
+        await loadLocationsHandle; // 모두 로드될때까지 대기 (비동기 메소드지만 마치 동기메소드처럼 동작)
 
         if (loadLocationsHandle.Status == AsyncOperationStatus.Succeeded)
         {
